@@ -1,12 +1,23 @@
+const dayjs = require("dayjs");
 var express = require('express');
 var router = express.Router();
 var db = require('../../db');
 
-// 달력화면
-// router.get('/', function (request, response) {
-//     var title = '달력화면';
-//     response.json({ "title": title })
-// });
+// 달력화면 접속 -> 해당 날짜(디폴트값)의 일정이 뜨게됨
+router.get('/', function (req, res) {
+    var title = '달력화면';
+    var now = dayjs();
+
+    db.query('SELECT cal_idx, content FROM calendar WHERE date = ? ', [now.format("YYYY.MM.DD")], function (error, result) {
+        if (error) throw error;
+        errorcode = false
+        res.json({
+            "title": title,
+            "today": now.format("YYYY.MM.DD"),
+            "content": result
+        })
+    })
+});
 
 // 달력일정 등록
 router.post('/add', (req, res) => {
