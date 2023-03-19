@@ -8,14 +8,13 @@ router.get('/', function (req, res) {
     var title = '달력화면';
     var now = dayjs();
 
-    db.query('SELECT cal_idx, content FROM calendar WHERE date = ? ', [now.format("YYYY.MM.DD")], function (error, result) {
+    db.query('SELECT cal_idx, title FROM calendar WHERE date = ? ', [now.format("YYYY.MM.DD")], function (error, result) {
         if (error) throw error;
         errorcode = false
         res.json({
             "error": errorcode,
-            "title": title,
             "today": now.format("YYYY.MM.DD"),
-            "content": result
+            "title": result
         })
     })
 });
