@@ -12,6 +12,7 @@ router.get('/', function (req, res) {
         if (error) throw error;
         errorcode = false
         res.json({
+            "error": errorcode,
             "title": title,
             "today": now.format("YYYY.MM.DD"),
             "content": result
@@ -22,11 +23,12 @@ router.get('/', function (req, res) {
 // 달력일정 등록
 router.post('/add', (req, res) => {
     var date = req.body.date;
+    var title = req.body.title;
     var content = req.body.content;
     var userId = req.body.userId;
     var errorcode = true;
 
-    db.query('INSERT INTO calendar (cal_idx, userId, date, content) VALUES(?,?,?,?)', [null, userId, date, content], function (error, data) {
+    db.query('INSERT INTO calendar (cal_idx, userId, date, title, content) VALUES(?,?,?,?,?)', [null, userId, date, title, content], function (error, data) {
         if (error) throw error;
         errorcode = false
         res.json({
@@ -56,14 +58,16 @@ router.post('/delete', (req, res) => {
 //이미 등록된 일정을 클릭 시
 router.post('/', (req, res) => {
     var cal_idx = req.body.cal_idx;
+    var title = req.body.title;
     var content = req.body.content;
     var errorcode = true;
 
-    db.query('UPDATE calendar SET content = ? where cal_idx = ?', [content, cal_idx], function (err, data) {
+    db.query('UPDATE calendar SET title = ?, content = ? where cal_idx = ?', [title, content, cal_idx], function (err, data) {
         if (error) throw err;
         errorcode = false;
         res.json({
             "error": errorcode,
+            "modified title": title,
             "modified content": content
         })
     })
