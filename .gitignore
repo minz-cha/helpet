@@ -14,5 +14,5 @@
 .cxx
 local.properties
 backend/express/db.js
-backend/express/node_modules/
+node_modules
 backend/express/router/main/sessions/*
