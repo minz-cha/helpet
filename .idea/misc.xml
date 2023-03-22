@@ -3,7 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_calendar.xml" value="0.11944444444444445" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_main.xml" value="0.109375" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_plan_memo.xml" value="0.11944444444444445" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_planlist.xml" value="0.11944444444444445" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/calendar.xml" value="0.264" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/find.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/fragment_calendar_memo.xml" value="0.1" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/fragment_find_id.xml" value="0.2115036231884058" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/planlist.xml" value="0.176" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/register.xml" value="0.10092592592592593" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/MyApplication/app/src/main/res/layout/calendar.xml" value="0.16731517509727625" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/MyApplication/app/src/main/res/layout/find.xml" value="0.128" />

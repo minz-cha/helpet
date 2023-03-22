@@ -26,16 +26,12 @@
         <activity
             android:name="com.helpet.login.Register"
             android:exported="true"/>
-        <activity
-            android:name="com.helpet.login.find_idpw"
-            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
     </application>
 
 </manifest>
