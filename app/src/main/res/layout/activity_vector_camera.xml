@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VectorCamera" android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/petImage1"
+                android:layout_width="55dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ex1"
+                android:padding="10dp"/>
+
+            <TextView
+                android:id="@+id/petName1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="깜찍이"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <Button
+                android:id="@+id/choiceAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/white"
+                android:text="다시 선택하기"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+        </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:layout_marginRight="20dp">
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cameraguide"
+        android:background="@color/white"
+        />
+</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="(선택한 반려동물)의 \n피부를 촬영해주세요"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:textStyle="normal"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black"/>
+        <ImageButton
+            android:id="@+id/cameraBtn"
+            android:background="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/camera"
+            android:layout_gravity="center"/>
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cameraImg"/>
+
+<!--            <Button-->
+<!--                android:id="@+id/camGuide2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="촬영가이드"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="20dp"-->
+<!--                android:backgroundTint="@color/white"-->
+<!--                android:outlineSpotShadowColor="@color/white"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:textColor="@color/black"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="보러가기"-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="18dp"-->
+<!--                android:textStyle="bold"/>-->
+
+            <Button
+                android:id="@+id/buttonVector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="진단하기"
+                android:textSize="20dp"
+                android:layout_marginTop="15dp"
+            />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
