@@ -3,6 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/menu_click_color.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/round_background_color.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/text_item.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/text_item2.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_home.xml" value="0.14869888475836432" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_hospital.xml" value="0.23489583333333333" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_pet_register.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_camera.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_choice_pet.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_imageshow.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_proceed.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_result.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_find_id.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_hospital_api.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_hospital_list.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_vector_main.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/login.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/register.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/fragment_find_id.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/MyApplication/app/src/main/res/layout/calendar.xml" value="0.16731517509727625" />

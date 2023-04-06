@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/vector"
+        android:title="홈"/>
+    <item
+        android:id="@+id/calender"
+        android:enabled="true"
+        android:icon="@drawable/calender"
+        android:title="캘린더"/>
+    <item
+        android:id="@+id/books"
+        android:enabled="true"
+        android:icon="@drawable/books"
+        android:title="백과"/>
+    <item
+        android:id="@+id/mypet"
+        android:enabled="true"
+        android:icon="@drawable/mypet"
+        android:title="마이펫"/>
+
+</menu>

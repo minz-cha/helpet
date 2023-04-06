@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path
+        name="files"
+        path="Android/data/com.helpet/files" />
+</paths>
+
+    <!--
+    저장될 외부 이미지 파일 경로이다.-->
