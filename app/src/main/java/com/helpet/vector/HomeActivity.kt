@@ -24,10 +24,6 @@ class HomeActivity : AppCompatActivity() {
 
         getHashKey()
 
-        hospital.setOnClickListener {
-            val intent = Intent(this, HospitalActivity::class.java  )
-            startActivity(intent)
-        }
 
         btn_login.setOnClickListener {
             val intent=Intent(this, Login::class.java)
