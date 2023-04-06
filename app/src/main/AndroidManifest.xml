@@ -34,9 +34,6 @@
             android:value="56aa902f5400d204b9bc2d4559c64b02" />
 
         <activity
-            android:name=".vector.HospitalActivity"
-            android:exported="false" />
-        <activity
             android:name=".vector.HomeActivity"
             android:exported="true" >
             <intent-filter>
@@ -56,6 +53,29 @@
         <activity
             android:name="com.helpet.login.Register"
             android:exported="true" />
+        <activity
+            android:name="com.helpet.vector.VectorChoicePet"
+            android:exported="true" />
+        <activity
+            android:name="com.helpet.vector.BaseActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.helpet.vector.PetRegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.helpet.vector.VectorCamera"
+            android:exported="true" />
+        <activity
+            android:name="com.helpet.vector.VectorImgShow"
+            android:exported="true" />
+        <activity
+            android:name="com.helpet.vector.VectorProceed"
+            android:exported="true" />
+        <activity
+            android:name="com.helpet.vector.VectorResult"
+            android:exported="true" />
+
+
         <activity
             android:name="com.helpet.login.Find_idpw"
             android:exported="true">
