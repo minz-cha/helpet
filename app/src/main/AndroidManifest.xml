@@ -11,6 +11,7 @@
         android:name="android.hardware.camera"
         android:required="true" /> <!-- 카카오 Map API 권한 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -29,9 +30,6 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory"
         tools:targetApi="s">
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="56aa902f5400d204b9bc2d4559c64b02" />
 
         <activity
             android:name=".vector.HomeActivity"
@@ -42,38 +40,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.helpet.login.Mainactivity"
-            android:exported="false">
 
-        </activity>
         <activity
             android:name="com.helpet.login.Login"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.helpet.login.Register"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.helpet.vector.VectorChoicePet"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.helpet.vector.BaseActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.helpet.vector.PetRegisterActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.helpet.vector.VectorCamera"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.helpet.vector.VectorImgShow"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.helpet.vector.VectorProceed"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.helpet.vector.VectorResult"
-            android:exported="true" />
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.calendar.CalendarMain"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.calendar.Planlist"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.calendar.PlanMemo"
+            android:exported="false" />
+
+
 
 
         <activity
@@ -99,6 +104,10 @@
                 android:name="android.max_aspect"
                 android:value="2.1" />
         </provider>
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="a3t08yn3do" />
     </application>
 
 </manifest>

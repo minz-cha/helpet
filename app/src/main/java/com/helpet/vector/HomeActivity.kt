@@ -24,11 +24,11 @@ class HomeActivity : AppCompatActivity() {
 
         getHashKey()
 
-
         btn_login.setOnClickListener {
             val intent=Intent(this, Login::class.java)
             startActivity(intent)
         }
+
 
         bnv_main.run {
             setOnNavigationItemSelectedListener {
@@ -39,6 +39,11 @@ class HomeActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.fl_container, mainVectorFragment).commit()
                     }
+                    /*R.id.calender->{
+                        val calFragment = CalendarMain()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fl_container, calFragment).commit()
+                    }*/
 
                 }
                 true

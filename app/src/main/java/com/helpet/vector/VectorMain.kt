@@ -31,6 +31,7 @@ class VectorMain : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         Log.v("test2","test2")
+        //비로그인시, 로그인 창으로
         when (v.id) {
             R.id.vector_skin -> {
                 val intent = Intent(activity, VectorChoicePet::class.java)
