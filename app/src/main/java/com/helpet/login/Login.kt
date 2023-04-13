@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
 import com.helpet.R
 
 class Login : AppCompatActivity() {
@@ -66,12 +67,11 @@ class Login : AppCompatActivity() {
     }
     
     
-    
-  
 
     // 로그인 성공/실패 시 다이얼로그를 띄워주는 메소드
     fun dialog(type: String){
         var dialog = AlertDialog.Builder(this)
+
 
         if(type.equals("success")){
             dialog.setTitle("로그인 성공")

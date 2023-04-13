@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.helpet.R
+import org.json.JSONObject
+import java.io.BufferedInputStream
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.InputStreamReader
@@ -95,6 +97,17 @@ class Register : AppCompatActivity() {
                     println(line)
                 }
             }
+
+            val input = BufferedInputStream(conn.inputStream)
+            val buffer = ByteArray(1024)
+            val stringBuilder = StringBuilder()
+            var read = input.read(buffer, 0, 1024)
+            while (read >= 0) {
+                stringBuilder.append(String(buffer, 0, read))
+                read = input.read(buffer, 0, 1024)
+            }
+            val response = JSONObject(stringBuilder.toString())
+            val result = response.getString("result")
 
         }
 
