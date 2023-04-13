@@ -1,18 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.helpet">
+    <!-- <uses-permission android:name ="android.permission.CAMERA"/> -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" /> <!-- 카카오 Map API 권한 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
+        android:appComponentFactory="whateverString"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
+        android:theme="@style/Theme.MyApplication"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:appComponentFactory"
+        tools:targetApi="s">
 
         <activity
-            android:name="com.helpet.login.Mainacitivity"
+            android:name=".vector.HomeActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.helpet.login.Login"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.login.Register"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.vector.VectorChoicePet"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.vector.BaseActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.vector.PetRegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.vector.VectorCamera"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.vector.VectorImgShow"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.vector.VectorProceed"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.vector.VectorResult"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.calendar.CalendarMain"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.calendar.Planlist"
+            android:exported="false" />
+        <activity
+            android:name="com.helpet.calendar.PlanMemo"
+            android:exported="false" />
+
+
+
+
+        <activity
+            android:name="com.helpet.login.Find_idpw"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,18 +90,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.helpet.login.Login"
-            android:exported="true"/>
-        <activity
-            android:name="com.helpet.login.Register"
-            android:exported="true"/>
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.helpet.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+            <meta-data
+                android:name="android.max_aspect"
+                android:value="2.1" />
+        </provider>
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="a3t08yn3do" />
     </application>
 
 </manifest>
