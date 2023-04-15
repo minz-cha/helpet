@@ -23,7 +23,7 @@ class VectorResult : AppCompatActivity() {
             val intent=Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
-        resultImg.clipToOutline=true
+//        resultImg.clipToOutline=true
 
 
     }

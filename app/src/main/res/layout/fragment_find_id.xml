@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
-    //tools:context=".find"
 
 
     <LinearLayout
@@ -12,30 +11,57 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:text="이름"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/edit_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edittext_rounded_corner_rectangle"
+            android:layout_marginLeft="15dp"
             android:ems="15"
             android:hint="이름"
-            android:inputType="textPersonName" />
+            android:textSize="20dp"
+            android:inputType="textPersonName"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:text="전화번호"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
 
         <EditText
-            android:id="@+id/edit_phonenum"
+            android:id="@+id/edit_phoneNum"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edittext_rounded_corner_rectangle"
+            android:layout_marginLeft="15dp"
             android:ems="15"
             android:hint="전화번호"
-            android:inputType="phone" />
+            android:textSize="20dp"
+            android:inputType="phone"/>
+
         <Button
             android:id="@+id/btn_id_ok"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="확인"/>
+            android:backgroundTint="#FD9374"
+            android:text="확인"
+            android:textSize="20dp"/>
 
     </LinearLayout>
 </LinearLayout>

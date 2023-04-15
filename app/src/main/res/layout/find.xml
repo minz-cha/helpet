@@ -15,10 +15,9 @@
         <ImageView
             android:id="@+id/helpet_logo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="66dp"
             android:layout_gravity="center"
-            android:background="@null"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@drawable/helpet_logo" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,19 +39,21 @@
             android:id="@+id/btn_find_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:text="ID 찾기"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_weight="1"
-            android:backgroundTint="#F6F6F6"/>
+            android:backgroundTint="#FD9374"/>
 
         <Button
             android:id="@+id/btn_find_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:text="PW 찾기"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_weight="1"
-            android:backgroundTint="#F6F6F6"/>
+            android:backgroundTint="#FD9374"/>
 
     </LinearLayout>
 

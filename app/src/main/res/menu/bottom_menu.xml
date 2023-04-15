@@ -4,22 +4,26 @@
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@drawable/vector"
-        android:title="홈"/>
+        android:icon="@drawable/home3"
+        android:title="홈"
+        android:visible="true"/>
     <item
         android:id="@+id/calender"
         android:enabled="true"
         android:icon="@drawable/calender"
-        android:title="캘린더"/>
+        android:title="캘린더"
+        android:visible="true"/>
     <item
         android:id="@+id/books"
         android:enabled="true"
         android:icon="@drawable/books"
-        android:title="백과"/>
+        android:title="백과"
+        android:visible="true"/>
     <item
         android:id="@+id/mypet"
         android:enabled="true"
-        android:icon="@drawable/mypet"
-        android:title="마이펫"/>
+        android:icon="@drawable/dogpaw"
+        android:title="마이펫"
+        android:visible="true"/>
 
 </menu>
