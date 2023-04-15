@@ -8,29 +8,6 @@
     android:orientation="vertical">
 
 
-        <ImageView
-            android:id="@+id/vector_proceed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="200dp"/>
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:text="진단 중입니다. \n잠시만 기다려주세요"
-            android:textSize="20dp"
-            android:textStyle="normal" />
 
 
 </LinearLayout>

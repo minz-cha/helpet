@@ -4,6 +4,8 @@ import com.helpet.R
 
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,9 +23,12 @@ class VectorMain : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 //        cam_guide.paintFlags=Paint.UNDERLINE_TEXT_FLAG
         val root: View = inflater.inflate(R.layout.fragment_vector_main, container, false)
-        val skinBtn = root.findViewById(R.id.vector_skin) as ImageButton
+//        vectorText.setTextColor(Color.WHITE)
+
+//        val skinBtn = root.findViewById(R.id.vector_eye) as ImageButton
         val eyeBtn = root.findViewById<ImageButton>(R.id.vector_eye)
-        skinBtn.setOnClickListener(this)
+//        vector_eye.setColorFilter(Color.parseColor("#BDBDBD"), PorterDuff.Mode.SRC_OVER)
+//        skinBtn.setOnClickListener(this)
         eyeBtn.setOnClickListener (this)
 
         return root
@@ -33,14 +38,14 @@ class VectorMain : Fragment(), View.OnClickListener {
         Log.v("test2","test2")
         //비로그인시, 로그인 창으로
         when (v.id) {
-            R.id.vector_skin -> {
+            R.id.vector_eye -> {
                 val intent = Intent(activity, VectorChoicePet::class.java)
                 startActivity(intent)
             }
-            R.id.vector_eye ->{
-                val intent =Intent(activity, VectorChoicePet::class.java)
-                startActivity(intent)
-            }
+//            R.id.vector_eye ->{
+//                val intent =Intent(activity, VectorChoicePet::class.java)
+//                startActivity(intent)
+//            }
         }
     }
 }

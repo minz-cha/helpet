@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
@@ -169,6 +170,7 @@ class VectorCamera : BaseActivity() {
                 }
                 REQ_CAMERA ->{
                     buttonVector.isEnabled=true
+                    buttonVector.setBackgroundColor(Color.parseColor("#FD9374"))
                     realUri?.let { uri ->
                         var bitmap: Bitmap? = null
                         //카메라에서 찍은 사진을 비트맵으로 변환
@@ -184,7 +186,7 @@ class VectorCamera : BaseActivity() {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
                         UpdatePhoto(SerialBitmap.translate(bitmap))
 //                        Log.d(bitmap.toString(), "bitmap")
-                        val intent=Intent(this, VectorProceed::class.java)
+                        val intent=Intent(this, VectorResult::class.java)
 //                        intent.putExtra("bitmap", (bitmap))
                         startActivity(intent)
                     }

@@ -14,11 +14,11 @@ class PetRegisterActivity : AppCompatActivity() {
 
         cameraAlt.clipToOutline=true
 
-        okButton.setOnClickListener {
-            Toast.makeText(this, "저장되었습니다", Toast.LENGTH_SHORT).show()
-            val intent=Intent(this, VectorChoicePet::class.java)
-            startActivity(intent)
-        }
+//        okButton.setOnClickListener {
+//            Toast.makeText(this, "저장되었습니다", Toast.LENGTH_SHORT).show()
+//            val intent=Intent(this, VectorChoicePet::class.java)
+//            startActivity(intent)
+//        }
 
         closeButton.setOnClickListener {
             Toast.makeText(this, "취소되었습니다.", Toast.LENGTH_SHORT).show()

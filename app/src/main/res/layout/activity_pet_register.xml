@@ -4,128 +4,167 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PetRegisterActivity"
+    tools:context=".vector.PetRegisterActivity"
     android:orientation="vertical"
-    android:background="#F5F5F5">
+    android:background="#63C8C8C8"
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/closeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/closebutton"
-            android:backgroundTint="#F5F5F5"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="내 동물 등록"
-            android:gravity="center"
-            android:textSize="25dp"
-            android:textColor="@color/black"/>
-        <ImageButton
-            android:id="@+id/okButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/okbutton"
-            android:backgroundTint="#F5F5F5"/>
+            android:layout_width="55dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="345dp"
+            android:backgroundTint="#63C8C8C8"
+            android:scaleType="fitXY"
+            android:src="@drawable/back" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="30dp">
-
+        android:padding="10dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="내 동물 프로필"
+            android:text="반려동물의 정보를 입력하세요!"
             android:textSize="25dp"
             android:textColor="@color/black"/>
 
         <ImageButton
             android:id="@+id/cameraAlt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:layout_gravity="center"
-            android:src="@drawable/cameraalt"
             android:layout_marginTop="30dp"
-            android:background="@drawable/round_background_border_black"
             android:padding="1dp"
-            />
+
+
+            android:src="@drawable/camera" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:padding="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:text="이름"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
         <EditText
             android:id="@+id/petName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edittext_rounded_corner_rectangle"
+            android:layout_marginLeft="15dp"
+            android:ems="15"
             android:hint="이름"
-            android:textSize="25dp"
-  />
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:text="나이"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
         <EditText
             android:id="@+id/petAge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edittext_rounded_corner_rectangle"
+            android:layout_marginLeft="15dp"
+            android:ems="15"
             android:hint="나이"
-            android:textSize="25dp"
-            android:layout_marginTop="15dp"/>
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="10dp"
+            android:text="생일"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
         <EditText
             android:id="@+id/petBirth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edittext_rounded_corner_rectangle"
+            android:layout_marginLeft="15dp"
+            android:ems="15"
             android:hint="생일 YYYYMMDD"
-            android:textSize="25dp"
-            android:layout_marginTop="15dp"/>
-        <EditText
-            android:id="@+id/petGender"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="종"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+<!--        <EditText-->
+<!--            android:id="@+id/petGender"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="@drawable/edittext_rounded_corner_rectangle"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:ems="15"-->
+<!--            android:hint="종"-->
+<!--            android:textSize="20dp" />-->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="20dp"
-            android:hint="종"
-            android:textSize="25dp"
-            android:layout_marginTop="15dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="25dp">
-        <ImageButton
-            android:id="@+id/genderBoy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gender1"
-            android:backgroundTint="#f5f5f5"/>
-        <ImageButton
-            android:id="@+id/genderGirl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gender2"
-            android:backgroundTint="#F5F5F5"/>
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/genderBoy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gender1"
+                android:backgroundTint="#f5f5f5"/>
 
+            <ImageButton
+                android:id="@+id/genderGirl"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="#F5F5F5"
+                android:src="@drawable/gender2" />
+
+        </LinearLayout>
     </LinearLayout>
+    <Button
+
+        android:id="@+id/btn_success"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:backgroundTint="#FD9374"
+        android:text="등록하기"
+        android:textSize="20dp">
+
+    </Button>
 
 
 </LinearLayout>
