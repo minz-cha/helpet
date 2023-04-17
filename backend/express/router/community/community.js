@@ -17,7 +17,7 @@ router.get('/', function (req, res) {
     })
 })
 
-//공유: 1, Q&A: 2, 내새끼: 3, 내글: 4
+//공유: 1, Q&A: 2, 내새끼: 3
 //api 주소 변경 필요
 router.get('/', function (req, res) {
     var category = req.body.category; //integer
@@ -32,3 +32,5 @@ router.get('/', function (req, res) {
         })
     })
 })
+
+module.exports = router;
