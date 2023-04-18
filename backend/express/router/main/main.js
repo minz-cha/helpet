@@ -7,6 +7,7 @@ const app = express()
 var authRouter = require('../lib_login/auth');
 var authCheck = require('../lib_login/authCheck.js');
 var calendarRouter = require('../calendar/calendar');
+var communityRouter = require('../community/community');
 
 app.use('/static', express.static('static'))
 app.use(express.urlencoded({
@@ -31,8 +32,11 @@ app.get('/', (req, res) => {
 // 인증 라우터
 app.use('/api/auth', authRouter);
 
-// 달력등록 라우터
+// 캘린더 라우터
 app.use('/api/calendar', calendarRouter);
+
+// 커뮤니티 라우터
+app.use('/api/community', communityRouter);
 
 // 메인 페이지
 app.get('/main', (req, res) => {
