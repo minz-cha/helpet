@@ -44,7 +44,6 @@ class HomeActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.fl_container, calFragment).commit()
                     }*/
-
                 }
                 true
             }

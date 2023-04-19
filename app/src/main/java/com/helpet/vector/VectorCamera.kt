@@ -2,6 +2,7 @@ package com.helpet.vector
 
 import android.Manifest
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -13,9 +14,12 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.annotation.LongDef
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import com.helpet.databinding.ActivityVectorCameraBinding
 import kotlinx.android.synthetic.main.activity_vector_camera.*
+import kotlinx.android.synthetic.main.activity_vector_result.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -23,8 +27,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import kotlin.concurrent.thread
 
 class VectorCamera : BaseActivity() {
+    var name = ""
+    var symptomProbability = 0.0
+    var asymptomaticProbability = 0.0
+    var name2 = ""
+    var symptomProbability2 = 0.0
+    var asymptomaticProbability2 = 0.0
 
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
@@ -179,43 +190,54 @@ class VectorCamera : BaseActivity() {
                         //이미지뷰에 이미지 로딩
                         binding.cameraBtn.setImageBitmap(bitmap)
                     }
-//                    var filePath = getRealPathFromURI(realUri!!)
-//                    Log.d(filePath, "onActivityResult")
+
 
                     buttonVector.setOnClickListener {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
-                        UpdatePhoto(SerialBitmap.translate(bitmap))
-//                        Log.d(bitmap.toString(), "bitmap")
-                        val intent=Intent(this, VectorResult::class.java)
-//                        intent.putExtra("bitmap", (bitmap))
-                        startActivity(intent)
+                        UpdatePhoto(SerialBitmap.translate(bitmap),this)
+                        layout2.isVisible=false
+                        vectorProceed.isVisible=true
+                        vectorProgress.isIndeterminate = true
                     }
                 }
             }
         }
     }
+private val server: VectorService by lazy {
+    RetrofitApi.retrofit.create(VectorService::class.java) }
 
-    private val server: VectorService by lazy {
-        RetrofitApi.retrofit.create(VectorService::class.java) }
-
-    fun UpdatePhoto(byteArray: ByteArray) {
-//         val datePart = RequestBody.create("text/plain".toMediaTypeOrNull(), "2022-03-22")
-//         val petnamePart = RequestBody.create("text/plain".toMediaTypeOrNull(), "Fluffy")
-//         val usernamePart = RequestBody.create("text/plain".toMediaTypeOrNull(), "John")
-
-
+    fun UpdatePhoto(byteArray: ByteArray, context: Context) {
         val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), byteArray)
-        val multipartBody : MultipartBody.Part? =
+        val multipartBody: MultipartBody.Part? =
             MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
 
         server.vectorResult(multipartBody!!).enqueue(object : Callback<ResponseDto?> {
             override fun onResponse(call: Call<ResponseDto?>?, response: Response<ResponseDto?>) {
-                Toast.makeText(applicationContext, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                 Log.d("레트로핏 결과2", "" + response.body().toString())
+
+                name = response.body()?.result?.get(0)?.name!!
+                symptomProbability =  response.body()?.result?.get(0)?.symptomProbability!!
+                asymptomaticProbability = response.body()?.result?.get(0)?.asymptomaticProbability!!
+                name2 = response.body()?.result?.get(1)?.name!!
+                symptomProbability2 =  response.body()?.result?.get(1)?.symptomProbability!!
+                asymptomaticProbability2 = response.body()?.result?.get(1)?.asymptomaticProbability!!
+                // 다른 액티비티로 intent
+                val intent = Intent(context, VectorResult::class.java)
+                // 인텐트에 데이터 추가
+                intent.putExtra("name", name)
+                intent.putExtra("symptomProbability",symptomProbability)
+                intent.putExtra("asymptomaticProbability",asymptomaticProbability )
+                intent.putExtra("name2", name2)
+                intent.putExtra("symptomProbability2",symptomProbability2)
+                intent.putExtra("asymptomaticProbability2",asymptomaticProbability2 )
+
+                // 액티비티 시작
+                context.startActivity(intent)
             }
 
             override fun onFailure(call: Call<ResponseDto?>?, t: Throwable) {
-                Toast.makeText(applicationContext, "통신 실패", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
                 Log.d("에러", t.message!!)
             }
         })
