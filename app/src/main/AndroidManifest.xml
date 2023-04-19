@@ -60,9 +60,6 @@
             android:name="com.helpet.vector.VectorCamera"
             android:exported="false" />
         <activity
-            android:name="com.helpet.vector.VectorImgShow"
-            android:exported="false" />
-        <activity
             android:name="com.helpet.vector.VectorProceed"
             android:exported="false" />
         <activity
