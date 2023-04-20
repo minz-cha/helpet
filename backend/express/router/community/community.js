@@ -6,15 +6,16 @@ var db = require('../../db');
 router.get('/', function (req, res) {
     var page = '커뮤니티';
 
+    db.connect();
     db.query('SELECT com_idx, title, content FROM community WHERE category = 0', function (error, result) {
         if (error) throw error;
-        errorcode = false
         res.json({
-            "error": errorcode,
-            "page": page,
-            "list": result //com_idx, title, content 조회
+            success: true,
+            page: page,
+            list: result //com_idx, title, content 조회
         })
     })
+    db.end();
 })
 
 //공유: 1, Q&A: 2, 내새끼: 3
@@ -22,15 +23,17 @@ router.get('/', function (req, res) {
 router.get('/', function (req, res) {
     var category = req.body.category; //integer
 
+    db.connect();
     db.query('SELECT com_idx, title, content FROM community WHERE category = ?', [category], function (error, result) {
         if (error) throw error;
         errorcode = false
         res.json({
-            "error": errorcode,
-            "page": page,
-            "list": result //com_idx, title, content 조회
+            success: true,
+            page: page,
+            list: result //com_idx, title, content 조회
         })
     })
+    db.end();
 })
 
 module.exports = router;
