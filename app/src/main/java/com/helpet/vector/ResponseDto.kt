@@ -16,11 +16,11 @@ import com.google.gson.annotations.SerializedName
 //    )
 //}
 
-data class ResponseDto(
-    val result: List<result>
-)
+//data class ResponseDto(
+//    val result: List<result>
+//)
 
-data class result(
+data class ResponseDto(
     @SerializedName("name")
     val name: String,
     @SerializedName("asymptomaticProbability")
@@ -28,3 +28,12 @@ data class result(
     @SerializedName("symptomProbability")
     val symptomProbability: Double
 )
+
+//data class result(
+//    @SerializedName("name")
+//    val name: String,
+//    @SerializedName("asymptomaticProbability")
+//    val asymptomaticProbability: Double,
+//    @SerializedName("symptomProbability")
+//    val symptomProbability: Double
+//)

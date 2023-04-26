@@ -12,7 +12,11 @@ class VectorChoicePet : AppCompatActivity() {
         setContentView(R.layout.activity_vector_choice_pet)
 
         petRegister.setOnClickListener {
-            val intent= Intent(this, VectorCamera::class.java  )
+            val intent= Intent(this, PetRegisterActivity::class.java  )
+            startActivity(intent)
+        }
+        petChoice.setOnClickListener {
+            val intent=Intent(this,VectorCamera::class.java)
             startActivity(intent)
         }
 //        ex1.setOnClickListener {

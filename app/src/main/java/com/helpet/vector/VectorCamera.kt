@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.ImageDecoder
@@ -33,9 +34,9 @@ class VectorCamera : BaseActivity() {
     var name = ""
     var symptomProbability = 0.0
     var asymptomaticProbability = 0.0
-    var name2 = ""
-    var symptomProbability2 = 0.0
-    var asymptomaticProbability2 = 0.0
+//    var name2 = ""
+//    var symptomProbability2 = 0.0
+//    var asymptomaticProbability2 = 0.0
 
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
@@ -49,11 +50,8 @@ class VectorCamera : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         buttonVector.isEnabled=false
+        buttonVector.backgroundTintList = ColorStateList.valueOf(Color.LTGRAY) // 회색으로 설정
 
-        choiceAgain.setOnClickListener {
-            val intent=Intent(this, VectorChoicePet::class.java)
-            startActivity(intent)
-        }
         requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
     }
 
@@ -61,6 +59,12 @@ class VectorCamera : BaseActivity() {
     fun initViews(){
         binding.cameraBtn.setOnClickListener {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),PERM_CAMERA)
+            camTitle.text="촬영 완료"
+            sub1.text="아래의 진단 시작 버튼을\n누르면 진단이 시작됩니다."
+            sub2.isVisible=false
+            sub3.isVisible=false
+            camSubTitle.isVisible=false
+            buttonVector.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FD9374")) // 오렌지색으로 설정
 
         }
     }
@@ -195,9 +199,11 @@ class VectorCamera : BaseActivity() {
                     buttonVector.setOnClickListener {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
                         UpdatePhoto(SerialBitmap.translate(bitmap),this)
-                        layout2.isVisible=false
-                        vectorProceed.isVisible=true
+                        buttonVector.isVisible=false
+                        camSubLayout.isVisible=false
+                        loadingLayout.isVisible=true
                         vectorProgress.isIndeterminate = true
+                        camTitle.text = "진단 중"
                     }
                 }
             }
@@ -210,27 +216,31 @@ private val server: VectorService by lazy {
         val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), byteArray)
         val multipartBody: MultipartBody.Part? =
             MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
-
+        var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
         server.vectorResult(multipartBody!!).enqueue(object : Callback<ResponseDto?> {
             override fun onResponse(call: Call<ResponseDto?>?, response: Response<ResponseDto?>) {
-                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
+//                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                 Log.d("레트로핏 결과2", "" + response.body().toString())
 
-                name = response.body()?.result?.get(0)?.name!!
-                symptomProbability =  response.body()?.result?.get(0)?.symptomProbability!!
-                asymptomaticProbability = response.body()?.result?.get(0)?.asymptomaticProbability!!
-                name2 = response.body()?.result?.get(1)?.name!!
-                symptomProbability2 =  response.body()?.result?.get(1)?.symptomProbability!!
-                asymptomaticProbability2 = response.body()?.result?.get(1)?.asymptomaticProbability!!
+                name= response.body()?.name!!
+                asymptomaticProbability= response.body()?.asymptomaticProbability!!
+                symptomProbability=response.body()?.symptomProbability!!
+//                name = response.body()?.ResponseDto?.get(0)?.name!!
+//                symptomProbability =  response.body()?.result?.get(0)?.symptomProbability!!
+//                asymptomaticProbability = response.body()?.result?.get(0)?.asymptomaticProbability!!
+//                name2 = response.body()?.result?.get(1)?.name!!
+//                symptomProbability2 =  response.body()?.result?.get(1)?.symptomProbability!!
+//                asymptomaticProbability2 = response.body()?.result?.get(1)?.asymptomaticProbability!!
                 // 다른 액티비티로 intent
                 val intent = Intent(context, VectorResult::class.java)
                 // 인텐트에 데이터 추가
                 intent.putExtra("name", name)
                 intent.putExtra("symptomProbability",symptomProbability)
                 intent.putExtra("asymptomaticProbability",asymptomaticProbability )
-                intent.putExtra("name2", name2)
-                intent.putExtra("symptomProbability2",symptomProbability2)
-                intent.putExtra("asymptomaticProbability2",asymptomaticProbability2 )
+                intent.putExtra("vecImg",SerialBitmap.translate(bitmap) )
+//                intent.putExtra("name2", name2)
+//                intent.putExtra("symptomProbability2",symptomProbability2)
+//                intent.putExtra("asymptomaticProbability2",asymptomaticProbability2 )
 
                 // 액티비티 시작
                 context.startActivity(intent)

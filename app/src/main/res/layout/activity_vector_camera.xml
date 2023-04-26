@@ -5,52 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".vector.VectorCamera"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/layout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/petImage1"
-                android:layout_width="55dp"
-                android:layout_height="70dp"
-                android:padding="10dp"
-                android:src="@drawable/ex1" />
-
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/back2"
+                android:backgroundTint="@color/white"/>
             <TextView
-                android:id="@+id/petName1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="깜찍이"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="normal" />
+                android:layout_marginTop="10dp"
+                android:text="촬영"
+                android:layout_marginLeft="10dp"
+                android:textSize="25dp"
+                android:padding="10dp"
+                android:textColor="#6C6C6C"/>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/choiceAgain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="15dp"
-                android:backgroundTint="#FD9374"
-                android:text="다시 선택하기"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,90 +45,144 @@
             android:gravity="right"
             android:layout_marginRight="20dp">
 
-            <ImageButton
-                android:layout_width="31dp"
-                android:layout_height="31dp"
-                android:background="@color/white"
-                android:backgroundTint="@color/white"
-                android:scaleType="fitXY"
-                android:src="@drawable/help2" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="(선택한 반려동물)의 \n피부를 촬영해주세요"
-            android:gravity="center"
-            android:textSize="25dp"
-            android:textStyle="normal"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/black"/>
-
-        <ImageButton
-            android:id="@+id/cameraBtn"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#ffffff"
-            android:src="@drawable/camera" />
-
-        <LinearLayout
-            android:id="@+id/layout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/buttonVector"
+            <TextView
+                android:id="@+id/camTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="40dp"
-                android:layout_gravity="center"
-                android:text="진단하기"
-                android:textColor="@color/white"
-                android:backgroundTint="#FD9374"
-                android:textSize="20dp"/>
-
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/vectorProceed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-            <ProgressBar
-                android:id="@+id/vectorProgress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_marginTop="40dp"/>
-
+                android:text="안구 촬영"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:textStyle="normal"
+                android:layout_marginTop="45dp"
+                android:layout_marginBottom="0dp"
+                android:textColor="@color/black"/>
 
             <TextView
+                android:id="@+id/camSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="강아지 또는 고양이의 안구를 촬영해주세요 !"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#585757"/>
+
+            <ImageButton
+                android:id="@+id/cameraBtn"
+                android:layout_marginTop="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@color/white"
+                android:src="@drawable/cambutton" />
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/camSubLayout"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/sub1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. 안구 촬영 시, 흔들림을 최소화해주세요."
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    android:textStyle="normal"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="#585757"/>
+
+                <TextView
+                    android:id="@+id/sub2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2. 반사광을 최소화해주세요."
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    android:textStyle="normal"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="#585757"/>
+
+                <TextView
+                    android:id="@+id/sub3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3. 이물질을 제거한 후, 촬영해주세요."
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    android:textStyle="normal"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="#585757"/>
+
+
+            </LinearLayout>
+
+
+
+
+
+<!--            <Button-->
+<!--                android:id="@+id/buttonVector"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginRight="15dp"-->
+<!--                android:layout_marginTop="40dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="진단 시작"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:backgroundTint="#FD9374"-->
+<!--                android:textSize="20dp"-->
+<!--                />-->
+            <Button
+                android:id="@+id/buttonVector"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginTop="50dp"
-                android:text="진단 중입니다.\n잠시만 기다려주세요"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:textStyle="normal" />
+                android:text="진단 시작"
+                android:textColor="@color/white"
+                android:textSize="20dp"/>
+            <LinearLayout
+                android:id="@+id/loadingLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+                <ProgressBar
+                    android:id="@+id/vectorProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_marginTop="40dp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:text="Loading...\n잠시만 기다려주세요"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
 
         </LinearLayout>
-    </LinearLayout>
 
     </LinearLayout>
 
