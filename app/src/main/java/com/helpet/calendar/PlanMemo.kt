@@ -1,13 +1,17 @@
 package com.helpet.calendar
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.helpet.R
+import kotlinx.android.synthetic.main.activity_plan_memo.*
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.InputStreamReader
@@ -17,13 +21,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class PlanMemo : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_memo)
 
         val tvtodayDate = findViewById<TextView>(R.id.tvtodayDate)
         val date = intent.getStringExtra("date")
-        val btnClose = findViewById<Button>(R.id.btnClose)
+//        val btnClose = findViewById<Button>(R.id.btnClose)
 
         tvtodayDate.text = date
         setResult(RESULT_CANCELED)
@@ -34,7 +39,7 @@ class PlanMemo : AppCompatActivity() {
 
         val edtTitle: EditText = findViewById(R.id.edtTitle)
         val edtPlan: EditText = findViewById(R.id.edtPlan)
-        val btnSave: Button = findViewById(R.id.btnSave)
+//        val btnSave: Button = findViewById(R.id.btnSave)
 
         btnSave.setOnClickListener {
             val title = edtTitle.text.toString()

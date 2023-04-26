@@ -15,71 +15,68 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:appComponentFactory="whateverString"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/helpet_logo3"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/helpet_logo3"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication"
+        android:theme="@style/MyApplication"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory"
         tools:targetApi="s">
-
+        <activity
+            android:name=".TitleActivity"
+            android:theme="@style/SplashTheme"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".vector.HomeActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
-
         <activity
-            android:name="com.helpet.login.Login"
+            android:name=".login.Login"
             android:exported="false" />
         <activity
-            android:name="com.helpet.login.Register"
+            android:name=".login.Register"
             android:exported="false" />
         <activity
-            android:name="com.helpet.vector.VectorChoicePet"
+            android:name=".vector.VectorChoicePet"
             android:exported="false" />
         <activity
-            android:name="com.helpet.vector.BaseActivity"
+            android:name=".vector.BaseActivity"
             android:exported="false" />
         <activity
-            android:name="com.helpet.vector.PetRegisterActivity"
+            android:name=".vector.PetRegisterActivity"
             android:exported="false" />
         <activity
-            android:name="com.helpet.vector.VectorCamera"
+            android:name=".vector.VectorCamera"
             android:exported="false" />
         <activity
-            android:name="com.helpet.vector.VectorProceed"
+            android:name=".vector.VectorProceed"
             android:exported="false" />
         <activity
-            android:name="com.helpet.vector.VectorResult"
+            android:name=".vector.VectorResult"
             android:exported="false" />
         <activity
-            android:name="com.helpet.calendar.CalendarMain"
+            android:name=".calendar.CalendarMain"
             android:exported="false" />
         <activity
-            android:name="com.helpet.calendar.Planlist"
+            android:name=".calendar.Planlist"
             android:exported="false" />
         <activity
-            android:name="com.helpet.calendar.PlanMemo"
+            android:name=".calendar.PlanMemo"
             android:exported="false" />
-
-
-
-
         <activity
-            android:name="com.helpet.login.Find_idpw"
+            android:name=".login.Find_idpw"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -87,7 +84,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <provider
             android:name="androidx.core.content.FileProvider"

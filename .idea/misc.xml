@@ -3,23 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/comround.xml" value="0.1235" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/edittext_rounded_corner_rectangle.xml" value="0.182" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/etcround.xml" value="0.1235" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.1305" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1305" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/menu_click_color.xml" value="0.1" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/round.xml" value="0.144" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/round2.xml" value="0.204" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/round3.xml" value="0.204" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/round4.xml" value="0.204" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/round_background_color.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/splash.xml" value="0.1235" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/text_item.xml" value="0.1" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/text_item2.xml" value="0.1" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_calendar.xml" value="0.2604166666666667" />
-        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_home.xml" value="0.264" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_home.xml" value="0.4" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_hospital.xml" value="0.23489583333333333" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_main.xml" value="0.15364583333333334" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_pet_register.xml" value="0.2" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_plan_memo.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_planlist.xml" value="0.2604166666666667" />
-        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_camera.xml" value="0.176" />
-        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_choice_pet.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_title.xml" value="0.1483539974348012" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_camera.xml" value="0.264" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_choice_pet.xml" value="0.264" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_imageshow.xml" value="0.4" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_proceed.xml" value="0.176" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_result.xml" value="0.2" />
@@ -28,10 +35,10 @@
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_find_pw.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_hospital_api.xml" value="0.1" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_hospital_list.xml" value="0.1" />
-        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_vector_main.xml" value="0.2" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_vector_main.xml" value="0.264" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/login.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/register.xml" value="0.2" />
-        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/menu/bottom_menu.xml" value="0.2" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/menu/bottom_menu.xml" value="0.176" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/fragment_find_id.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/MyApplication/app/src/main/res/layout/calendar.xml" value="0.16731517509727625" />

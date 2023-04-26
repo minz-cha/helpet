@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@drawable/home3"
+        android:icon="@drawable/home4"
         android:title="홈"
-        android:visible="true"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/calender"
         android:enabled="true"
-        android:icon="@drawable/calender"
+        android:icon="@drawable/calender2"
         android:title="캘린더"
-        android:visible="true"/>
+        app:showAsAction="always"/>
     <item
-        android:id="@+id/books"
+        android:id="@+id/myPet"
         android:enabled="true"
-        android:icon="@drawable/books"
-        android:title="백과"
-        android:visible="true"/>
-    <item
-        android:id="@+id/mypet"
-        android:enabled="true"
-        android:icon="@drawable/dogpaw"
+        android:icon="@drawable/mypet2"
         android:title="마이펫"
-        android:visible="true"/>
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/myPage"
+        android:enabled="true"
+        android:icon="@drawable/mypage"
+        android:title="마이페이지"
+        app:showAsAction="always"/>
+
 
 </menu>

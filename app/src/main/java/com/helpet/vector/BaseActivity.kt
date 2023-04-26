@@ -1,13 +1,16 @@
 package com.helpet.vector
 
 
+import android.R
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import java.security.Permissions
 import java.util.*
+
 
 abstract class BaseActivity:AppCompatActivity() {
     abstract fun permissionGranted(requestCode: Int)

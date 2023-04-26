@@ -16,7 +16,6 @@ import java.security.NoSuchAlgorithmException
 
 class HomeActivity : AppCompatActivity() {
 
-    //lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -24,20 +23,23 @@ class HomeActivity : AppCompatActivity() {
 
         getHashKey()
 
-        btn_login.setOnClickListener {
-            val intent=Intent(this, Login::class.java)
-            startActivity(intent)
-        }
+//        btn_login.setOnClickListener {
+//            val intent=Intent(this, Login::class.java)
+//            startActivity(intent)
+//        }
 
 
         bnv_main.run {
-            setOnNavigationItemSelectedListener {
+            setOnNavigationItemSelectedListener() {
                 when (it.itemId) {
                     // 다른 프래그먼트 화면으로 이동하는 기능
                     R.id.home -> {
+
+//                        it.setIcon(R.drawable.homefull)
                         val mainVectorFragment = VectorMain()
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.fl_container, mainVectorFragment).commit()
+
                     }
                     /*R.id.calender->{
                         val calFragment = CalendarMain()
@@ -51,6 +53,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    //해시 키 받아오기
     private fun getHashKey() {
         var packageInfo: PackageInfo? = null
         try {
