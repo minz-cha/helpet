@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 
 
 object RetrofitApi {
-    private const val BASE_URL = "https://97ba-34-75-25-40.ngrok.io"
+    private const val BASE_URL = "https://434c-34-75-25-40.ngrok.io"
 
     var okHttpClient = OkHttpClient().newBuilder()
         .connectTimeout(30, TimeUnit.SECONDS)
@@ -25,6 +25,23 @@ object RetrofitApi {
 
 //    val service: VectorService = retrofit.create(VectorService::class.java)
 
+}
 
+object RetrofitApi2 {
+    private const val BASE_URL = ""
+
+    var okHttpClient = OkHttpClient().newBuilder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .build()
+
+
+    val retrofit2 = Retrofit
+        .Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build()
 
 }

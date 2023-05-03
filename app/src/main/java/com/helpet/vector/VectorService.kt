@@ -22,3 +22,20 @@ interface VectorService {
 
     ): Call<ResponseDto>
 }
+
+interface PetService {
+    @Multipart
+    @POST("")
+    fun PetRegister(
+
+//        @Part("petSpecies") petSpecies: RequestBody,
+        @Part("petName") petName: RequestBody,
+        @Part("petAge") petAge: RequestBody,
+        @Part("petBirth") petBirth: RequestBody,
+//        @Part("petName") petName: String,
+//        @Part("petAge") petAge: String,
+//        @Part("petBirth") petBirth: String,
+        @Part PetImg : MultipartBody.Part
+    ):Call<PetResponseDTO>
+//        @Part("petGender") petGender: RequestBody,
+}

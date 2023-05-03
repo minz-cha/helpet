@@ -34,9 +34,7 @@ class VectorCamera : BaseActivity() {
     var name = ""
     var symptomProbability = 0.0
     var asymptomaticProbability = 0.0
-//    var name2 = ""
-//    var symptomProbability2 = 0.0
-//    var asymptomaticProbability2 = 0.0
+
 
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
@@ -179,7 +177,7 @@ class VectorCamera : BaseActivity() {
                     intent.putExtra("scale", true);
                     intent.putExtra("return-data", true);
                     intent.putExtra("output", realUri); // 크랍된 이미지를 해당 경로에 저장
-                    // realUri -> Bitmap
+                    // realUri2 -> Bitmap
                     // Bitmap -> ByteArray
                     startActivityForResult(intent, REQ_CAMERA);
                 }
@@ -225,12 +223,6 @@ private val server: VectorService by lazy {
                 name= response.body()?.name!!
                 asymptomaticProbability= response.body()?.asymptomaticProbability!!
                 symptomProbability=response.body()?.symptomProbability!!
-//                name = response.body()?.ResponseDto?.get(0)?.name!!
-//                symptomProbability =  response.body()?.result?.get(0)?.symptomProbability!!
-//                asymptomaticProbability = response.body()?.result?.get(0)?.asymptomaticProbability!!
-//                name2 = response.body()?.result?.get(1)?.name!!
-//                symptomProbability2 =  response.body()?.result?.get(1)?.symptomProbability!!
-//                asymptomaticProbability2 = response.body()?.result?.get(1)?.asymptomaticProbability!!
                 // 다른 액티비티로 intent
                 val intent = Intent(context, VectorResult::class.java)
                 // 인텐트에 데이터 추가
@@ -238,10 +230,6 @@ private val server: VectorService by lazy {
                 intent.putExtra("symptomProbability",symptomProbability)
                 intent.putExtra("asymptomaticProbability",asymptomaticProbability )
                 intent.putExtra("vecImg",SerialBitmap.translate(bitmap) )
-//                intent.putExtra("name2", name2)
-//                intent.putExtra("symptomProbability2",symptomProbability2)
-//                intent.putExtra("asymptomaticProbability2",asymptomaticProbability2 )
-
                 // 액티비티 시작
                 context.startActivity(intent)
             }
