@@ -48,9 +48,6 @@ class VectorResult : AppCompatActivity() {
         val symptonProbability = intent.getDoubleExtra("symptomProbability", 0.0)
         val asymptomaticProbability = intent.getDoubleExtra("asymptomaticProbability", 0.0)
         val vecImg= intent.getParcelableExtra<Bitmap>("vecImg")
-//        val name2 = intent.getStringExtra("name2")
-//        val symptonProbability2 = intent.getDoubleExtra("symptomProbability", 0.0)
-//        val asymptomaticProbability2 = intent.getDoubleExtra("asymptomaticProbability", 0.0)
 
         if (name != null) {
             Log.d("name", name)
@@ -140,7 +137,6 @@ class VectorResult : AppCompatActivity() {
                 val spannable = SpannableString(originalText)
 //                spannable.setSpan(ForegroundColorSpan(Color.rgb(238,121,117)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 vectorTitle.text = spannable
-//                vectorTitle.text = "안구 진단 결과 \n이상징후가 없습니다 !"
                 vectorSubT.text = "꼬깜이의 눈은 아주 잘 관리되고 있어요:) "
                 VectorDate.text = "   진단 날짜\n $date "
                  vectorName.text = "진단결과: $name"

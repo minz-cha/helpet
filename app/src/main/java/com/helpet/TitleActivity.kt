@@ -13,7 +13,7 @@ class TitleActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        val intent= Intent(this, HomeActivity::class.java)
+        val intent= Intent(this, MainActivity::class.java)
         startActivity(intent)
 //        setContentView(R.layout.activity_title)
     }

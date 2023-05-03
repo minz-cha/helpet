@@ -12,6 +12,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import com.helpet.R
+import com.helpet.vector.HomeActivity
 
 class Login : AppCompatActivity() {
     val TAG: String = "MainActivity"
@@ -31,6 +32,8 @@ class Login : AppCompatActivity() {
 
 
         btn_login.setOnClickListener { // 로그인하기
+            val intent= Intent(this, HomeActivity::class.java)
+            startActivity(intent)
 
             var id = edit_id.text.toString()
             var pw = edit_pw.text.toString()
@@ -46,6 +49,8 @@ class Login : AppCompatActivity() {
             else{
                 dialog("fail")
             }
+
+
         }
 
         // 회원가입 버튼
