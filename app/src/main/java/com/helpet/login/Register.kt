@@ -12,14 +12,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.helpet.R
+import com.helpet.login.RetrofitInterface.retrofit
+import com.helpet.vector.ResponseDto
+import com.helpet.vector.RetrofitApi
+import com.helpet.vector.VectorService
+import kotlinx.android.synthetic.main.register.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONObject
-import java.io.BufferedInputStream
-import java.io.BufferedReader
-import java.io.DataOutputStream
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
-import kotlin.concurrent.thread
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.http.*
+
 
 
 class Register : AppCompatActivity() {
@@ -32,18 +38,29 @@ class Register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register)
 
-        val edit_name : EditText = findViewById(R.id.edit_name)
-        val edit_phonenum : EditText = findViewById(R.id.edit_phonenum)
-        val edit_id : EditText = findViewById(R.id.edit_id)
-        val edit_pw : EditText = findViewById(R.id.edit_pw)
-        val edit_pwcheck : EditText = findViewById(R.id.edit_pwcheck)
-        val edit_nick : EditText = findViewById(R.id.edit_nick)
-        val btn_success : Button = findViewById(R.id.btn_success)
+        val username: EditText = findViewById(R.id.edit_name)
+        val phone: EditText = findViewById(R.id.edit_phonenum)
+        val userId: EditText = findViewById(R.id.edit_id)
+        val password: EditText = findViewById(R.id.edit_pw)
+        val edit_pwcheck: EditText = findViewById(R.id.edit_pwcheck)
+        val nickname: EditText = findViewById(R.id.edit_nick)
+        val btn_success: Button = findViewById(R.id.btn_success)
 
 
+        btn_Dup_check.setOnClickListener {
+            //회원정보 DB에 존재하는 ID들과 입력된 ID가 동일하지 않으면 '이용 가능한 아이디입니다.' 입력된 ID가 이미 존재하면 '이미 존재하는 아이디입니다.'라는 메시지
+            //추가적으로, 회원가입의 '완료' 버튼을 누르면 항목채우기, pw==pwcheck 말고도 '중복확인'을 필수로 해야한다는 코드 필요
+        }
 
+        val server = retrofit.create(RegisterService::class.java)
 
         btn_success.setOnClickListener {
+            val username = username.text.toString()
+            val phone = phone.text.toString()
+            val userId = userId.text.toString()
+            val password = password.text.toString()
+            val nickname = nickname.text.toString()
+
             // 유저가 항목을 다 채우지 않았을 경우
             if (edit_name.text.isBlank() || edit_phonenum.text.isEmpty() || edit_id.text.isEmpty() || edit_pw.text.isEmpty() || edit_pwcheck.text.isEmpty() || edit_nick.text.isEmpty()) {
                 isExistBlank = true
@@ -53,91 +70,35 @@ class Register : AppCompatActivity() {
                 }
             }
 
-
-            if (!isExistBlank && isPWSame) {
-
-                // 회원가입 성공 토스트 메세지 띄우기
-                Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
-
-                // 유저가 입력한 id, pw를 쉐어드에 저장한다.
-                val sharedPreference = getSharedPreferences("file name", Context.MODE_PRIVATE)
-                val editor = sharedPreference.edit()
-                editor.putString("id", edit_id.toString())
-                editor.putString("pw", edit_pw.toString())
-                editor.apply()
-
-                // 로그인 화면으로 이동
-                val intent = Intent(this, Login::class.java)
-                startActivity(intent)
-
-            } else {
-
-                // 상태에 따라 다른 다이얼로그 띄워주기
-                if (isExistBlank) {   // 작성 안한 항목이 있을 경우
-                    dialog("blank")
-                } else if (!isPWSame) { // 입력한 비밀번호가 다를 경우
-                    dialog("not same")
+            server.RegisterResult(username, phone, userId, password, nickname).enqueue(object : Callback<RegResponseDTO?> {
+                override fun onResponse(call: Call<RegResponseDTO?>?, response: Response<RegResponseDTO?>) {
+                    val result = response.body()
+                    Log.d("retrofit 회원가입", "${result}")
+                    val intent = Intent(applicationContext, Login::class.java)
+                    startActivity(intent)
                 }
-            }
 
-            val url = URL("http://localhost:3000/auth/register_process")
-            val postData = "name=test1 & phonenum=test2 & id=test3 & pw=test4 & nick=test5"
+                override fun onFailure(call: Call<RegResponseDTO?>?, t: Throwable) {
+                    Log.d("회원가입", t.message!!)
 
-            val conn = url.openConnection() as HttpURLConnection
-            conn.requestMethod = "POST"
-            conn.doOutput = true
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-            conn.setRequestProperty("Content-Length", postData.length.toString())
-            conn.useCaches = false
-
-            DataOutputStream(conn.outputStream).use { it.writeBytes(postData) }
-            BufferedReader(InputStreamReader(conn.inputStream)).use { br ->
-                var line: String?
-                while (br.readLine().also { line = it } != null) {
-                    println(line)
                 }
-            }
-
-            val input = BufferedInputStream(conn.inputStream)
-            val buffer = ByteArray(1024)
-            val stringBuilder = StringBuilder()
-            var read = input.read(buffer, 0, 1024)
-            while (read >= 0) {
-                stringBuilder.append(String(buffer, 0, read))
-                read = input.read(buffer, 0, 1024)
-            }
-            val response = JSONObject(stringBuilder.toString())
-            val result = response.getString("result")
+            })
 
         }
-
     }
-    fun dialog(type: String){
-        val dialog = AlertDialog.Builder(this)
 
-        // 작성 안한 항목이 있을 경우
-        if(type.equals("blank")){
-            dialog.setTitle("회원가입 실패")
-            dialog.setMessage("입력란을 모두 작성해주세요")
-        }
-        // 입력한 비밀번호가 다를 경우
-        if(type.equals("not same")){
-            dialog.setTitle("회원가입 실패")
-            dialog.setMessage("비밀번호가 다릅니다")
-        }
-
-        val dialog_listener = object: DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                when(which){
-                    DialogInterface.BUTTON_POSITIVE ->
-                        Log.d(ContentValues.TAG, "다이얼로그")
-                }
-            }
-        }
-
-        dialog.setPositiveButton("확인",dialog_listener)
-        dialog.show()
-    }
 }
 
+interface RegisterService{
+    @FormUrlEncoded
+    @POST("auth/register")
+    fun RegisterResult(
+        @Field("username") username: String,
+        @Field("phone") phone: String,
+        @Field("userId") userId : String,
+        @Field("password") password: String,
+        @Field("nickname") nickname: String
+
+    ): Call<RegResponseDTO>
+}
 
