@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 var db = require('../../db');
 
-// 반려동물 등록 홈화면
+// 반려동물 홈화면
 router.get('/:userId', function (req, res) {
-    var userId = req.body.userId;
+    var userId = req.params.userId;
 
     db.connect();
-    db.query('SELECT petImg, petName, petAge, petBirth, petGender WHERE userId = ?', [userId], function (error, result) {
+    db.query('SELECT petImg, petName, petAge, petBirth, petGender FROM pet WHERE userId = ?', [userId], function (error, result) {
         if (error) throw err;
         res.json({
             status: "success",
