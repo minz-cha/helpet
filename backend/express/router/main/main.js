@@ -10,6 +10,7 @@ var authRouter = require('../lib_login/auth');
 var authCheck = require('../lib_login/authCheck.js');
 var calendarRouter = require('../calendar/calendar');
 var communityRouter = require('../community/community');
+var petRouter = require('../pet/petRegister');
 
 app.use('/static', express.static('static'))
 app.use(express.urlencoded({
@@ -41,6 +42,9 @@ app.use('/api/calendar', calendarRouter);
 
 // 커뮤니티 라우터
 app.use('/api/community', communityRouter);
+
+// 반려동물 라우터
+app.use('/api/pet', petRouter);
 
 // 메인 페이지
 app.get('/main', (req, res) => {
