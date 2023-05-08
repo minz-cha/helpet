@@ -2,7 +2,11 @@ package com.helpet.vector
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Base64
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.util.Base64.getDecoder
+import java.util.Base64.getEncoder
 
 class SerialBitmap {
     companion object {
@@ -23,4 +27,5 @@ class SerialBitmap {
             return BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.size).copy(Bitmap.Config.ARGB_8888, true)
         }
     }
+
 }

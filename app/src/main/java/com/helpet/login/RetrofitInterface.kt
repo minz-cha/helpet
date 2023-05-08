@@ -14,6 +14,4 @@ object RetrofitInterface {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-//    val service: VectorService = retrofit.create(VectorService::class.java)
-
 }

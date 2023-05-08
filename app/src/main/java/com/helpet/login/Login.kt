@@ -42,7 +42,8 @@ class Login : AppCompatActivity() {
             val password = password.text.toString()
             Log.d("test", userId)
             Log.d("test", password)
-
+            val intent = Intent(applicationContext ,HomeActivity::class.java)
+            startActivity(intent)
 
             val server = RetrofitInterface.retrofit.create(LoginService::class.java)
 
@@ -51,8 +52,8 @@ class Login : AppCompatActivity() {
                 override fun onResponse(call: Call<LogResponseDTO?>?, response: Response<LogResponseDTO?>) {
                     val result = response.body()
                     Log.d("retrofit 로그인", "${result}")
-                    val intent = Intent(applicationContext ,HomeActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(applicationContext ,HomeActivity::class.java)
+//                    startActivity(intent)
                 }
 
                 override fun onFailure(call: Call<LogResponseDTO?>?, t: Throwable) {
