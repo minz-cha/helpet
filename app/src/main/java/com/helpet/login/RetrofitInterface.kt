@@ -14,8 +14,4 @@ object RetrofitInterface {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-//    val service: VectorService = retrofit.create(VectorService::class.java)
-
 }
-
-//http://10.0.2.2:3000/api/auth/login

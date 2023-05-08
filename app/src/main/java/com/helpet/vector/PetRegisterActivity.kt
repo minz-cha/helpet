@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -27,10 +28,28 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class PetRegisterActivity : BaseActivity() {
+    var statuspet = ""
+    var imgpet = ""
+    var speciespet = ""
+    var namepet= ""
+    var agepet = 0
+    var birthpet = ""
+    var genderpet = ""
+//    status: 성공 실패 여부
+//    petImg: 반려동물 사진
+//    petSpecies: 반려동물 종(강아지/ 고양이)
+//    petName : 이름
+//    petAge : 나이
+//    petBirth : 생일 (YYYYMMDD형식)
+//    petGender: 남자 여자
+
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
     val REQ_CAMERA=11
@@ -43,10 +62,15 @@ class PetRegisterActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_register)
         requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
+
+        registerBack.setOnClickListener {
+            val intent = Intent(this, VectorChoicePet::class.java)
+            startActivity(intent)
+        }
     }
     @RequiresApi(Build.VERSION_CODES.M)
     fun initViews(){
-        cameraAlt.setOnClickListener {
+        choiceCamera.setOnClickListener {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),PERM_CAMERA)
         }
     }
@@ -61,7 +85,7 @@ class PetRegisterActivity : BaseActivity() {
             realUri= uri
             Log.d(realUri.toString(), "openCamera: opencamera")
             intent.putExtra(MediaStore.EXTRA_OUTPUT, realUri)
-            intent.putExtra("return-data", true);
+            intent.putExtra("return-data",true);
 
             getRealPathFromURI(realUri!!)
 
@@ -125,6 +149,7 @@ class PetRegisterActivity : BaseActivity() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode== RESULT_OK){
@@ -149,34 +174,43 @@ class PetRegisterActivity : BaseActivity() {
                     startActivityForResult(intent, REQ_CAMERA);
                 }
                 REQ_CAMERA ->{
-                    btn_success.isEnabled=true
-                    btn_success.setBackgroundColor(Color.parseColor("#FD9374"))
+                    btnChoiceSuccess.isEnabled=true
+                    btnChoiceSuccess.setBackgroundColor(Color.parseColor("#FD9374"))
                     realUri?.let { uri ->
                         var bitmap: Bitmap? = null
                         //카메라에서 찍은 사진을 비트맵으로 변환
                         bitmap = MediaStore.Images.Media
                             .getBitmap(contentResolver, realUri)
                         //이미지뷰에 이미지 로딩
-                        cameraAlt.setImageBitmap(bitmap)
+                        choiceCamera.setImageBitmap(bitmap)
                     }
 
-                    btn_success.setOnClickListener {
+                    btnChoiceSuccess.setOnClickListener {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
-                        UpdatePhoto(SerialBitmap.translate(bitmap),this)
+                        val imgString = bitmapToString(bitmap)
+                        UpdatePhoto(imgString!!,this)
                     }
                 }
             }
         }
     }
 
-    private val server=  RetrofitApi2.retrofit2.create(PetService::class.java)
+    private val server2=  RetrofitApi2.retrofit2.create(PetService::class.java)
 
-    fun UpdatePhoto(byteArray: ByteArray, context: Context) {
-        val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), byteArray)
+    fun UpdatePhoto(imgString: String, context: Context) {
+        val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), imgString)
         val multipartBody: MultipartBody.Part? =
             MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
-        var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
         val mediaType = "multipart/form-data".toMediaType()
+
+        var petSpecies = ""
+        if (choiceCat.isClickable){
+            petSpecies = "고양이"
+        }
+        if (choiceDog.isClickable){
+            petSpecies = "강아지"
+        }
+        val textSpecies = petSpecies.toRequestBody(mediaType)
         val petName: String = petName.text.toString()
         val textName = petName.toRequestBody(mediaType)
         val petAge: String = petAge.text.toString()
@@ -184,25 +218,74 @@ class PetRegisterActivity : BaseActivity() {
         val petBirth: String = petBirth.text.toString()
         val textBirth= petBirth.toRequestBody(mediaType)
 
-        server.PetRegister(textName,textAge,textBirth,multipartBody!!).enqueue(object :
-            Callback<PetResponseDTO?> {
-            override fun onResponse(call: Call<PetResponseDTO?>?, response: Response<PetResponseDTO?>) {
+        var petGender = ""
+        if (genderBoy.isClickable){
+            petGender = "고양이"
+        }
+        if (genderGirl.isClickable){
+            petGender = "강아지"
+        }
+        val textGender = petSpecies.toRequestBody(mediaType)
+
+        server2.PetRegister(multipartBody!!,textSpecies,textName,textAge,textBirth,textGender).enqueue(object :
+            Callback<PetResponseDto?> {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onResponse(call: Call<PetResponseDto?>?, response: Response<PetResponseDto?>) {
 //                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                 Log.d("레트로핏 결과2", "" + response.body().toString())
                 // 다른 액티비티로 intent
                 val intent = Intent(context, VectorChoicePet::class.java)
+
                 // 인텐트에 데이터 추가
+//                statuspet = response.body()?.status!!
+//                imgpet = response.body()?.petList?.get(0)?.petImg!!
+//                speciespet =  response.body()?.petList?.get(0)?.petBirth!!
+//                namepet = response.body()?.petList?.get(0)?.petName!!
+//                agepet = response.body()?.petList?.get(0)?.petAge!!
+//                birthpet = response.body()?.petList?.get(0)?.petBirth!!
+//                genderpet = response.body()?.petList?.get(0)?.petGender!!
+
+                //이미지 다시 비트맵으로 변환
+//                val imgpet2 = stringToBitmap(imgpet)
+
+//                intent.putExtra("statuspet", statuspet)
+//                intent.putExtra("imgpet", imgpet2)
+//                intent.putExtra("speciespet", speciespet)
+//                intent.putExtra("namepet", namepet)
+//                intent.putExtra("agepet", agepet)
+//                intent.putExtra("birthpet", birthpet)
+//                intent.putExtra("genderpet", genderpet)
                 // 액티비티 시작
                 context.startActivity(intent)
             }
 
-            override fun onFailure(call: Call<PetResponseDTO?>?, t: Throwable) {
+            override fun onFailure(call: Call<PetResponseDto?>?, t: Throwable) {
                 Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
                 Log.d("에러", t.message!!)
             }
         })
     }
 
+    //bitmap 을  string 형태로 변환하는 메서드 (이렇게 string 으로 변환된 데이터를 mysql 에서 longblob 의 형태로 저장하는식으로 사용가능)
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun bitmapToString(bitmap: Bitmap): String? {
+        var image = ""
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        val byteArray = stream.toByteArray()
+        image = Base64.getEncoder().encodeToString(byteArray)
+        return image
+    }
+
+    //string 을  bitmap 형태로 변환하는 메서드
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun stringToBitmap(data: String?): Bitmap? {
+        var bitmap: Bitmap? = null
+        val byteArray: ByteArray = Base64.getDecoder().decode(data)
+        val stream = ByteArrayInputStream(byteArray)
+        bitmap = BitmapFactory.decodeStream(stream)
+        return bitmap
+    }
 }
 
 
