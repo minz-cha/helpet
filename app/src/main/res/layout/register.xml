@@ -107,17 +107,17 @@
                 android:text="아이디"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/edit_id"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginBottom="7dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/edittext_rounded_corner_rectangle"
@@ -136,6 +136,17 @@
                 android:layout_marginBottom="15dp"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/id_check_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="아이디 중복 확인 결과"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -186,16 +197,45 @@
             android:textColor="@color/black"
             android:textSize="20dp" />
 
-        <EditText
-            android:id="@+id/edit_nick"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:id="@+id/edit_nick"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext_rounded_corner_rectangle"
+                android:ems="12"
+                android:hint="닉네임"
+                android:inputType="textPersonName"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/btn_Dup_check2"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="#FD9374"
+                android:text="중복확인"
+                android:textColor="@color/white"
+                android:layout_marginBottom="15dp"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/nick_check_result"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="닉네임 중복 확인 결과"
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/edittext_rounded_corner_rectangle"
-            android:ems="17"
-            android:hint="닉네임"
-            android:inputType="textPersonName"
-            android:textSize="18dp" />
+            android:textColor="@color/black"
+            android:textSize="15dp" />
 
 
     </LinearLayout>

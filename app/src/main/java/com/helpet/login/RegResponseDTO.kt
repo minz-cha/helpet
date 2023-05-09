@@ -21,3 +21,22 @@ data class LogResponseDTO(
     @SerializedName("userId")
     val userId: String
 )
+
+data class IdCheckResult(
+    @SerializedName("message")
+    val message: String,
+    @SerializedName("success")
+    val success: Boolean,
+    @SerializedName("userId")
+    val userId: String
+)
+
+data class NickCheckResult(
+    @SerializedName("message")
+    val message: String,
+    @SerializedName("success")
+    val success: Boolean,
+    @SerializedName("nickname")
+    val nickname: String
+)
+
