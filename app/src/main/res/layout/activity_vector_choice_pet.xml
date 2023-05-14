@@ -65,11 +65,12 @@
             android:backgroundTint="@color/white" />
 
         <LinearLayout
+            android:id="@+id/petLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:orientation="horizontal"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/choicePetImg"
