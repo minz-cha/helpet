@@ -28,7 +28,7 @@ object RetrofitApi {
 }
 
 object RetrofitApi2 {
-    private const val BASE_URL = ""
+    private const val BASE_URL = "http://172.30.1.13:3000/"
 
     var okHttpClient = OkHttpClient().newBuilder()
         .connectTimeout(30, TimeUnit.SECONDS)
@@ -36,12 +36,10 @@ object RetrofitApi2 {
         .writeTimeout(30, TimeUnit.SECONDS)
         .build()
 
-
     val retrofit2 = Retrofit
         .Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
-
 }

@@ -5,11 +5,13 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64.DEFAULT
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -17,6 +19,7 @@ import androidx.annotation.RequiresApi
 import com.helpet.R
 import com.helpet.databinding.ActivityVectorCameraBinding
 import kotlinx.android.synthetic.main.activity_pet_register.*
+import kotlinx.android.synthetic.main.activity_pet_register.view.*
 import kotlinx.android.synthetic.main.activity_vector_camera.*
 import kotlinx.android.synthetic.main.activity_vector_choice_pet.*
 import okhttp3.*
@@ -27,10 +30,27 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Part
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.security.spec.PSSParameterSpec.DEFAULT
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.math.log
 
 
 class PetRegisterActivity : BaseActivity() {
+    var petSpecies = ""
+    var petGender = ""
+
+//    @Part("petImg") petImg: RequestBody,
+//    @Part("userId") userId: RequestBody,
+//    @Part("petSpecies") petSpecies : RequestBody,
+//    @Part("petName") petName: RequestBody,
+//    @Part("petAge") petAge: RequestBody,
+//    @Part("petBirth") petBirth: RequestBody,
+//    @Part("petGender") petGender: RequestBody
+
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
     val REQ_CAMERA=11
@@ -43,10 +63,34 @@ class PetRegisterActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_register)
         requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
+
+        choiceDog.setOnClickListener {
+            petSpecies = "강아지"
+        }
+        choiceCat.setOnClickListener {
+            petSpecies = "고양이"
+        }
+        Log.d("petSpecies", petSpecies)
+
+
+        genderBoy.setOnClickListener {
+            petGender = "남자"
+        }
+        genderGirl.setOnClickListener {
+            petGender = "여자"
+        }
+        Log.d("petGender", petGender)
+
+        registerBack.setOnClickListener {
+            val intent = Intent(this, VectorChoicePet::class.java)
+            startActivity(intent)
+        }
+
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     fun initViews(){
-        cameraAlt.setOnClickListener {
+        choiceCamera.setOnClickListener {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),PERM_CAMERA)
         }
     }
@@ -61,7 +105,7 @@ class PetRegisterActivity : BaseActivity() {
             realUri= uri
             Log.d(realUri.toString(), "openCamera: opencamera")
             intent.putExtra(MediaStore.EXTRA_OUTPUT, realUri)
-            intent.putExtra("return-data", true);
+            intent.putExtra("return-data",true);
 
             getRealPathFromURI(realUri!!)
 
@@ -125,6 +169,7 @@ class PetRegisterActivity : BaseActivity() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode== RESULT_OK){
@@ -149,60 +194,98 @@ class PetRegisterActivity : BaseActivity() {
                     startActivityForResult(intent, REQ_CAMERA);
                 }
                 REQ_CAMERA ->{
-                    btn_success.isEnabled=true
-                    btn_success.setBackgroundColor(Color.parseColor("#FD9374"))
+                    btnChoiceSuccess.isEnabled=true
+                    btnChoiceSuccess.setBackgroundColor(Color.parseColor("#FD9374"))
                     realUri?.let { uri ->
                         var bitmap: Bitmap? = null
                         //카메라에서 찍은 사진을 비트맵으로 변환
                         bitmap = MediaStore.Images.Media
                             .getBitmap(contentResolver, realUri)
                         //이미지뷰에 이미지 로딩
-                        cameraAlt.setImageBitmap(bitmap)
+                        choiceCamera.setImageBitmap(bitmap)
                     }
 
-                    btn_success.setOnClickListener {
+                    btnChoiceSuccess.setOnClickListener {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
-                        UpdatePhoto(SerialBitmap.translate(bitmap),this)
+                        val imgString = bitmapToString(bitmap)
+                        Log.d("imgString", imgString!!)
+                        UpdatePhoto(imgString!!,this, petSpecies, petGender )
                     }
                 }
             }
         }
     }
 
-    private val server=  RetrofitApi2.retrofit2.create(PetService::class.java)
+    private val server2=  RetrofitApi2.retrofit2.create(PetService::class.java)
 
-    fun UpdatePhoto(byteArray: ByteArray, context: Context) {
-        val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), byteArray)
-        val multipartBody: MultipartBody.Part? =
-            MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
-        var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
+    fun UpdatePhoto(imgString: String, context: Context, petSpecies:String, petGender:String) {
+//        val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), imgString)
+//        val multipartBody: MultipartBody.Part? =
+//            MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
         val mediaType = "multipart/form-data".toMediaType()
+        // SharedPreferences 객체 생성
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        // 유저아이디 데이터 읽기
+        val value = sharedPreferences.getString("userId", "null")
+
+        val imgpet = imgString.toRequestBody(mediaType)
+        val textuserId = value?.toRequestBody(mediaType)
+        val textSpecies = petSpecies.toRequestBody(mediaType)
         val petName: String = petName.text.toString()
         val textName = petName.toRequestBody(mediaType)
         val petAge: String = petAge.text.toString()
         val textAge = petAge.toRequestBody(mediaType)
         val petBirth: String = petBirth.text.toString()
         val textBirth= petBirth.toRequestBody(mediaType)
+        val textGender = petGender.toRequestBody(mediaType)
+        Log.d("등록", imgpet.toString())
+        Log.d("등록", textuserId.toString())
+        Log.d("등록", textSpecies.toString())
+        Log.d("등록", textName.toString())
+        Log.d("등록", textAge.toString())
+        Log.d("등록", textBirth.toString())
+        Log.d("등록", textGender.toString())
 
-        server.PetRegister(textName,textAge,textBirth,multipartBody!!).enqueue(object :
-            Callback<PetResponseDTO?> {
-            override fun onResponse(call: Call<PetResponseDTO?>?, response: Response<PetResponseDTO?>) {
-//                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
+        server2.PetRegister(imgpet,textuserId!!,textSpecies,textName,textAge,textBirth,textGender).enqueue(object :
+            Callback<PetResponseDto?> {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onResponse(call: Call<PetResponseDto?>?, response: Response<PetResponseDto?>) {
                 Log.d("레트로핏 결과2", "" + response.body().toString())
+
                 // 다른 액티비티로 intent
                 val intent = Intent(context, VectorChoicePet::class.java)
-                // 인텐트에 데이터 추가
+
                 // 액티비티 시작
                 context.startActivity(intent)
             }
 
-            override fun onFailure(call: Call<PetResponseDTO?>?, t: Throwable) {
+            override fun onFailure(call: Call<PetResponseDto?>?, t: Throwable) {
                 Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
                 Log.d("에러", t.message!!)
             }
         })
     }
 
+    //bitmap 을  string 형태로 변환하는 메서드 (이렇게 string 으로 변환된 데이터를 mysql 에서 longblob 의 형태로 저장하는식으로 사용가능)
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun bitmapToString(bitmap: Bitmap): String? {
+        var image = ""
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        val byteArray = stream.toByteArray()
+        image = Base64.getEncoder().encodeToString(byteArray)
+        return image
+    }
+
+    //string 을  bitmap 형태로 변환하는 메서드
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun stringToBitmap(data: String?): Bitmap? {
+        var bitmap: Bitmap? = null
+        val byteArray: ByteArray = Base64.getDecoder().decode(data)
+        val stream = ByteArrayInputStream(byteArray)
+        bitmap = BitmapFactory.decodeStream(stream)
+        return bitmap
+    }
 }
 
 
