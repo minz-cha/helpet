@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.helpet.Hospital.HospitalActivity
 import com.helpet.R
 import com.helpet.calendar.CalendarMainFragment
 import com.helpet.login.Login
@@ -25,6 +26,11 @@ class HomeActivity : AppCompatActivity() {
 
 
         getHashKey()
+
+        hospital.setOnClickListener {
+            val intent =Intent(this, HospitalActivity::class.java)
+            startActivity(intent)
+        }
 
 //        btn_login.setOnClickListener {
 //            val intent=Intent(this, Login::class.java)

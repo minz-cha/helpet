@@ -34,6 +34,11 @@ class VectorChoicePet : AppCompatActivity() {
 
         Log.d("value",value!!)
 
+        back.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
         //유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
         val textuser = value?.toRequestBody()
         val server3=  RetrofitApi2.retrofit2.create(GetPetService::class.java)
