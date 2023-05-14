@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64.DEFAULT
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -18,6 +19,7 @@ import androidx.annotation.RequiresApi
 import com.helpet.R
 import com.helpet.databinding.ActivityVectorCameraBinding
 import kotlinx.android.synthetic.main.activity_pet_register.*
+import kotlinx.android.synthetic.main.activity_pet_register.view.*
 import kotlinx.android.synthetic.main.activity_vector_camera.*
 import kotlinx.android.synthetic.main.activity_vector_choice_pet.*
 import okhttp3.*
@@ -28,27 +30,26 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Part
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.security.spec.PSSParameterSpec.DEFAULT
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.log
 
 
 class PetRegisterActivity : BaseActivity() {
-    var statuspet = ""
-    var imgpet = ""
-    var speciespet = ""
-    var namepet= ""
-    var agepet = 0
-    var birthpet = ""
-    var genderpet = ""
-//    status: 성공 실패 여부
-//    petImg: 반려동물 사진
-//    petSpecies: 반려동물 종(강아지/ 고양이)
-//    petName : 이름
-//    petAge : 나이
-//    petBirth : 생일 (YYYYMMDD형식)
-//    petGender: 남자 여자
+    var petSpecies = ""
+    var petGender = ""
+
+//    @Part("petImg") petImg: RequestBody,
+//    @Part("userId") userId: RequestBody,
+//    @Part("petSpecies") petSpecies : RequestBody,
+//    @Part("petName") petName: RequestBody,
+//    @Part("petAge") petAge: RequestBody,
+//    @Part("petBirth") petBirth: RequestBody,
+//    @Part("petGender") petGender: RequestBody
 
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
@@ -63,11 +64,30 @@ class PetRegisterActivity : BaseActivity() {
         setContentView(R.layout.activity_pet_register)
         requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
 
+        choiceDog.setOnClickListener {
+            petSpecies = "강아지"
+        }
+        choiceCat.setOnClickListener {
+            petSpecies = "고양이"
+        }
+        Log.d("petSpecies", petSpecies)
+
+
+        genderBoy.setOnClickListener {
+            petGender = "남자"
+        }
+        genderGirl.setOnClickListener {
+            petGender = "여자"
+        }
+        Log.d("petGender", petGender)
+
         registerBack.setOnClickListener {
             val intent = Intent(this, VectorChoicePet::class.java)
             startActivity(intent)
         }
+
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
     fun initViews(){
         choiceCamera.setOnClickListener {
@@ -188,7 +208,8 @@ class PetRegisterActivity : BaseActivity() {
                     btnChoiceSuccess.setOnClickListener {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
                         val imgString = bitmapToString(bitmap)
-                        UpdatePhoto(imgString!!,this)
+                        Log.d("imgString", imgString!!)
+                        UpdatePhoto(imgString!!,this, petSpecies, petGender )
                     }
                 }
             }
@@ -197,19 +218,18 @@ class PetRegisterActivity : BaseActivity() {
 
     private val server2=  RetrofitApi2.retrofit2.create(PetService::class.java)
 
-    fun UpdatePhoto(imgString: String, context: Context) {
-        val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), imgString)
-        val multipartBody: MultipartBody.Part? =
-            MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
+    fun UpdatePhoto(imgString: String, context: Context, petSpecies:String, petGender:String) {
+//        val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), imgString)
+//        val multipartBody: MultipartBody.Part? =
+//            MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
         val mediaType = "multipart/form-data".toMediaType()
+        // SharedPreferences 객체 생성
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        // 유저아이디 데이터 읽기
+        val value = sharedPreferences.getString("userId", "null")
 
-        var petSpecies = ""
-        if (choiceCat.isClickable){
-            petSpecies = "고양이"
-        }
-        if (choiceDog.isClickable){
-            petSpecies = "강아지"
-        }
+        val imgpet = imgString.toRequestBody(mediaType)
+        val textuserId = value?.toRequestBody(mediaType)
         val textSpecies = petSpecies.toRequestBody(mediaType)
         val petName: String = petName.text.toString()
         val textName = petName.toRequestBody(mediaType)
@@ -217,44 +237,24 @@ class PetRegisterActivity : BaseActivity() {
         val textAge = petAge.toRequestBody(mediaType)
         val petBirth: String = petBirth.text.toString()
         val textBirth= petBirth.toRequestBody(mediaType)
+        val textGender = petGender.toRequestBody(mediaType)
+        Log.d("등록", imgpet.toString())
+        Log.d("등록", textuserId.toString())
+        Log.d("등록", textSpecies.toString())
+        Log.d("등록", textName.toString())
+        Log.d("등록", textAge.toString())
+        Log.d("등록", textBirth.toString())
+        Log.d("등록", textGender.toString())
 
-        var petGender = ""
-        if (genderBoy.isClickable){
-            petGender = "고양이"
-        }
-        if (genderGirl.isClickable){
-            petGender = "강아지"
-        }
-        val textGender = petSpecies.toRequestBody(mediaType)
-
-        server2.PetRegister(multipartBody!!,textSpecies,textName,textAge,textBirth,textGender).enqueue(object :
+        server2.PetRegister(imgpet,textuserId!!,textSpecies,textName,textAge,textBirth,textGender).enqueue(object :
             Callback<PetResponseDto?> {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(call: Call<PetResponseDto?>?, response: Response<PetResponseDto?>) {
-//                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                 Log.d("레트로핏 결과2", "" + response.body().toString())
+
                 // 다른 액티비티로 intent
                 val intent = Intent(context, VectorChoicePet::class.java)
 
-                // 인텐트에 데이터 추가
-//                statuspet = response.body()?.status!!
-//                imgpet = response.body()?.petList?.get(0)?.petImg!!
-//                speciespet =  response.body()?.petList?.get(0)?.petBirth!!
-//                namepet = response.body()?.petList?.get(0)?.petName!!
-//                agepet = response.body()?.petList?.get(0)?.petAge!!
-//                birthpet = response.body()?.petList?.get(0)?.petBirth!!
-//                genderpet = response.body()?.petList?.get(0)?.petGender!!
-
-                //이미지 다시 비트맵으로 변환
-//                val imgpet2 = stringToBitmap(imgpet)
-
-//                intent.putExtra("statuspet", statuspet)
-//                intent.putExtra("imgpet", imgpet2)
-//                intent.putExtra("speciespet", speciespet)
-//                intent.putExtra("namepet", namepet)
-//                intent.putExtra("agepet", agepet)
-//                intent.putExtra("birthpet", birthpet)
-//                intent.putExtra("genderpet", genderpet)
                 // 액티비티 시작
                 context.startActivity(intent)
             }

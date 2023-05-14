@@ -89,7 +89,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="우리 아이의 이름은?"
+                        android:text="우리 아이의 생일은?"
                         android:textSize="16dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="10dp"

@@ -1,7 +1,5 @@
 package com.helpet.vector
 
-
-
 import android.content.IntentFilter.create
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -19,16 +17,18 @@ interface VectorService {
         @Part postImg: MultipartBody.Part,
 //        @Part("date") date: RequestBody,
 //        @Part("petname") petname: RequestBody,
-//        @Part("username") username: RequestBody
+//        @Part("username") username: RequestBody,
 
     ): Call<ResponseDto>
 }
 //반려동물 등록할때 보내는 요청
 interface PetService {
     @Multipart
-    @POST("/pet/register")
+    @POST("/api/pet/register")
     fun PetRegister(
-        @Part PetImg : MultipartBody.Part,
+//        @Part petImg : MultipartBody.Part,
+        @Part ("petImg") petImg: RequestBody,
+        @Part("userId") userId: RequestBody,
         @Part("petSpecies") petSpecies : RequestBody,
         @Part("petName") petName: RequestBody,
         @Part("petAge") petAge: RequestBody,
@@ -36,7 +36,6 @@ interface PetService {
         @Part("petGender") petGender: RequestBody
     ):Call<PetResponseDto>
 }
-
 
 //    status: 성공 실패 여부
 //    petImg: 반려동물 사진
@@ -48,9 +47,10 @@ interface PetService {
 
 //사용자가 가지고있는 반려동물 리스트 받아오는 요청
 interface GetPetService{
-    @POST("/pet")
+    @FormUrlEncoded
+    @POST("/api/:userId")
     fun getPetRegister(
-    @Part("userId") userId: RequestBody
-    ):Call<PetResponseDto>
+    @Field("userId") userId: RequestBody
+    ):Call<petListResponseDTO>
 
 }

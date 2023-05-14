@@ -1,5 +1,6 @@
 package com.helpet.vector
 
+import android.content.Context
 import com.helpet.R
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,6 +9,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_vector_choice_pet.*
 import kotlinx.android.synthetic.main.custom_petlist_item.*
@@ -17,48 +19,51 @@ import retrofit2.Response
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.util.*
+import java.util.stream.IntStream.range
 import javax.security.auth.callback.Callback
 
 class VectorChoicePet : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vector_choice_pet)
+        // SharedPreferences 객체 생성
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        // 유저아이디 데이터 읽기
+        val value = sharedPreferences.getString("userId", "null")
 
-//유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
-        val userId = "qwer"
-        val textuser = userId.toRequestBody()
+        Log.d("value",value!!)
+
+        //유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
+        val textuser = value?.toRequestBody()
         val server3=  RetrofitApi2.retrofit2.create(GetPetService::class.java)
 
-        server3.getPetRegister(textuser).enqueue(object :retrofit2.Callback<PetResponseDto>{
+        server3.getPetRegister(textuser!!).enqueue(object :retrofit2.Callback<petListResponseDTO>{
             @RequiresApi(Build.VERSION_CODES.O)
-            override fun onResponse(call: Call<PetResponseDto?>?, response: Response<PetResponseDto?>){
+            override fun onResponse(call: Call<petListResponseDTO?>?, response: Response<petListResponseDTO?>){
                 Log.d("반려동물 리스트", "" + response.body().toString())
 
-                val statuspet = response.body()?.status
-                val imgpet = response.body()?.petList?.get(0)?.petImg
-                val imgpet2 = stringToBitmap(imgpet!!)
-                val namepet = response.body()?.petList?.get(0)?.petName
-                val speciespet = response.body()?.petList?.get(0)?.petSpecies
-                val agepet = response.body()?.petList?.get(0)?.petAge
-                val birthpet = response.body()?.petList?.get(0)?.petBirth
-                val genderpet = response.body()?.petList?.get(0)?.petGender
+                    val agepet = response.body()?.result?.get(0)?.petAge
+                    val birthpet = response.body()?.result?.get(0)?.petBirth
+                    val imgpet = response.body()?.result?.get(0)?.petImg
+//                    val imgpet2 = stringToBitmap(imgpet!!)
+                    val namepet = response.body()?.result?.get(0)?.petName
+    //              val statuspet = response.body()?.status
+    //              val genderpet = response.body()?.result?.get(i)?.petGender
+    //              val idxpet = response.body()?.result?.get(i)?.petIdx
+    //              val speciespet = response.body()?.result?.get(i)?.petSpecies
+    //              val useridpet = response.body()?.result?.get(i)?.userId
 
+//                    choicePet.setImageBitmap(imgpet2)
+                    choicePetName.text= namepet
+                    choicePetAge.text = agepet.toString()
+                    choicePetBirth.text = birthpet
             }
-            override fun onFailure(call: Call<PetResponseDto>, t: Throwable) {
+            override fun onFailure(call: Call<petListResponseDTO>, t: Throwable) {
                 Log.d("에러", t.message!!)
             }
         })
 
-
-
-
-        //반려동물 등록 후 가져온 데이터들 : 이미지 아직 안함
-//        val statuspet = intent.getStringExtra("statuspet")
-//        val namepet = intent.getStringExtra("namepet")
-//        val speciespet = intent.getStringExtra("speciespet")
-//        val agepet = intent.getIntExtra("agepet", 0)
-//        val birthpet = intent.getStringExtra("birthpet")
-//        val genderpet = intent.getStringExtra("genderpet")
 
         petRegister.setOnClickListener {
             val intent= Intent(this, PetRegisterActivity::class.java  )
