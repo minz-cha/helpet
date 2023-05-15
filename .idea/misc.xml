@@ -18,10 +18,14 @@
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/text_item.xml" value="0.1" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/text_item2.xml" value="0.1" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_calendar.xml" value="0.2604166666666667" />
-        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_home.xml" value="0.4" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_choice_my_pet.xml" value="0.1774262505344164" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_choice_mypet.xml" value="0.1774262505344164" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_choice_pet_species.xml" value="0.2" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_home.xml" value="0.264" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_hospital.xml" value="0.23489583333333333" />
-        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_main.xml" value="0.15364583333333334" />
-        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_pet_register.xml" value="0.2" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_main.xml" value="0.144" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_my_pet.xml" value="0.1774262505344164" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_pet_register.xml" value="0.25102880658436216" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_plan_memo.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_planlist.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_title.xml" value="0.1483539974348012" />
@@ -30,6 +34,7 @@
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_imageshow.xml" value="0.4" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_proceed.xml" value="0.176" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_result.xml" value="0.2" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/custom_petlist_item.xml" value="0.2039333048311244" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/find.xml" value="0.264" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_find_id.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_find_pw.xml" value="0.2604166666666667" />
@@ -37,8 +42,10 @@
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_hospital_list.xml" value="0.1" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_vector_main.xml" value="0.264" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/login.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/petlist_view.xml" value="0.17666666666666667" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/register.xml" value="0.2" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/menu/bottom_menu.xml" value="0.176" />
+        <entry key="..\:/Users/ellen/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/activity_list_item.xml" value="0.18298418127404875" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/fragment_find_id.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/MyApplication/app/src/main/res/layout/calendar.xml" value="0.16731517509727625" />

@@ -10,8 +10,11 @@ import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.helpet.R
 import com.helpet.vector.HomeActivity
+import kotlinx.android.synthetic.main.register.*
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -28,8 +31,8 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.login)
 
         val btn_login: Button = findViewById(R.id.btn_login)
-        val btn_register: Button = findViewById(R.id.btn_register)
-        val btn_find_id_pw: Button = findViewById(R.id.btn_find_id_pw)
+//        val btn_register: Button = findViewById(R.id.btn_register)
+//        val btn_find_id_pw: Button = findViewById(R.id.btn_find_id_pw)
         val checkbox_login: CheckBox = findViewById(R.id.checkbox_login)
         val userId: EditText = findViewById(R.id.edit_id)
         val password: EditText = findViewById(R.id.edit_pw)
@@ -42,8 +45,7 @@ class Login : AppCompatActivity() {
             val password = password.text.toString()
             Log.d("test", userId)
             Log.d("test", password)
-            val intent = Intent(applicationContext ,HomeActivity::class.java)
-            startActivity(intent)
+
 
             val server = RetrofitInterface.retrofit.create(LoginService::class.java)
 
@@ -51,9 +53,29 @@ class Login : AppCompatActivity() {
                 Callback<LogResponseDTO?> {
                 override fun onResponse(call: Call<LogResponseDTO?>?, response: Response<LogResponseDTO?>) {
                     val result = response.body()
+                    val success : Boolean? = response.body()?.success
+                    Log.d("retrofit 로그인 성공 유무", "${result}")
+                    if (success.toString() == "true") {
+                        val intent = Intent(applicationContext ,HomeActivity::class.java)
+                        startActivity(intent)
+
+                        // SharedPreferences에 userId 저장
+                        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("userId", userId) // 로그인한 userId를 저장
+
+                        // "로그인 유지" 옵션을 선택한 경우, 체크박스 상태를 저장
+                        val isLoginChecked = checkbox_login.isChecked
+                        editor.putBoolean("isLoginChecked", isLoginChecked)
+
+                        editor.apply()
+
+                    } else if (success.toString() == "false") {
+                        Toast.makeText(applicationContext, "아이디 혹은 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
+
+                    }
                     Log.d("retrofit 로그인", "${result}")
-//                    val intent = Intent(applicationContext ,HomeActivity::class.java)
-//                    startActivity(intent)
+
                 }
 
                 override fun onFailure(call: Call<LogResponseDTO?>?, t: Throwable) {
@@ -62,26 +84,21 @@ class Login : AppCompatActivity() {
                 }
             })
 
-
-            // 회원가입 버튼
-            btn_register.setOnClickListener {
-                Log.d("test","회원가입")
-                val intent = Intent(this, Register::class.java)
-                startActivity(intent)
-            }
-
-
-            //아이디 비번 찾기 버튼
-            btn_find_id_pw.setOnClickListener {
-                val intent = Intent(this, Find_idpw::class.java)
-                startActivity(intent)
-            }
-
-            //로그인 정보 저장 체크박스
-            checkbox_login.setOnCheckedChangeListener { button, isChecked ->
-                //로그인 정보 저장 코드
-            }
-
+//
+//            // 회원가입 버튼
+//            btn_register.setOnClickListener {
+//                Log.d("test","회원가입")
+//                val intent = Intent(this, Register::class.java)
+//                startActivity(intent)
+//            }
+//
+//
+//            //아이디 비번 찾기 버튼
+//            btn_find_id_pw.setOnClickListener {
+//                val intent = Intent(this, Find_idpw::class.java)
+//                startActivity(intent)
+//            }
+//
         }
 
 
@@ -122,5 +139,6 @@ interface LoginService{
         @Field("password") password: String
     ): Call<LogResponseDTO?>
 }
+
 
 
