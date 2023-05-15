@@ -5,6 +5,20 @@ import com.google.gson.annotations.SerializedName
 
 data class PetResponseDto(
     @SerializedName("status")
-    val status: String
+    val status: String,
+    @SerializedName("userId")
+    val userId: String,
+    @SerializedName("petImg")
+    val petImg: String,
+    @SerializedName("petSpecies")
+    val petSpecies: String,
+    @SerializedName("petName")
+    val petName: String,
+    @SerializedName("petAge")
+    val petAge: Int,
+    @SerializedName("petBirth")
+    val petBirth: String,
+    @SerializedName("petGender")
+    val petGender: String
 
 )

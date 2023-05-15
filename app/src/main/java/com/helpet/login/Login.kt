@@ -31,8 +31,8 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.login)
 
         val btn_login: Button = findViewById(R.id.btn_login)
-        val btn_register: Button = findViewById(R.id.btn_register)
-        val btn_find_id_pw: Button = findViewById(R.id.btn_find_id_pw)
+//        val btn_register: Button = findViewById(R.id.btn_register)
+//        val btn_find_id_pw: Button = findViewById(R.id.btn_find_id_pw)
         val checkbox_login: CheckBox = findViewById(R.id.checkbox_login)
         val userId: EditText = findViewById(R.id.edit_id)
         val password: EditText = findViewById(R.id.edit_pw)
@@ -84,21 +84,21 @@ class Login : AppCompatActivity() {
                 }
             })
 
-
-            // 회원가입 버튼
-            btn_register.setOnClickListener {
-                Log.d("test","회원가입")
-                val intent = Intent(this, Register::class.java)
-                startActivity(intent)
-            }
-
-
-            //아이디 비번 찾기 버튼
-            btn_find_id_pw.setOnClickListener {
-                val intent = Intent(this, Find_idpw::class.java)
-                startActivity(intent)
-            }
-
+//
+//            // 회원가입 버튼
+//            btn_register.setOnClickListener {
+//                Log.d("test","회원가입")
+//                val intent = Intent(this, Register::class.java)
+//                startActivity(intent)
+//            }
+//
+//
+//            //아이디 비번 찾기 버튼
+//            btn_find_id_pw.setOnClickListener {
+//                val intent = Intent(this, Find_idpw::class.java)
+//                startActivity(intent)
+//            }
+//
         }
 
 
