@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".vector.PetInfActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/back2"
+                android:backgroundTint="@color/white"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="우리 아이"
+                android:layout_marginLeft="10dp"
+                android:textSize="25dp"
+                android:padding="10dp"
+                android:textColor="#6C6C6C"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/round5">
+
+                <ImageView
+                    android:id="@+id/myPetImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/excat"
+                    android:padding="3dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/infName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="꼬깜이"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:id="@+id/infAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="6세"/>
+                    <TextView
+                        android:id="@+id/infGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="남"/>
+                    <TextView
+                        android:id="@+id/infBirth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2017.03.18"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="진단 기록"
+                android:textColor="@color/black"
+                android:textSize="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/vectorInfL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:padding="10dp">
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/vectorSubL"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/vectorInfDate"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="2022.12.28"-->
+<!--                        android:textSize="17dp"-->
+<!--                        android:textColor="#2E2E2E"/>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/vectorInfName"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="결막염"-->
+<!--                        android:textColor="#474747"-->
+<!--                        android:textSize="17dp"/>-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/vectorInfProb"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="확률: 90.0%"-->
+<!--                        android:textColor="#474747"-->
+<!--                        android:textSize="17dp" />-->
+
+
+<!--                </LinearLayout>-->
+
+
+   </LinearLayout>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</ScrollView>

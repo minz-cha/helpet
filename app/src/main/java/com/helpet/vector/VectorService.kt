@@ -12,7 +12,7 @@ import java.net.URI.create
 //강아지 눈진단
 interface VectorService {
     @Multipart
-    @POST("/api/dog/eye")
+    @POST("/api/diagnosis/dog/eye")
     fun vectorResult(
         @Part postImg: MultipartBody.Part,
 //        @Part("date") date: RequestBody,
@@ -24,7 +24,7 @@ interface VectorService {
 //고양이 눈 진단
 interface catVectorService {
     @Multipart
-    @POST("/api/cat/eye")
+    @POST("/api/diagnosis/cat/eye")
     fun catvectorResult(
         @Part postImg: MultipartBody.Part,
 //        @Part("date") date: RequestBody,
@@ -62,14 +62,6 @@ interface PetService {
     ):Call<PetResponseDto>
 }
 
-//    status: 성공 실패 여부
-//    petImg: 반려동물 사진
-//    petSpecies: 반려동물 종(강아지/ 고양이)
-//    petName : 이름
-//    petAge : 나이
-//    petBirth : 생일 (YYYYMMDD형식)
-//    petGender: 남자 여자
-
 //사용자가 가지고있는 반려동물 리스트 받아오는 요청
 interface GetPetService{
     @FormUrlEncoded
@@ -79,5 +71,30 @@ interface GetPetService{
     fun getPetRegister(
     @Field("userId") userId: String
     ):Call<petListResponseDTO>
+}
 
+//진단 결과 저장하는 요청
+interface VectResultService{
+    @Multipart
+    @POST("")
+    fun vectResultService(
+        @Part("userId") userId: String,
+        @Part("petName") petName: String,
+//        @Part("vectImg") vectImg : String,
+        @Part("vectDate") vectDate :String,
+        @Part("vectName") vectName :String,
+        @Part("vectProb") vectProb :Double,
+        @Part("vectContent") vectContent :String
+
+    ):Call<VectResultResponseDTO>
+}
+
+//진단 결과 마이펫에서 불러오는 요청
+interface MyPetVectService{
+    @FormUrlEncoded
+    @POST("")
+    fun myPetService(
+        @Part("userId") userId: String,
+        @Part("petName") petName: String,
+    ):Call<MpVectResponseDTO>
 }

@@ -24,11 +24,6 @@ class HomeActivity : AppCompatActivity() {
 
         getHashKey()
 
-        hospital.setOnClickListener {
-            val intent =Intent(this, HospitalActivity::class.java)
-            startActivity(intent)
-        }
-
 //        btn_login.setOnClickListener {
 //            val intent=Intent(this, Login::class.java)
 //            startActivity(intent)
@@ -52,6 +47,14 @@ class HomeActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.fl_container, calFragment).commit()
                     }*/
+                    R.id.myPet -> {
+                        val mainVectorFragment = ChoiceMyPetF()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fl_container, mainVectorFragment).commit()
+
+
+                    }
+
                 }
                 true
             }

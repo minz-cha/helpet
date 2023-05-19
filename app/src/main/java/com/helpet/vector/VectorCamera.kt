@@ -34,15 +34,15 @@ class VectorCamera : BaseActivity() {
     var name = ""
     var symptomProbability = 0.0
     var asymptomaticProbability = 0.0
-
+    var vectContent = ""
 
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
     val REQ_CAMERA=11
     val CROP_PICTURE = 2
 
-    val binding by lazy { ActivityVectorCameraBinding.inflate(LayoutInflater.from(applicationContext)) }
 
+    val binding by lazy { ActivityVectorCameraBinding.inflate(LayoutInflater.from(applicationContext)) }
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,6 @@ class VectorCamera : BaseActivity() {
         buttonVector.backgroundTintList = ColorStateList.valueOf(Color.LTGRAY) // 회색으로 설정
 
         requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
-
 
     }
 
@@ -199,10 +198,7 @@ class VectorCamera : BaseActivity() {
                     buttonVector.setOnClickListener {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
 
-                        //강아지인지 고양이인지
-                        val petSpecies = intent.getStringExtra("petSpecies")
-
-                        UpdatePhoto(SerialBitmap.translate(bitmap),this, petSpecies!!)
+                        UpdatePhoto(SerialBitmap.translate(bitmap),this)
                         buttonVector.isVisible=false
                         camSubLayout.isVisible=false
                         loadingLayout.isVisible=true
@@ -220,7 +216,15 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
 //    val service: VectorService = retrofit.create(VectorService::class.java)
 
 
-    fun UpdatePhoto(byteArray: ByteArray, context: Context, petSpecies:String) {
+    fun UpdatePhoto(byteArray: ByteArray, context: Context) {
+        //강아지인지 고양이인지
+        val petSpecies = intent.getStringExtra("speciespet")
+        Log.d("speciespet", petSpecies!!)
+        // SharedPreferences 객체 생성
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        // 유저아이디 데이터 읽기
+        val value = sharedPreferences?.getString("userId", "null")
+
         val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), byteArray)
         val multipartBody: MultipartBody.Part? =
             MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
@@ -234,9 +238,10 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
 //                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                     Log.d("레트로핏 결과2", "" + response.body().toString())
 
-                    name= response.body()?.name!!
-                    asymptomaticProbability= response.body()?.asymptomaticProbability!!
-                    symptomProbability=response.body()?.symptomProbability!!
+                    val name= response.body()?.name!!
+                    val asymptomaticProbability= response.body()?.asymptomaticProbability!!
+                    val symptomProbability=response.body()?.symptomProbability!!
+                    val vectContent = response.body()?.vectContent!!
                     // 다른 액티비티로 intent
                     val intent = Intent(context, VectorResult::class.java)
                     // 인텐트에 데이터 추가
@@ -244,12 +249,14 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                     intent.putExtra("symptomProbability",symptomProbability)
                     intent.putExtra("asymptomaticProbability",asymptomaticProbability )
                     intent.putExtra("vecImg",SerialBitmap.translate(bitmap) )
+                    intent.putExtra("vectContent", vectContent)
+                    intent.putExtra("value", value)
                     // 액티비티 시작
                     context.startActivity(intent)
                 }
 
                 override fun onFailure(call: Call<ResponseDto?>?, t: Throwable) {
-                    Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
                     Log.d("에러", t.message!!)
                 }
             })
@@ -264,6 +271,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
 //                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                     Log.d("레트로핏 결과2", "" + response.body().toString())
 
+
                     name= response.body()?.name!!
                     asymptomaticProbability= response.body()?.asymptomaticProbability!!
                     symptomProbability=response.body()?.symptomProbability!!
@@ -274,6 +282,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                     intent.putExtra("symptomProbability",symptomProbability)
                     intent.putExtra("asymptomaticProbability",asymptomaticProbability )
                     intent.putExtra("vecImg",SerialBitmap.translate(bitmap) )
+                    intent
                     // 액티비티 시작
                     context.startActivity(intent)
                 }
