@@ -1,15 +1,11 @@
 package com.helpet.vector
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 
-
-
-class MyPet : AppCompatActivity() {
+class MPVectorResult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.helpet.R.layout.activity_my_pet)
-
+        setContentView(R.layout.activity_mpvector_result)
     }
 }
-

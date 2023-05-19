@@ -30,6 +30,12 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="s">
         <activity
+            android:name=".MPVectorResult"
+            android:exported="false" />
+        <activity
+            android:name=".ChoiceMyPet"
+            android:exported="false" />
+        <activity
             android:name=".TitleActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
@@ -87,15 +93,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".vector.ChoicePetSpecies"
             android:exported="false" />
         <activity
-            android:name=".vector.ChoiceMypet"
+            android:name=".Hospital.HospitalActivity"
             android:exported="false" />
         <activity
-            android:name=".Hospital.HospitalActivity"
+            android:name=".vector.PetInfActivity"
             android:exported="false" />
 
         <provider

@@ -1,6 +1,5 @@
 package com.helpet.vector
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -10,9 +9,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.helpet.Hospital.HospitalActivity
 import com.helpet.R
-import com.helpet.calendar.CalendarMainFragment
 import com.helpet.login.Login
-import com.helpet.login.RetrofitInterface
 import kotlinx.android.synthetic.main.activity_home.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -27,11 +24,6 @@ class HomeActivity : AppCompatActivity() {
 
         getHashKey()
 
-        hospital.setOnClickListener {
-            val intent =Intent(this, HospitalActivity::class.java)
-            startActivity(intent)
-        }
-
 //        btn_login.setOnClickListener {
 //            val intent=Intent(this, Login::class.java)
 //            startActivity(intent)
@@ -44,17 +36,25 @@ class HomeActivity : AppCompatActivity() {
                     // 다른 프래그먼트 화면으로 이동하는 기능
                     R.id.home -> {
 
-//                      it.setIcon(R.drawable.homefull)
+//                        it.setIcon(R.drawable.homefull)
                         val mainVectorFragment = VectorMain()
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.fl_container, mainVectorFragment).commit()
 
                     }
-                    R.id.calender->{
-                        val calFragment = CalendarMainFragment()
+                    /*R.id.calender->{
+                        val calFragment = CalendarMain()
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.fl_container, calFragment).commit()
+                    }*/
+                    R.id.myPet -> {
+                        val mainVectorFragment = ChoiceMyPetF()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fl_container, mainVectorFragment).commit()
+
+
                     }
+
                 }
                 true
             }

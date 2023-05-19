@@ -8,5 +8,7 @@ data class ResponseDto(
     @SerializedName("asymptomaticProbability")
     val asymptomaticProbability: Double,
     @SerializedName("symptomProbability")
-    val symptomProbability: Double
+    val symptomProbability: Double,
+    @SerializedName("vectContent")
+    val vectContent : String,
 )

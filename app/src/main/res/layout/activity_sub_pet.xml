@@ -32,7 +32,6 @@
                         android:id="@+id/choicePetName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="몽이"
                         android:textSize="18dp"
                         android:textStyle="bold"/>
                     <TextView
@@ -40,14 +39,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="5세"
                         android:textSize="13dp" />
                     <TextView
                         android:id="@+id/choicePetBirth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="알레르기 유무 등"
                         android:textSize="13dp" />
                 </LinearLayout>
 
