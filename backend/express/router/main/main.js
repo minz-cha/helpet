@@ -10,7 +10,7 @@ var authRouter = require('../lib_login/auth');
 var authCheck = require('../lib_login/authCheck.js');
 var calendarRouter = require('../calendar/calendar');
 var communityRouter = require('../community/community');
-var petRouter = require('../pet/petRegister');
+var petRouter = require('../pet/mypet');
 
 app.use('/static', express.static('static'))
 app.use(express.urlencoded({

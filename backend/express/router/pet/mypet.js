@@ -5,7 +5,7 @@ var db = require('../../db');
 db.connect();
 
 // 반려동물 홈화면
-router.post('/test', function (req, res) {
+router.post('/', function (req, res) {
     var userId = req.body.userId;
 
     db.query('SELECT * FROM pet WHERE userId = ?', [userId], function (error, result) {
@@ -70,5 +70,23 @@ router.post('/delete', (req, res) => {
     })
 })
 
+//진단결과 리스트 조회 (진단리스트 홈화면)
+router.post('/mypet-list', function (req, res) {
+    var userId = req.body.userId;
+    var petName = req.body.petName;
+
+    db.query('select pet.petName, pet.petAge, pet.petBirth, diag_pet.vectDate, diag_pet.vectName, diag_pet.vectProb from pet join diag_pet on pet.petIdx = diag_pet.petIdx where pet.userId = ?, pet.petName = ?; ', [userId, petName], function (error, result) {
+        if (error) throw error;
+        res.json({
+            status: "success",
+            result: result
+        })
+        if (db.state === 'connected') {
+            // 연결 종료
+            db.end();
+        }
+    })
+
+})
 
 module.exports = router;
