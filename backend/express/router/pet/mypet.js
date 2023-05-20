@@ -68,6 +68,36 @@ router.post('/delete', (req, res) => {
     })
 })
 
+//진단결과 저장
+router.post('/list-save', function (req, res) {
+    var userId = req.body.userId;
+    var petName = req.body.petName;
+    var vectImg = req.body.vectImg;
+    var vectDate = req.body.vectDate;
+    var vectName = req.body.vectName;
+    var vectProb = req.body.vectProb;
+    var vectContent = req.body.vectContent;
+
+    db.query('select petIdx from pet where userId = ? and petName = ?', [userId, petName], function (error, result) {
+        if (error) {
+            return res.status(500).json({ error: error.message });
+        }
+        if (result.length === 0) {
+            return res.status(404).json({ message: "No results found." });
+        }
+        const petIdx = result[0].petIdx;
+
+        db.query('INSERT INTO diag_pet(diagIdx, petIdx, vectImg, vectDate, vectName, vectProb, vectContent) VALUES (?,?,?,?,?,?,?)', [null, petIdx, vectImg, vectDate, vectName, vectProb, vectContent], function (error, result) {
+            if (error) {
+                return res.status(500).json({ error: error.message });
+            }
+            res.json({
+                status: "success"
+            })
+        })
+    })
+})
+
 //진단결과 리스트 조회 (진단리스트 홈화면)
 router.post('/mypet-list', function (req, res) {
     var userId = req.body.userId;
