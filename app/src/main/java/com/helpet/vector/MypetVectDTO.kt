@@ -3,7 +3,7 @@ package com.helpet.vector
 
 import com.google.gson.annotations.SerializedName
 
-data class MpVectResponseDTO(
+data class MypetVectDTO(
     @SerializedName("petAge")
     val petAge: Int,
     @SerializedName("petBirth")
@@ -11,5 +11,7 @@ data class MpVectResponseDTO(
     @SerializedName("petName")
     val petName: String,
     @SerializedName("result")
-    val result: List<ResultX>
+    val result: List<ResultXX>,
+    @SerializedName("status")
+    val status: String
 )

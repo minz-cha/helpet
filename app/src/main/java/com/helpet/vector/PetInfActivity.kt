@@ -11,16 +11,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import com.helpet.R
+import kotlinx.android.synthetic.main.activity_mpvector_result.*
 import kotlinx.android.synthetic.main.activity_pet_inf.*
-import kotlinx.android.synthetic.main.activity_pet_inf.back
-import kotlinx.android.synthetic.main.activity_pet_register.*
-import kotlinx.android.synthetic.main.activity_vector_choice_pet.*
 import retrofit2.Call
 import retrofit2.Response
 import java.io.ByteArrayInputStream
@@ -57,7 +53,7 @@ class PetInfActivity : AppCompatActivity() {
 
         Log.d("value",value!!)
 
-        back.setOnClickListener {
+        mpBack.setOnClickListener {
             val intent = Intent(this, ChoiceMyPetF::class.java)
             startActivity(intent)
         }
@@ -65,19 +61,26 @@ class PetInfActivity : AppCompatActivity() {
 
         //유저가 이미 저장해둔 반려동물 진단기록 정가져오는 데이터 값들
         val userId = value.toString()
-
+        Log.d("ellen", userId)
+        val petName = name.toString()
+        Log.d("몽이", petName)
         val mpserver=  RetrofitApi2.retrofit2.create(MyPetVectService::class.java)
 
-        mpserver.myPetService(name,userId).enqueue(object :retrofit2.Callback<MpVectResponseDTO>{
+
+        mpserver.myPetService(userId, petName).enqueue(object :retrofit2.Callback<MypetVectDTO>{
             @SuppressLint("SetTextI18n")
             @RequiresApi(Build.VERSION_CODES.O)
-            override fun onResponse(call: Call<MpVectResponseDTO?>?, response: Response<MpVectResponseDTO?>){
+            override fun onResponse(call: Call<MypetVectDTO?>?, response: Response<MypetVectDTO?>){
                 Log.d("진단기록 리스트", "" + response.body().toString())
-                Log.d("개수", response.body()?.result?.size!!.toString())
+//                Log.d("개수", response.body()?.result?.size!!.toString())
 
                 val petname = response.body()?.petName
+//                Log.d("petname", petname!!)
+
                 val petage = response.body()?.petAge
+//                Log.d("petage", petage.toString())
                 val petbirth = response.body()?.petBirth
+//                Log.d("petbirth", petbirth!!)
                 // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
                 for (i in 0 until (response.body()?.result?.size!!)) {
 
@@ -90,16 +93,11 @@ class PetInfActivity : AppCompatActivity() {
 
                 }
             }
-            override fun onFailure(call: Call<MpVectResponseDTO>, t: Throwable) {
+            override fun onFailure(call: Call<MypetVectDTO>, t: Throwable) {
                 Log.d("에러", t.message!!)
             }
         })
 
-
-        petRegister.setOnClickListener {
-            val intent= Intent(this, PetRegisterActivity::class.java  )
-            startActivity(intent)
-        }
 
 
     }
@@ -129,6 +127,8 @@ class PetInfActivity : AppCompatActivity() {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.activity_vect_sub_layout, null) as LinearLayout
 
+
+        Log.d("vectprob", vectprob.toString())
         val vectinfdate = layout.findViewById<TextView>(R.id.vectorInfDate)
         val vectinfname = layout.findViewById<TextView>(R.id.vectorInfName)
         val vectinfprob = layout.findViewById<TextView>(R.id.vectorInfProb)
@@ -136,7 +136,7 @@ class PetInfActivity : AppCompatActivity() {
         // 설정할 내용들을 직접 지정해주세요.
         vectinfdate.text = vectdate
         vectinfname.text = vectname
-        vectinfprob.text = "확률: $vectinfprob"
+        vectinfprob.text = "확률: $vectprob"
 
         layout.setOnClickListener {
             val intent = Intent(this, MPVectorResult::class.java)

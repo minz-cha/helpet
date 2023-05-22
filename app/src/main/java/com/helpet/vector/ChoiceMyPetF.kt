@@ -33,7 +33,6 @@ class ChoiceMyPetF : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -135,7 +134,7 @@ class ChoiceMyPetF : Fragment() {
         mychoicePet.setPadding(0, 0, 0, 0)
 
         layout.setOnClickListener {
-            val intent = Intent(requireContext(), PetInfActivity::class.java)
+            val intent = Intent(context, PetInfActivity::class.java)
             intent.putExtra("namepet", namepet)
             intent.putExtra("agepet", agepet)
             intent.putExtra("birthpet", birthpet)
