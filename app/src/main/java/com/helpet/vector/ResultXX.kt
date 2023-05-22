@@ -3,7 +3,7 @@ package com.helpet.vector
 
 import com.google.gson.annotations.SerializedName
 
-data class ResultX(
+data class ResultXX(
     @SerializedName("vectDate")
     val vectDate: String,
     @SerializedName("vectName")

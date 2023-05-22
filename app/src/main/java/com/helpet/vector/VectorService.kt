@@ -66,7 +66,7 @@ interface PetService {
 interface GetPetService{
     @FormUrlEncoded
 //    @POST("/api/:userId")
-    @POST("/api/pet/test")
+    @POST("/api/pet")
 
     fun getPetRegister(
     @Field("userId") userId: String
@@ -92,9 +92,9 @@ interface VectResultService{
 //진단 결과 마이펫에서 불러오는 요청
 interface MyPetVectService{
     @FormUrlEncoded
-    @POST("")
+    @POST("/api/pet/mypet-list")
     fun myPetService(
-        @Part("userId") userId: String,
-        @Part("petName") petName: String,
-    ):Call<MpVectResponseDTO>
+        @Field("userId") userId: String,
+        @Field("petName") petName: String,
+    ):Call<MypetVectDTO>
 }
