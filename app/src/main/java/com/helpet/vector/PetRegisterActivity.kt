@@ -40,8 +40,6 @@ import kotlin.math.log
 
 
 class PetRegisterActivity : BaseActivity() {
-    var petSpecies = ""
-    var petGender = ""
 
 //    @Part("petImg") petImg: RequestBody,
 //    @Part("userId") userId: RequestBody,
@@ -51,6 +49,12 @@ class PetRegisterActivity : BaseActivity() {
 //    @Part("petBirth") petBirth: RequestBody,
 //    @Part("petGender") petGender: RequestBody
 
+    var speciespet = ""
+    private set
+    var genderpet = ""
+    private set
+
+
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
     val REQ_CAMERA=11
@@ -58,28 +62,33 @@ class PetRegisterActivity : BaseActivity() {
 
     val binding by lazy { ActivityVectorCameraBinding.inflate(LayoutInflater.from(applicationContext)) }
 
+
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_register)
-        requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
+
 
         choiceDog.setOnClickListener {
-            petSpecies = "강아지"
+            choiceDog.setImageResource(R.drawable.choicedog)
+            speciespet = "강아지"
         }
         choiceCat.setOnClickListener {
-            petSpecies = "고양이"
+            speciespet = "고양이"
         }
-        Log.d("petSpecies", petSpecies)
+        Log.d("petSpecies", speciespet)
+
 
 
         genderBoy.setOnClickListener {
-            petGender = "남자"
+            genderpet = "남자"
         }
         genderGirl.setOnClickListener {
-            petGender = "여자"
+            genderpet = "여자"
         }
-        Log.d("petGender", petGender)
+        Log.d("petGender", genderpet)
+        requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
 
         registerBack.setOnClickListener {
             val intent = Intent(this, VectorChoicePet::class.java)
@@ -209,7 +218,7 @@ class PetRegisterActivity : BaseActivity() {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
                         val imgString = bitmapToString(bitmap)
                         Log.d("imgString", imgString!!)
-                        UpdatePhoto(imgString!!,this, petSpecies, petGender )
+                        UpdatePet(imgString!!,this )
                     }
                 }
             }
@@ -218,7 +227,7 @@ class PetRegisterActivity : BaseActivity() {
 
     private val server2=  RetrofitApi2.retrofit2.create(PetService::class.java)
 
-    fun UpdatePhoto(imgString: String, context: Context, petSpecies:String, petGender:String) {
+    fun UpdatePet(imgString: String, context: Context) {
 //        val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), imgString)
 //        val multipartBody: MultipartBody.Part? =
 //            MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
@@ -228,25 +237,37 @@ class PetRegisterActivity : BaseActivity() {
         // 유저아이디 데이터 읽기
         val value = sharedPreferences.getString("userId", "null")
 
-        val imgpet = imgString.toRequestBody(mediaType)
-        val textuserId = value?.toRequestBody(mediaType)
-        val textSpecies = petSpecies.toRequestBody(mediaType)
-        val petName: String = petName.text.toString()
-        val textName = petName.toRequestBody(mediaType)
-        val petAge: String = petAge.text.toString()
-        val textAge = petAge.toRequestBody(mediaType)
-        val petBirth: String = petBirth.text.toString()
-        val textBirth= petBirth.toRequestBody(mediaType)
-        val textGender = petGender.toRequestBody(mediaType)
-        Log.d("등록", imgpet.toString())
-        Log.d("등록", textuserId.toString())
-        Log.d("등록", textSpecies.toString())
-        Log.d("등록", textName.toString())
-        Log.d("등록", textAge.toString())
-        Log.d("등록", textBirth.toString())
-        Log.d("등록", textGender.toString())
+//        val petImg = imgString.toRequestBody(mediaType)
+//        val userId = value?.toRequestBody(mediaType)
+//        Log.d("userid", userId.toString())
+//        val petSpecies = speciespet.toRequestBody(mediaType)
+//        val namepet: String = petName.text.toString()
+//        val petName = namepet.toRequestBody(mediaType)
+//        val textAge: String = petAge.text.toString()
+//        val petAge = textAge.toRequestBody(mediaType)
+//        val textBirth: String = petBirth.text.toString()
+//        val petBirth= textBirth.toRequestBody(mediaType)
+//        val petGender = genderpet.toRequestBody(mediaType)
+        val petImg = imgString.toString()
+        val userId = value.toString()
+        val petSpecies = speciespet
+        val namepet: String = petName.text.toString()
+        val petName = namepet
+        val textAge: String = petAge.text.toString()
+        val petAge = textAge
+        val textBirth: String = petBirth.text.toString()
+        val petBirth= textBirth
+        val petGender = genderpet
+        Log.d("등록", value!!)
+        Log.d("등록", speciespet)
+        Log.d("등록", namepet)
+        Log.d("등록", textAge)
+        Log.d("등록", textBirth)
+        Log.d("등록", genderpet)
 
-        server2.PetRegister(imgpet,textuserId!!,textSpecies,textName,textAge,textBirth,textGender).enqueue(object :
+
+
+        server2.PetRegister(userId,petSpecies,petName,petAge,petBirth,petGender).enqueue(object :
             Callback<PetResponseDto?> {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(call: Call<PetResponseDto?>?, response: Response<PetResponseDto?>) {

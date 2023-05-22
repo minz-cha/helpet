@@ -7,10 +7,41 @@
     android:orientation="vertical"
     android:background="@color/white">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/helpetImg"
+                android:layout_width="134dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="17dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/helpetlogo" />
+
+            <ImageButton
+                android:id="@+id/hospital"
+                android:layout_width="20dp"
+                android:layout_height="37dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="168dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/helpetImg"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/hospitalhome" />
+        </RelativeLayout>
 
     <ImageButton
         android:id="@+id/vector_eye"

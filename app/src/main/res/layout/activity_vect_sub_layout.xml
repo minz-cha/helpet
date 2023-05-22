@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/vectorSubL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/round6">
+        <TextView
+            android:id="@+id/vectorInfDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="2022.12.28"
+            android:textSize="17dp"
+            android:textColor="#2E2E2E"/>
+
+        <TextView
+            android:id="@+id/vectorInfName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="결막염"
+            android:textColor="#474747"
+            android:textSize="17dp"/>
+        <TextView
+            android:id="@+id/vectorInfProb"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="확률: 90.0%"
+            android:textColor="#474747"
+            android:textSize="17dp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

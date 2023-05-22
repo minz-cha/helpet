@@ -34,15 +34,15 @@ class VectorCamera : BaseActivity() {
     var name = ""
     var symptomProbability = 0.0
     var asymptomaticProbability = 0.0
-
+    var vectContent = ""
 
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
     val REQ_CAMERA=11
     val CROP_PICTURE = 2
 
-    val binding by lazy { ActivityVectorCameraBinding.inflate(LayoutInflater.from(applicationContext)) }
 
+    val binding by lazy { ActivityVectorCameraBinding.inflate(LayoutInflater.from(applicationContext)) }
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +51,7 @@ class VectorCamera : BaseActivity() {
         buttonVector.backgroundTintList = ColorStateList.valueOf(Color.LTGRAY) // 회색으로 설정
 
         requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -196,6 +197,7 @@ class VectorCamera : BaseActivity() {
 
                     buttonVector.setOnClickListener {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
+
                         UpdatePhoto(SerialBitmap.translate(bitmap),this)
                         buttonVector.isVisible=false
                         camSubLayout.isVisible=false
@@ -210,34 +212,87 @@ class VectorCamera : BaseActivity() {
 private val server: VectorService by lazy {
     RetrofitApi.retrofit.create(VectorService::class.java) }
 
+private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
+//    val service: VectorService = retrofit.create(VectorService::class.java)
+
+
     fun UpdatePhoto(byteArray: ByteArray, context: Context) {
+        //강아지인지 고양이인지
+        val petSpecies = intent.getStringExtra("speciespet")
+        Log.d("speciespet", petSpecies!!)
+        // SharedPreferences 객체 생성
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        // 유저아이디 데이터 읽기
+        val value = sharedPreferences?.getString("userId", "null")
+
         val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), byteArray)
         val multipartBody: MultipartBody.Part? =
             MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
-        server.vectorResult(multipartBody!!).enqueue(object : Callback<ResponseDto?> {
-            override fun onResponse(call: Call<ResponseDto?>?, response: Response<ResponseDto?>) {
+
+        //만약 강아지 눈진단이면 if문 활용
+
+        if (petSpecies == "강아지"){
+            server.vectorResult(multipartBody!!).enqueue(object : Callback<ResponseDto?> {
+                override fun onResponse(call: Call<ResponseDto?>?, response: Response<ResponseDto?>) {
 //                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
-                Log.d("레트로핏 결과2", "" + response.body().toString())
+                    Log.d("레트로핏 결과2", "" + response.body().toString())
 
-                name= response.body()?.name!!
-                asymptomaticProbability= response.body()?.asymptomaticProbability!!
-                symptomProbability=response.body()?.symptomProbability!!
-                // 다른 액티비티로 intent
-                val intent = Intent(context, VectorResult::class.java)
-                // 인텐트에 데이터 추가
-                intent.putExtra("name", name)
-                intent.putExtra("symptomProbability",symptomProbability)
-                intent.putExtra("asymptomaticProbability",asymptomaticProbability )
-                intent.putExtra("vecImg",SerialBitmap.translate(bitmap) )
-                // 액티비티 시작
-                context.startActivity(intent)
-            }
+                    val name= response.body()?.name!!
+                    val asymptomaticProbability= response.body()?.asymptomaticProbability!!
+                    val symptomProbability=response.body()?.symptomProbability!!
+                    val vectContent = response.body()?.vectContent!!
+                    // 다른 액티비티로 intent
+                    val intent = Intent(context, VectorResult::class.java)
+                    // 인텐트에 데이터 추가
+                    intent.putExtra("name", name)
+                    intent.putExtra("symptomProbability",symptomProbability)
+                    intent.putExtra("asymptomaticProbability",asymptomaticProbability )
+                    intent.putExtra("vecImg",SerialBitmap.translate(bitmap) )
+                    intent.putExtra("vectContent", vectContent)
+                    intent.putExtra("value", value)
+                    // 액티비티 시작
+                    context.startActivity(intent)
+                }
 
-            override fun onFailure(call: Call<ResponseDto?>?, t: Throwable) {
-                Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
-                Log.d("에러", t.message!!)
-            }
-        })
+                override fun onFailure(call: Call<ResponseDto?>?, t: Throwable) {
+//                    Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
+                    Log.d("에러", t.message!!)
+                }
+            })
+        }
+
+        //고양이 눈 진단 하면
+
+        else if (petSpecies == "고양이"){
+
+            server2.catvectorResult(multipartBody!!).enqueue(object : Callback<ResponseDto?> {
+                override fun onResponse(call: Call<ResponseDto?>?, response: Response<ResponseDto?>) {
+//                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
+                    Log.d("레트로핏 결과2", "" + response.body().toString())
+
+
+                    name= response.body()?.name!!
+                    asymptomaticProbability= response.body()?.asymptomaticProbability!!
+                    symptomProbability=response.body()?.symptomProbability!!
+                    // 다른 액티비티로 intent
+                    val intent = Intent(context, VectorResult::class.java)
+                    // 인텐트에 데이터 추가
+                    intent.putExtra("name", name)
+                    intent.putExtra("symptomProbability",symptomProbability)
+                    intent.putExtra("asymptomaticProbability",asymptomaticProbability )
+                    intent.putExtra("vecImg",SerialBitmap.translate(bitmap) )
+                    intent
+                    // 액티비티 시작
+                    context.startActivity(intent)
+                }
+
+                override fun onFailure(call: Call<ResponseDto?>?, t: Throwable) {
+                    Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
+                    Log.d("에러", t.message!!)
+                }
+            })
+        }
+
     }
 }

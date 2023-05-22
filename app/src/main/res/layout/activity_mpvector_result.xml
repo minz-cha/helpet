@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".vector.MPVectorResult"
+    android:orientation="vertical"
+    android:background="#F6F6F6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/mpBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/back2"
+                    android:backgroundTint="#F6F6F6" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="진단기록"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="20dp"
+                    android:padding="10dp"
+                    android:textColor="#6C6C6C"/>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/mpVectTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="안구 체크 결과: "
+                android:textSize="25dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="5dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/round2"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/mpVectSubT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="10dp"
+                    android:text="꼬깜이의 눈은 꼼꼼한 관리가 필요해요!"
+                    android:textColor="#373737"
+                    android:textFontWeight="700"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:id="@+id/mpVectCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#373737"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="동물병원 방문을 추천드려요"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mpresultLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round4"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/mpvectorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="진단명"
+                    android:textColor="#515151"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/mpresultImg"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp" />
+                    <ProgressBar
+                        android:id="@+id/mpvectorResultPro"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="15dp"
+                        android:rotation="270"
+                        android:progress="0"
+                        android:max="100"
+                        android:layout_marginTop="5dp"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                    <!--                                style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:text="90% "
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        android:textColor="#EE7975"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/progressText" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/mpVectorDate"
+                            android:textSize="14dp"
+                            android:text="진단날짜"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="38dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+
+                    android:src="@drawable/vectorexp"
+                    android:textColor="@color/black"
+                    android:gravity="left"/>
+                <TextView
+                    android:id="@+id/mpvectorContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="내용~"
+                    android:textSize="14dp"
+                    android:textColor="#2C2C2C"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>

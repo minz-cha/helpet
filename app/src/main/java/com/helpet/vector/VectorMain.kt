@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import com.helpet.Hospital.HospitalActivity
 import kotlinx.android.synthetic.main.fragment_vector_main.*
 
 
@@ -21,15 +22,19 @@ class VectorMain : Fragment(), View.OnClickListener {
     //private lateinit var binding: FragmentVectorMainBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-//        cam_guide.paintFlags=Paint.UNDERLINE_TEXT_FLAG
         val root: View = inflater.inflate(R.layout.fragment_vector_main, container, false)
-//        vectorText.setTextColor(Color.WHITE)
 
-//        val skinBtn = root.findViewById(R.id.vector_eye) as ImageButton
         val eyeBtn = root.findViewById<ImageButton>(R.id.vector_eye)
-//        vector_eye.setColorFilter(Color.parseColor("#BDBDBD"), PorterDuff.Mode.SRC_OVER)
-//        skinBtn.setOnClickListener(this)
         eyeBtn.setOnClickListener (this)
+
+        val hospital1 = root.findViewById<ImageButton>(R.id.hospital)
+
+
+
+        hospital1.setOnClickListener {
+            val intent = Intent(requireContext(), HospitalActivity::class.java)
+            startActivity(intent)
+        }
 
         return root
     }
@@ -46,6 +51,7 @@ class VectorMain : Fragment(), View.OnClickListener {
 //                val intent =Intent(activity, VectorChoicePet::class.java)
 //                startActivity(intent)
 //            }
+
         }
     }
 }
