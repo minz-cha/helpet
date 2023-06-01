@@ -14,14 +14,15 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:text="일정 추가"
-        android:textColor="@color/black"
+        android:text="일정추가"
         android:textSize="25dp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tvplus"
+        android:layout_marginTop="15dp"
+        android:background="#747272" />
 
     <TextView
         android:id="@+id/tvtodayDate"
@@ -33,6 +34,8 @@
         android:layout_marginTop="30dp"
         android:text="YYYY.MM.DD"
         android:textSize="20dp" />
+    // Date 자리엔 달력에서 누른 해당 날짜가 나와야함
+
 
     <EditText
         android:id="@+id/edtTitle"
@@ -58,7 +61,7 @@
         android:hint="계획을 작성해주세요"
         android:textSize="15dp" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btnSave"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -66,7 +69,7 @@
         android:layout_marginBottom="100dp"
         android:background="@drawable/ic_baseline_check_24" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btnClose"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -74,4 +77,10 @@
         android:layout_marginBottom="100dp"
         android:background="@drawable/ic_baseline_close_24" />
 
+
+
+
+
+    //COMPLETE 버튼을 누르면 세부계획 PLAN, 완료 시간 까지 리스트에 연결
+    -> 여기서 타이머를 정지시키지 않으면 COMPLETE 할수없으니 토스트메시지로 타이머 정지하라는 경고
 </RelativeLayout>

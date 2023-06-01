@@ -5,13 +5,13 @@
       <map>
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.1" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1" />
-        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_calendar.xml" value="0.11944444444444445" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_calendar.xml" value="0.2" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_calendar_main.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_calendarmain.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_home.xml" value="0.136" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_main.xml" value="0.109375" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_pet_register.xml" value="0.20208333333333334" />
-        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_plan_memo.xml" value="0.11944444444444445" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_plan_memo.xml" value="0.176" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_planlist.xml" value="0.11944444444444445" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_title.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_vector_camera.xml" value="0.152" />
@@ -19,6 +19,7 @@
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/activity_vector_result.xml" value="0.1" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/calendar.xml" value="0.264" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/find.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/fragment_calendar_main.xml" value="0.1" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/fragment_calendar_memo.xml" value="0.1" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/fragment_find_id.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/kkmin/AndroidStudioProjects/HelPET/app/src/main/res/layout/fragment_vector_main.xml" value="0.24895833333333334" />
