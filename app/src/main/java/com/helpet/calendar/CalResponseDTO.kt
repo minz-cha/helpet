@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 //일정 추가 시, 저장 요청
 data class CalendarPlanResultDTO(
-    @SerializedName("success")
-    val success: Boolean,
+    @SerializedName("status")
+    val status: String,
     @SerializedName("message")
     val message: String
 )
@@ -18,8 +18,6 @@ data class CalendarPlanDTO(
     val userId: String,
     @SerializedName("date")
     val date: String,
-    @SerializedName("month")
-    val month: Int,
     @SerializedName("title")
     val title: String,
     @SerializedName("description")
@@ -28,8 +26,10 @@ data class CalendarPlanDTO(
 
 //월별 일정 정보 DTO
 data class MonthlyScheduleDTO(
-    @SerializedName("success")
-    val success: Boolean,
+    @SerializedName("status")
+    val status: String,
+    @SerializedName("month")
+    val month: Int,
     @SerializedName("result")
     val result: List<CalendarPlanDTO>
 )

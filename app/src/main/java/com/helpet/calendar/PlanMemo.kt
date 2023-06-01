@@ -77,15 +77,17 @@ class PlanMemo : AppCompatActivity() {
                     response: Response<CalendarPlanResultDTO?>
                 ) {
                     val result = response.body()
-                    val success: Boolean? = response.body()?.success
+                    val status = response.body()?.status
+                    Log.d("status", status!!)
+
                     Log.d("retrofit 서버 요청 성공여부", "${result}")
-                    if (success.toString() == "true") {
+                    if (status.toString() == "success") {
                         val intent = Intent()
                         intent.putExtra("title", title)
                         setResult(RESULT_OK, intent)
                         finish()
 
-                    } else if (success.toString() == "false") {
+                    } else {
                         Toast.makeText(
                             applicationContext,
                             "저장 실패",
@@ -118,7 +120,7 @@ class PlanMemo : AppCompatActivity() {
 
 interface CalendarService {
     @FormUrlEncoded
-    @POST("auth/calendar/add")
+    @POST("calendar/add")
     fun CalendarResult(
         @Field("date") date: String?,
         @Field("userId") userId: String,

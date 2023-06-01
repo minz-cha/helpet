@@ -59,17 +59,14 @@ class CalendarMainFragment : Fragment() {
         binding.calendarRecyclerview.layoutManager = LinearLayoutManager(requireContext())
 
         val calendar = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("MM월 dd일", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
         val currentDate = dateFormat.format(calendar.time)
 
         //서버로부터 날짜 불러오기
-        fun fetchMonthlySchedules(year: Int, month: Int) {
+        fun fetchMonthlySchedules() {
             val server = CalRetrofitInterface.retrofit.create(CalendarDateService::class.java)
-            server.getMonthlySchedule(year, month).enqueue(object : Callback<MonthlyScheduleDTO> {
-                override fun onResponse(
-                    call: retrofit2.Call<MonthlyScheduleDTO>?,
-                    response: Response<MonthlyScheduleDTO>
-                ) {
+            server.getMonthlySchedule(userId).enqueue(object : Callback<MonthlyScheduleDTO> {
+                override fun onResponse(call: Call<MonthlyScheduleDTO>?, response: Response<MonthlyScheduleDTO>) {
                     if (response.isSuccessful) {
                         val monthlyScheduleDTO = response.body()
                         val monthlySchedules = monthlyScheduleDTO?.result ?: emptyList()
@@ -88,8 +85,8 @@ class CalendarMainFragment : Fragment() {
         }
 
 
-        // 예시로 2023년 5월의 일정 데이터 요청
-        fetchMonthlySchedules(2023, 5)
+        //달력에 접속 요청
+        fetchMonthlySchedules()
 
         //당일 날짜
         binding.tvtodayDate.text = currentDate
@@ -124,7 +121,7 @@ class CalendarMainFragment : Fragment() {
             Log.d("log2", "ok")
 
             // RecyclerView에 데이터를 추가하는 로직을 구현
-            val plan = Schedule("","","", title!!, "","")
+            val plan = Schedule("","","", title!!,"")
             Log.d("log3", "ok")
             scheduleList.add(plan)
             Log.d("log4", "ok")
@@ -136,9 +133,9 @@ class CalendarMainFragment : Fragment() {
 }
 
 interface CalendarDateService {
-    @GET("api/calendar/monthly/{year}/{month}")
+    @FormUrlEncoded
+    @POST("api/calendar/")
     fun getMonthlySchedule(
-        @Path("year") year: Int,
-        @Path("month") month: Int
+        @Field("userId") userId: String
     ): Call<MonthlyScheduleDTO>
 }

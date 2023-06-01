@@ -86,8 +86,7 @@ class ScheduleAdapter(private val scheduleList: MutableList<Schedule>) :
                 userId = calendarPlan.userId,
                 date = calendarPlan.date,
                 title = calendarPlan.title,
-                description = calendarPlan.description,
-                month = calendarPlan.month.toString()
+                description = calendarPlan.description
             )
             scheduleList.add(schedule)
         }

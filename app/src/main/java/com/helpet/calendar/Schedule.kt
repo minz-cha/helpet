@@ -7,6 +7,6 @@ data class Schedule(
     val userId: String,
     val date: String?,
     val title: String,
-    val month: String,
+//    val month: String,
     val description: String
     ) : Serializable
