@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 //일정 추가 시, 저장 요청
 data class CalendarPlanResultDTO(
-    @SerializedName("message")
-    val message: String,
     @SerializedName("success")
-    val success: Boolean
+    val success: Boolean,
+    @SerializedName("message")
+    val message: String
 )
 
 //개별 일정 정보

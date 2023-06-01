@@ -64,10 +64,16 @@ class PlanMemo : AppCompatActivity() {
             //retrofit 서버 요청 _ date,userId,title,description
             val server = CalRetrofitInterface.retrofit.create(CalendarService::class.java)
 //            val schedule = Schedule(date, userId, title, description)
+            Log.d("일정 등록", date.toString())
+            Log.d("일정 등록", userId)
+            Log.d("일정 등록", title)
+            Log.d("일정 등록", description)
+
+
 
             server.CalendarResult(date, userId, title, description).enqueue(object : Callback<CalendarPlanResultDTO?> {
                 override fun onResponse(
-                    call: retrofit2.Call<CalendarPlanResultDTO?>?,
+                    call: Call<CalendarPlanResultDTO?>?,
                     response: Response<CalendarPlanResultDTO?>
                 ) {
                     val result = response.body()
