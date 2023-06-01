@@ -1,6 +1,39 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../../db');
+const multer = require("multer");
+const path = require('path');
+
+const formidable = require('formidable');
+const fs = require('fs');
+
+// 멀티파트 데이터를 처리하기 위한 multer 설정
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, 'uploads/'); // 업로드된 파일을 저장할 디렉토리
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, file.originalname); // 업로드된 파일의 원래 이름을 유지
+//     }
+// });
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        const fileName = `${path.basename(
+            file.originalname,
+            ext
+        )}_${Date.now()}${ext}`;
+        cb(null, fileName);
+    }
+});
+
+const limits = { fileSize: 5 * 1024 * 1024 };
+
+const upload = multer({ storage, limits });
 
 // 반려동물 홈화면
 router.post('/', function (req, res) {
@@ -21,29 +54,48 @@ router.post('/', function (req, res) {
     })
 })
 
-// 반려동물 등록
-router.post('/register', (req, res) => {
+router.post("/register", upload.single('petImg'), (req, res) => {
+    const file = req.file;
+
     var userId = req.body.userId;
-    var petImg = req.body.petImg;
+    var petImg = file.originalname;
     var petSpecies = req.body.petSpecies;
     var petName = req.body.petName;
     var petAge = req.body.petAge;
     var petBirth = req.body.petBirth;
     var petGender = req.body.petGender;
 
+    console.log(userId); // userId 출력
+    console.log(file); // 파일 정보 출력
+
     db.query('INSERT INTO pet (petIdx, userId, petImg, petSpecies, petName, petAge, petBirth, petGender) VALUES (?,?,?,?,?,?,?,?)', [null, userId, petImg, petSpecies, petName, petAge, petBirth, petGender], function (error, data) {
         if (error) {
             return res.status(500).json({ error: error.message });
         }
+
+        db.query('SELECT CONVERT(petImg USING utf8)  from pet where userId = ? and petName = ?', [userId, petName], function (error, result) {
+            if (error) {
+                return res.status(500).json({ error: error.message });
+            }
+            const petImg = result[0].petImg;
+        })
+
         res.json({
             status: "success",
+            userId: userId,
+            petImg: petImg,
+            petSpecies: petSpecies,
+            petName: petName,
+            petAge: petAge,
+            petBirth: petBirth,
+            petGender: petGender
         })
-        if (db.state === 'connected') {
-            // 연결 종료
-            // db.end();
-        }
+        // if (db.state === 'connected') {
+        //     // 연결 종료
+        //     // db.end();
+        // }
     })
-})
+});
 
 // 반려동물 삭제
 router.post('/delete', (req, res) => {

@@ -6,6 +6,17 @@ const bodyParser = require('body-parser');
 const FileStore = require('session-file-store')(session)
 const app = express()
 
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, 'uploads')
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, file.fieldname + '-' + Date.now())
+//     }
+// });
+
+// const upload = multer({ storage: storage })
+
 var authRouter = require('../lib_login/auth');
 var authCheck = require('../lib_login/authCheck.js');
 var calendarRouter = require('../calendar/calendar');
@@ -57,3 +68,4 @@ app.get('/main', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
