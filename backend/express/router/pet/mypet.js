@@ -7,16 +7,6 @@ const path = require('path');
 const formidable = require('formidable');
 const fs = require('fs');
 
-// 멀티파트 데이터를 처리하기 위한 multer 설정
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, 'uploads/'); // 업로드된 파일을 저장할 디렉토리
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, file.originalname); // 업로드된 파일의 원래 이름을 유지
-//     }
-// });
-
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/');
@@ -121,10 +111,12 @@ router.post('/delete', (req, res) => {
 })
 
 //진단결과 저장
-router.post('/list-save', function (req, res) {
+router.post("/list-save", upload.single('vectImg'), (req, res) => {
+    const file = req.file;
+
     var userId = req.body.userId;
     var petName = req.body.petName;
-    var vectImg = req.body.vectImg;
+    var vectImg = file.originalname;
     var vectDate = req.body.vectDate;
     var vectName = req.body.vectName;
     var vectProb = req.body.vectProb;
