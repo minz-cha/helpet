@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.helpet.Hospital.HospitalActivity
 import com.helpet.R
+import com.helpet.calendar.CalendarMain
 import com.helpet.login.Login
 import kotlinx.android.synthetic.main.activity_home.*
 import java.security.MessageDigest
@@ -42,11 +43,11 @@ class HomeActivity : AppCompatActivity() {
                             .replace(R.id.fl_container, mainVectorFragment).commit()
 
                     }
-                    /*R.id.calender->{
-                        val calFragment = CalendarMain()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fl_container, calFragment).commit()
-                    }*/
+//                    R.id.calender->{
+//                        val calFragment = CalendarMain()
+//                        supportFragmentManager.beginTransaction()
+//                            .replace(R.id.fl_container, calFragment).commit()
+//                    }
                     R.id.myPet -> {
                         val mainVectorFragment = ChoiceMyPetF()
                         supportFragmentManager.beginTransaction()

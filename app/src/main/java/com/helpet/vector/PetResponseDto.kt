@@ -2,6 +2,7 @@ package com.helpet.vector
 
 
 import com.google.gson.annotations.SerializedName
+import okhttp3.MultipartBody
 
 data class PetResponseDto(
     @SerializedName("status")
@@ -9,7 +10,7 @@ data class PetResponseDto(
     @SerializedName("userId")
     val userId: String,
     @SerializedName("petImg")
-    val petImg: String,
+    val petImg: MultipartBody.Part,
     @SerializedName("petSpecies")
     val petSpecies: String,
     @SerializedName("petName")

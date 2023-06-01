@@ -25,11 +25,14 @@ class VectorMain : Fragment(), View.OnClickListener {
         val root: View = inflater.inflate(R.layout.fragment_vector_main, container, false)
 
         val eyeBtn = root.findViewById<ImageButton>(R.id.vector_eye)
-        eyeBtn.setOnClickListener (this)
 
         val hospital1 = root.findViewById<ImageButton>(R.id.hospital)
 
 
+        eyeBtn.setOnClickListener {
+            val intent= Intent(requireContext(), VectorChoicePet::class.java)
+            startActivity(intent)
+        }
 
         hospital1.setOnClickListener {
             val intent = Intent(requireContext(), HospitalActivity::class.java)
@@ -41,10 +44,9 @@ class VectorMain : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         Log.v("test2","test2")
-        //비로그인시, 로그인 창으로
         when (v.id) {
             R.id.vector_eye -> {
-                val intent = Intent(activity, VectorChoicePet::class.java)
+                val intent = Intent(requireActivity(), VectorChoicePet::class.java)
                 startActivity(intent)
             }
 //            R.id.vector_eye ->{

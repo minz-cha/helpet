@@ -37,20 +37,28 @@ class VectorChoicePet : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         // 유저아이디 데이터 읽기
         val value = sharedPreferences.getString("userId", "null")
-
         Log.d("value",value!!)
+
+//        petRegister.setOnClickListener {
+//            Log.d("hi","hi")
+//            val intent= Intent(this, PetRegisterActivity::class.java  )
+//            startActivity(intent)
+//        }
 
         back.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
-
+//        petRegister.setOnClickListener {
+//            Log.d("hi","hi")
+//            val intent= Intent(applicationContext, PetRegisterActivity::class.java  )
+//            startActivity(intent)
+//        }
 
         //유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
-        val textuser = value.toString()
         val server3=  RetrofitApi2.retrofit2.create(GetPetService::class.java)
 
-        server3.getPetRegister(textuser).enqueue(object :retrofit2.Callback<petListResponseDTO>{
+        server3.getPetRegister(value).enqueue(object :retrofit2.Callback<petListResponseDTO>{
             @SuppressLint("SetTextI18n")
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(call: Call<petListResponseDTO?>?, response: Response<petListResponseDTO?>){
@@ -60,31 +68,40 @@ class VectorChoicePet : AppCompatActivity() {
                 // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
                 for (i in 0 until (response.body()?.result?.size!!)) {
 
+                    val imgpet = response.body()?.result?.get(i)?.petImg
                     val namepet = response.body()?.result?.get(i)?.petName
                     val genderpet = response.body()?.result?.get(i)?.petGender
                     val birthpet = response.body()?.result?.get(i)?.petBirth
                     val agepet = response.body()?.result?.get(i)?.petAge
                     val speciespet = response.body()?.result?.get(i)?.petSpecies
+                    Log.d("imgpet", imgpet.toString())
 
 
                     val choiceLayout = createLayout(namepet!!,speciespet!!, birthpet!!, agepet!!)
                     petLayout.addView(choiceLayout)
 
+                    petRegister.setOnClickListener {
+                        Log.d("hi","hi")
+                        val intent= Intent(applicationContext, PetRegisterActivity::class.java  )
+                        startActivity(intent)
+                    }
+
                 }
 
+            }
+
+            override fun onFailure(call: Call<petListResponseDTO>, t: Throwable) {
+                Log.d("에러", t.message!!)
                 petRegister.setOnClickListener {
                     val intent= Intent(applicationContext, PetRegisterActivity::class.java  )
                     startActivity(intent)
                 }
             }
 
-            override fun onFailure(call: Call<petListResponseDTO>, t: Throwable) {
-                Log.d("에러", t.message!!)
-            }
+
         })
-
-
     }
+
     //bitmap 을  string 형태로 변환하는 메서드 (이렇게 string 으로 변환된 데이터를 mysql 에서 longblob 의 형태로 저장하는식으로 사용가능)
     @RequiresApi(Build.VERSION_CODES.O)
     fun bitmapToString(bitmap: Bitmap): String? {
