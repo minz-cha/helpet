@@ -5,13 +5,11 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64.DEFAULT
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -23,20 +21,12 @@ import kotlinx.android.synthetic.main.activity_pet_register.view.*
 import kotlinx.android.synthetic.main.activity_vector_camera.*
 import kotlinx.android.synthetic.main.activity_vector_choice_pet.*
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody.Part.Companion.create
-import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Part
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.security.spec.PSSParameterSpec.DEFAULT
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.log
 
 
 class PetRegisterActivity : BaseActivity() {
@@ -54,15 +44,12 @@ class PetRegisterActivity : BaseActivity() {
     var genderpet = ""
     private set
 
-
     val PERM_STORAGE= 9
     val PERM_CAMERA= 10
     val REQ_CAMERA=11
     val CROP_PICTURE = 2
 
     val binding by lazy { ActivityVectorCameraBinding.inflate(LayoutInflater.from(applicationContext)) }
-
-
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +62,7 @@ class PetRegisterActivity : BaseActivity() {
             speciespet = "강아지"
         }
         choiceCat.setOnClickListener {
+            choiceCat.setImageResource(R.drawable.choicecatpink)
             speciespet = "고양이"
         }
         Log.d("petSpecies", speciespet)
@@ -82,9 +70,11 @@ class PetRegisterActivity : BaseActivity() {
 
 
         genderBoy.setOnClickListener {
+            genderBoy.setImageResource(R.drawable.choiceboypink)
             genderpet = "남자"
         }
         genderGirl.setOnClickListener {
+            genderGirl.setImageResource(R.drawable.choicegirlpink)
             genderpet = "여자"
         }
         Log.d("petGender", genderpet)
@@ -215,10 +205,12 @@ class PetRegisterActivity : BaseActivity() {
                     }
 
                     btnChoiceSuccess.setOnClickListener {
+
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
-                        val imgString = bitmapToString(bitmap)
-                        Log.d("imgString", imgString!!)
-                        UpdatePet(imgString!!,this )
+                        val imgString = SerialBitmap.translate(bitmap)
+                        val byteArrayString: String = Arrays.toString(imgString)
+                        Log.d("imgString", imgString.toString())
+                        UpdatePet(imgString,this )
                     }
                 }
             }
@@ -227,28 +219,16 @@ class PetRegisterActivity : BaseActivity() {
 
     private val server2=  RetrofitApi2.retrofit2.create(PetService::class.java)
 
-    fun UpdatePet(imgString: String, context: Context) {
-//        val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), imgString)
-//        val multipartBody: MultipartBody.Part? =
-//            MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
-        val mediaType = "multipart/form-data".toMediaType()
+    fun UpdatePet(imgString: ByteArray, context: Context) {
+        val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), imgString)
+        val multipartBody: MultipartBody.Part? =
+            MultipartBody.Part.createFormData("petImg", "petImg.jpeg", fileBody)
+//        val mediaType = "multipart/form-data".toMediaType()
         // SharedPreferences 객체 생성
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         // 유저아이디 데이터 읽기
         val value = sharedPreferences.getString("userId", "null")
 
-//        val petImg = imgString.toRequestBody(mediaType)
-//        val userId = value?.toRequestBody(mediaType)
-//        Log.d("userid", userId.toString())
-//        val petSpecies = speciespet.toRequestBody(mediaType)
-//        val namepet: String = petName.text.toString()
-//        val petName = namepet.toRequestBody(mediaType)
-//        val textAge: String = petAge.text.toString()
-//        val petAge = textAge.toRequestBody(mediaType)
-//        val textBirth: String = petBirth.text.toString()
-//        val petBirth= textBirth.toRequestBody(mediaType)
-//        val petGender = genderpet.toRequestBody(mediaType)
-        val petImg = imgString.toString()
         val userId = value.toString()
         val petSpecies = speciespet
         val namepet: String = petName.text.toString()
@@ -267,7 +247,7 @@ class PetRegisterActivity : BaseActivity() {
 
 
 
-        server2.PetRegister(userId,petSpecies,petName,petAge,petBirth,petGender).enqueue(object :
+        server2.PetRegister(multipartBody!!, userId, petSpecies, petName, petAge, petBirth, petGender).enqueue(object :
             Callback<PetResponseDto?> {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(call: Call<PetResponseDto?>?, response: Response<PetResponseDto?>) {
@@ -287,26 +267,6 @@ class PetRegisterActivity : BaseActivity() {
         })
     }
 
-    //bitmap 을  string 형태로 변환하는 메서드 (이렇게 string 으로 변환된 데이터를 mysql 에서 longblob 의 형태로 저장하는식으로 사용가능)
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun bitmapToString(bitmap: Bitmap): String? {
-        var image = ""
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        val byteArray = stream.toByteArray()
-        image = Base64.getEncoder().encodeToString(byteArray)
-        return image
-    }
-
-    //string 을  bitmap 형태로 변환하는 메서드
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun stringToBitmap(data: String?): Bitmap? {
-        var bitmap: Bitmap? = null
-        val byteArray: ByteArray = Base64.getDecoder().decode(data)
-        val stream = ByteArrayInputStream(byteArray)
-        bitmap = BitmapFactory.decodeStream(stream)
-        return bitmap
-    }
 }
 
 

@@ -89,4 +89,5 @@ dependencies {
     //naver
     implementation 'com.naver.maps:map-sdk:3.14.0'
 
+    implementation 'com.opencsv:opencsv:4.4'
 }

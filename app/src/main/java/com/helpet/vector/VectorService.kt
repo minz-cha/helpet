@@ -48,26 +48,31 @@ interface dogSkinVectService {
 
 //반려동물 등록할때 보내는 요청
 interface PetService {
-    @FormUrlEncoded
+    @Multipart
     @POST("/api/pet/register")
     fun PetRegister(
-//        @Part petImg : MultipartBody.Part,
-//        @Field ("petImg") petImg: String,
-        @Field("userId") userId: String,
-        @Field("petSpecies") petSpecies : String,
-        @Field("petName") petName: String,
-        @Field("petAge") petAge: String,
-        @Field("petBirth") petBirth: String,
-        @Field("petGender") petGender: String
+        @Part petImg: MultipartBody.Part,
+        @Part("userId") userId: String,
+        @Part("petSpecies") petSpecies : String,
+        @Part("petName") petName: String,
+        @Part("petAge") petAge: String,
+        @Part("petBirth") petBirth: String,
+        @Part("petGender") petGender: String
     ):Call<PetResponseDto>
 }
+
+//interface PetService {
+//    @Multipart
+//    @POST("api/pet/img")
+//    fun PetRegister(
+//        @Part petImg: MultipartBody.Part
+//    ):Call<PetResponseDto>
+//}
 
 //사용자가 가지고있는 반려동물 리스트 받아오는 요청
 interface GetPetService{
     @FormUrlEncoded
-//    @POST("/api/:userId")
     @POST("/api/pet")
-
     fun getPetRegister(
     @Field("userId") userId: String
     ):Call<petListResponseDTO>
@@ -76,11 +81,11 @@ interface GetPetService{
 //진단 결과 저장하는 요청
 interface VectResultService{
     @Multipart
-    @POST("")
+    @POST("/api/pet/list-save")
     fun vectResultService(
         @Part("userId") userId: String,
         @Part("petName") petName: String,
-//        @Part("vectImg") vectImg : String,
+        @Part vectImg : MultipartBody.Part,
         @Part("vectDate") vectDate :String,
         @Part("vectName") vectName :String,
         @Part("vectProb") vectProb :Double,
