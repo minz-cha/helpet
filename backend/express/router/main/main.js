@@ -2,20 +2,8 @@ const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser');
 
-// mysql 연결하는 코드를 FileStore 대신하는 코드 쓸 수 있음 
 const FileStore = require('session-file-store')(session)
 const app = express()
-
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, 'uploads')
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-
-// const upload = multer({ storage: storage })
 
 var authRouter = require('../lib_login/auth');
 var authCheck = require('../lib_login/authCheck.js');

@@ -3,8 +3,10 @@ var router = express.Router();
 var db = require('../../db');
 const multer = require("multer");
 const path = require('path');
+// const axios = require('axios');
+const FormData = require('form-data');
 
-const formidable = require('formidable');
+// const formidable = require('formidable');
 const fs = require('fs');
 
 const storage = multer.diskStorage({
@@ -22,8 +24,39 @@ const storage = multer.diskStorage({
 });
 
 const limits = { fileSize: 5 * 1024 * 1024 };
-
 const upload = multer({ storage, limits });
+
+const form = new FormData();
+
+// async function sendMultipart(req) {
+//     try {
+//         var form = new FormData();
+
+//         form.append('userId', req.body.userId);
+//         form.append('petImg', req.file.buffer, {
+//             filename: req.file.originalname,
+//             contentType: req.file.mimetype,
+//         });
+//         form.append('petSpecies', req.body.petSpecies);
+//         form.append('petName', req.body.petName);
+//         form.append('petAge', req.body.petAge);
+//         form.append('petBirth', req.body.petBirth);
+//         form.append('petGender', req.body.petGender);
+
+// const response = await axios.post('http://localhost:3000/api/pet/register', form, {
+//     headers: {
+//         'Content-Type': 'multipart/form-data',
+//     },
+// });
+
+//         res.setHeader('Content-Type', 'multipart/form-data');
+
+
+//         return response.data;
+//     } catch (error) {
+//         throw error;
+//     }
+// }
 
 // 반려동물 홈화면
 router.post('/', function (req, res) {
@@ -37,12 +70,61 @@ router.post('/', function (req, res) {
             status: "success",
             result: result
         })
-        if (db.state === 'connected') {
-            // 연결 종료
-            // db.end();
-        }
+        // if (db.state === 'connected') {
+        //     // 연결 종료
+        //     // db.end();
+        // }
     })
 })
+
+router.post('/upload', upload.single('petImg'), async (req, res) => {
+    const file = req.file;
+    const fileStream = fs.createReadStream(file.path);
+
+    form.append('userId', req.body.userId);
+    form.append('petSpecies', req.body.petSpecies);
+    form.append('petName', req.body.petName);
+    form.append('petAge', req.body.petAge);
+    form.append('petBirth', req.body.petBirth);
+    form.append('petGender', req.body.petGender);
+    form.append('petImg', fileStream, file.filename);
+    res.setHeader('Content-Type', 'multipart/form-data');
+    form.pipe(res);
+
+    console.log(form)
+})
+
+// router.post('/upload', upload.single('petImg'), async (req, res) => {
+//     try {
+//         const file = req.file;
+//         const formData = new FormData();
+
+//         // 클라이언트에서 받은 이미지 파일을 formData에 추가합니다.
+//         formData.append('petImg', file.buffer, {
+//             filename: file.originalname,
+//             contentType: file.mimetype,
+//         });
+
+//         // 기타 필요한 데이터도 formData에 추가합니다.
+//         formData.append('userId', req.body.userId);
+//         formData.append('petSpecies', req.body.petSpecies);
+//         formData.append('petName', req.body.petName);
+//         formData.append('petAge', req.body.petAge);
+//         formData.append('petBirth', req.body.petBirth);
+//         formData.append('petGender', req.body.petGender);
+
+//         // FormData를 multipart/form-data 형식으로 서버에 전송합니다.
+//         const response = await axios.post('http://localhost:3000/api/pet/register', formData, {
+//             headers: formData.getHeaders(),
+//         });
+
+//         // 서버에서 받은 응답을 클라이언트에게 전달합니다.
+//         res.json(response.data);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
 
 router.post("/register", upload.single('petImg'), (req, res) => {
     const file = req.file;
@@ -109,6 +191,7 @@ router.post('/delete', (req, res) => {
         }
     })
 })
+
 
 //진단결과 저장
 router.post("/list-save", upload.single('vectImg'), (req, res) => {
