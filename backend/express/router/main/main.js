@@ -2,7 +2,6 @@ const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser');
 
-// mysql 연결하는 코드를 FileStore 대신하는 코드 쓸 수 있음 
 const FileStore = require('session-file-store')(session)
 const app = express()
 
@@ -10,7 +9,7 @@ var authRouter = require('../lib_login/auth');
 var authCheck = require('../lib_login/authCheck.js');
 var calendarRouter = require('../calendar/calendar');
 var communityRouter = require('../community/community');
-var petRouter = require('../pet/petRegister');
+var petRouter = require('../pet/mypet');
 
 app.use('/static', express.static('static'))
 app.use(express.urlencoded({
@@ -57,3 +56,4 @@ app.get('/main', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
