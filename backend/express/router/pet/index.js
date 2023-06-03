@@ -143,4 +143,67 @@ petRouter.post('/register', upload.single('petImg'), petController.petRegister)
  */
 petRouter.post('/delete', petController.petDelete)
 
+/**
+ * @swagger
+ * paths:
+ *  /api/pet/mypet-list:
+ *    post:
+ *      summary: "반려동물의 진단기록 조회"
+ *      description: "userId, petName값 전송"
+ *      tags: [Mypet]
+ *      responses:
+ *        "200":
+ *          description: 해당 반려동물의 진단기록 조회
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    status:
+ *                      type: string
+ *                      example: "success"
+ *                    petName:
+ *                      type: string
+ *                      example: "초코"
+ *                    petAge:
+ *                      type: int
+ *                      example: 3
+ *                    petBirth:
+ *                      type: string
+ *                      example: "2023-06-01"
+ *                    results:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                               {
+ *                                   "vectDate": "2023.06.01",
+ *                                   "vectName": "결막염",
+ *                                   "vectProb": 3.2
+ *                               }
+ *                           ]
+ */
+petRouter.post('/mypet-list', petController.petList)
+
+/**
+ * @swagger
+ * paths:
+ *  /api/pet/list-save:
+ *    post:
+ *      summary:"진단기록 저장"
+ *      description: "userId, petName, vectImg, vectDate, vectName, vectProb, vectContent값 전송"
+ *      tags: [Mypet]
+ *      responses:
+ *        "200":
+ *          description: 진단한 기록 저장
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    status:
+ *                      type: string
+ *                      example: "success"
+ */
+petRouter.post('/list-save', upload.single('vectImg'), petController.petListSave)
+
 module.exports = petRouter

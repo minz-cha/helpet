@@ -39,13 +39,6 @@ app.get('/api/*', function (req, res, next) {
     else next();
 });
 
-// /**
-//  * @swagger
-//  * tags:
-//  *   name: auth
-//  *   description: 유저 추가 수정 삭제 조회
-//  */
-
 // 인증 라우터
 app.use('/api/auth', authRouter);
 
