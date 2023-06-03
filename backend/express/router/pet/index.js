@@ -189,7 +189,7 @@ petRouter.post('/mypet-list', petController.petList)
  * paths:
  *  /api/pet/list-save:
  *    post:
- *      summary:"진단기록 저장"
+ *      summary: "진단기록 저장"
  *      description: "userId, petName, vectImg, vectDate, vectName, vectProb, vectContent값 전송"
  *      tags: [Mypet]
  *      responses:

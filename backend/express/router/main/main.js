@@ -7,7 +7,7 @@ const router = require("express").Router()
 const FileStore = require('session-file-store')(session)
 const app = express()
 
-var authRouter = require('../lib_login/auth');
+var auth = require('../lib_login');
 var authCheck = require('../lib_login/authCheck.js');
 var calendar = require("../calendar");
 var pet = require('../pet');
@@ -40,7 +40,7 @@ app.get('/api/*', function (req, res, next) {
 });
 
 // 인증 라우터
-app.use('/api/auth', authRouter);
+app.use('/api/auth', auth);
 
 // // 캘린더 라우터
 app.use('/api/calendar', calendar);

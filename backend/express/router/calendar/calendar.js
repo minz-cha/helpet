@@ -96,5 +96,3 @@ exports.calendarUpdate = (req, res) => {
         // }
     })
 }
-
-// module.exports = router;
