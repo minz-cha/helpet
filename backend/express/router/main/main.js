@@ -9,10 +9,9 @@ const app = express()
 
 var authRouter = require('../lib_login/auth');
 var authCheck = require('../lib_login/authCheck.js');
-// var calendarRouter = require('../calendar/index');
 var calendar = require("../calendar");
+var pet = require('../pet');
 var communityRouter = require('../community/community');
-var petRouter = require('../pet/mypet');
 
 app.use('/static', express.static('static'))
 app.use(express.urlencoded({
@@ -20,7 +19,6 @@ app.use(express.urlencoded({
 }))
 app.use(express.json());
 const port = 3000
-
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,25 +39,24 @@ app.get('/api/*', function (req, res, next) {
     else next();
 });
 
-/**
- * @swagger
- * tags:
- *   name: auth
- *   description: 유저 추가 수정 삭제 조회
- */
+// /**
+//  * @swagger
+//  * tags:
+//  *   name: auth
+//  *   description: 유저 추가 수정 삭제 조회
+//  */
 
 // 인증 라우터
 app.use('/api/auth', authRouter);
 
 // // 캘린더 라우터
 app.use('/api/calendar', calendar);
-// router.calendar('api/calendar', calendar)
 
 // 커뮤니티 라우터
 app.use('/api/community', communityRouter);
 
 // 반려동물 라우터
-app.use('/api/pet', petRouter);
+app.use('/api/pet', pet);
 
 // 메인 페이지
 app.get('/main', (req, res) => {
