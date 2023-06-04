@@ -6,7 +6,7 @@ var db = require('../../db');
 // db.connect();
 
 // 달력화면 접속 -> 해당 날짜(디폴트값)의 일정이 뜨게됨
-router.post('/', function (req, res) {
+exports.calendarMain = (req, res) => {
     var title = '달력화면';
     var now = dayjs().format("YYYY.MM.DD");
     var month = parseInt(now.slice(5, 7))
@@ -28,10 +28,10 @@ router.post('/', function (req, res) {
         //     db.end();
         // }
     })
-});
+}
 
 // 달력일정 등록
-router.post('/add', (req, res) => {
+exports.calendarAdd = (req, res) => {
     var date = req.body.date;
     var title = req.body.title;
     var description = req.body.description;
@@ -51,10 +51,10 @@ router.post('/add', (req, res) => {
         //     db.end();
         // }
     })
-})
+}
 
 // 달력일정 삭제
-router.post('/delete', (req, res) => {
+exports.calendarDelete = (req, res) => {
     var cal_idx = req.body.cal_idx;
 
     db.query('DELETE FROM calendar where cal_idx = ?', [cal_idx], function (error, data) {
@@ -71,29 +71,28 @@ router.post('/delete', (req, res) => {
             db.end();
         }
     });
-})
+}
 
 //달력일정 수정
 //이미 등록된 일정을 클릭 시
-router.post('/update', (req, res) => {
-    var cal_idx = req.body.cal_idx;
+exports.calendarUpdate = (req, res) => {
+    var userId = req.body.userId;
+    var date = req.body.date;
     var title = req.body.title;
-    var content = req.body.content;
+    var description = req.body.description;
 
-    db.query('UPDATE calendar SET title = ?, content = ? where cal_idx = ?', [title, content, cal_idx], function (error, data) {
+    db.query('UPDATE calendar SET title = ?, description = ? where date = ? and userId = ?', [title, description, date, userId], function (error, data) {
         if (error) {
             return res.status(500).json({ error: error.message });
         }
         res.json({
             success: true,
             title: title,
-            content: content
+            description: description
         })
-        if (db.state === 'connected') {
-            // 연결 종료
-            db.end();
-        }
+        // if (db.state === 'connected') {
+        //     // 연결 종료
+        //     db.end();
+        // }
     })
-});
-
-module.exports = router;
+}

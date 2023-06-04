@@ -4,13 +4,13 @@ var db = require('../../db');
 // var check = require('../../authCheck')
 
 // 로그인 화면
-router.get('/login', function (request, response) {
+exports.loginMain = (req, res) => {
     var title = '로그인화면';
-    response.json({ "title": title })
-});
+    res.json({ "title": title })
+}
 
 // 로그인 프로세스
-router.post('/login', (req, res) => {
+exports.login = (req, res) => {
     var userId = req.body.userId;
     var password = req.body.password;
 
@@ -50,23 +50,17 @@ router.post('/login', (req, res) => {
             message: "아이디 및 비밀번호를 입력하세요."
         })
     }
-});
+}
 
 // 로그아웃
-router.get('/logout', function (request, response) {
-    request.session.destroy(function (err) {
-        response.json({ "result": "main으로 돌아갑니다" })
+exports.logout = (req, res) => {
+    req.session.destroy(function (err) {
+        res.json({ "result": "main으로 돌아갑니다" })
     });
-});
-
-// 회원가입 화면
-router.get('/register', function (req, res) {
-    var title = '회원가입 화면';
-    res.json({ "title": title })
-});
+}
 
 // 아이디 중복 확인 프로세스
-router.post('/id-check', (req, res) => {
+exports.idCheck = (req, res) => {
     var userId = req.body.userId;
 
     db.query('select * from user where userId = ?', [userId], function (error, results, fields) {
@@ -86,10 +80,10 @@ router.post('/id-check', (req, res) => {
             })
         }
     });
-})
+}
 
 //닉네임 중복 확인 프로세스
-router.post('/nickname-check', (req, res) => {
+exports.nickNameCheck = (req, res) => {
     var nickname = req.body.nickname;
 
     db.query('select * from user where nickname = ?', [nickname], function (error, results, fields) {
@@ -109,10 +103,10 @@ router.post('/nickname-check', (req, res) => {
             })
         }
     });
-})
+}
 
 // 회원가입 프로세스
-router.post('/register', (req, res) => {
+exports.userRegister = (req, res) => {
     var userId = req.body.userId;
     var username = req.body.username;
     var phone = req.body.phone;
@@ -137,6 +131,4 @@ router.post('/register', (req, res) => {
             message: "입력되지 않은 정보가 있습니다"
         })
     }
-});
-
-module.exports = router;
+}

@@ -12,6 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
+backend/express/router/main/uploads/*
 local.properties
 backend/express/db.js
 node_modules
