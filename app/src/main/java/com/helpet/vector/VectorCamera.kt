@@ -50,6 +50,11 @@ class VectorCamera : BaseActivity() {
         buttonVector.isEnabled=false
         buttonVector.backgroundTintList = ColorStateList.valueOf(Color.LTGRAY) // 회색으로 설정
 
+        camback.setOnClickListener {
+            val intent = Intent(this, VectorChoicePet::class.java)
+            startActivity(intent)
+            finish()
+        }
         requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
 
     }
@@ -137,8 +142,6 @@ class VectorCamera : BaseActivity() {
         return null
     }
 
-
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun permissionGranted(requestCode: Int) {
         when(requestCode){
@@ -188,8 +191,7 @@ class VectorCamera : BaseActivity() {
                     realUri?.let { uri ->
                         var bitmap: Bitmap? = null
                         //카메라에서 찍은 사진을 비트맵으로 변환
-                        bitmap = MediaStore.Images.Media
-                            .getBitmap(contentResolver, realUri)
+                        bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
                         //이미지뷰에 이미지 로딩
                         binding.cameraBtn.setImageBitmap(bitmap)
                     }
@@ -199,6 +201,7 @@ class VectorCamera : BaseActivity() {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
 
                         UpdatePhoto(SerialBitmap.translate(bitmap),this)
+                        Log.d("사진" , SerialBitmap.translate(bitmap).toString())
                         buttonVector.isVisible=false
                         camSubLayout.isVisible=false
                         loadingLayout.isVisible=true
@@ -229,7 +232,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
         val multipartBody: MultipartBody.Part? =
             MultipartBody.Part.createFormData("postImg", "postImg.jpeg", fileBody)
         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
-
+        val image = SerialBitmap.translate(bitmap)
         //만약 강아지 눈진단이면 if문 활용
 
         if (petSpecies == "강아지"){
@@ -237,6 +240,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                 override fun onResponse(call: Call<ResponseDto?>?, response: Response<ResponseDto?>) {
 //                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                     Log.d("레트로핏 결과2", "" + response.body().toString())
+
 
                     val name= response.body()?.name!!
                     val asymptomaticProbability= response.body()?.asymptomaticProbability!!
@@ -248,7 +252,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                     intent.putExtra("name", name)
                     intent.putExtra("symptomProbability",symptomProbability)
                     intent.putExtra("asymptomaticProbability",asymptomaticProbability )
-                    intent.putExtra("vecImg",SerialBitmap.translate(bitmap) )
+                    intent.putExtra("vectImg",image)
                     intent.putExtra("vectContent", vectContent)
                     intent.putExtra("value", value)
                     // 액티비티 시작
@@ -281,8 +285,11 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                     intent.putExtra("name", name)
                     intent.putExtra("symptomProbability",symptomProbability)
                     intent.putExtra("asymptomaticProbability",asymptomaticProbability )
-                    intent.putExtra("vecImg",SerialBitmap.translate(bitmap) )
-                    intent
+                    intent.putExtra("vectImg",image )
+                    intent.putExtra("vectContent", vectContent)
+                    intent.putExtra("value", value)
+
+
                     // 액티비티 시작
                     context.startActivity(intent)
                 }
@@ -293,6 +300,5 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                 }
             })
         }
-
     }
 }

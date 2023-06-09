@@ -30,11 +30,9 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="s">
         <activity
-            android:name=".MPVectorResult"
+            android:name=".vector.MPVectorResult"
             android:exported="false" />
-        <activity
-            android:name=".ChoiceMyPet"
-            android:exported="false" />
+
         <activity
             android:name=".TitleActivity"
             android:exported="true"
@@ -48,6 +46,11 @@
         <activity
             android:name=".vector.HomeActivity"
             android:exported="false" />
+        <activity
+            android:name=".vector.ChoiceMyPetF"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />
@@ -74,10 +77,8 @@
             android:exported="false" />
         <activity
             android:name=".vector.VectorResult"
-            android:exported="false" />
-        <activity
-            android:name=".calendar.CalendarMain"
-            android:exported="false" />
+            android:exported="false" >
+        </activity>
         <activity
             android:name=".calendar.Planlist"
             android:exported="false" />

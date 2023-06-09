@@ -19,6 +19,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.helpet.R
 import kotlinx.android.synthetic.main.activity_sub_pet2.*
+import kotlinx.android.synthetic.main.activity_vector_choice_pet.*
 import kotlinx.android.synthetic.main.fragment_choice_my_pet.*
 import retrofit2.Call
 import retrofit2.Response
@@ -64,6 +65,7 @@ class ChoiceMyPetF : Fragment() {
                     val agepet = response.body()?.result?.get(i)?.petAge
                     val birthpet = response.body()?.result?.get(i)?.petBirth
                     val imgpet = response.body()?.result?.get(i)?.petImg
+                    Log.d("imgpet", imgpet.toString())
 //                  val imgpet2 = stringToBitmap(imgpet!!)
                     val namepet = response.body()?.result?.get(i)?.petName
                     val genderpet = response.body()?.result?.get(i)?.petGender
@@ -82,6 +84,12 @@ class ChoiceMyPetF : Fragment() {
 //                        startActivity(intent)
 //                    }
 
+
+                }
+                mypetRegister.setOnClickListener {
+                    Log.d("hi","hi")
+                    val intent= Intent(requireContext(), PetRegisterActivity::class.java  )
+                    startActivity(intent)
                 }
             }
             override fun onFailure(call: Call<petListResponseDTO>, t: Throwable) {
@@ -114,8 +122,8 @@ class ChoiceMyPetF : Fragment() {
 
     @SuppressLint("InflateParams", "SetTextI18n")
     fun createLayout(namepet: String, agepet :Int, birthpet:String,genderpet:String ) :View{
-        val inflater = activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val layout = inflater.inflate(R.layout.activity_sub_pet2, null) as LinearLayout
+        val inflater = requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
+        val layout = inflater?.inflate(R.layout.activity_sub_pet2, null) as LinearLayout
 
 
         val mychoicePetImg = layout.findViewById<ImageView>(R.id.mychoicePetImg)

@@ -38,4 +38,9 @@
 
     <style name="MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="CalendarViewTheme" parent="MyApplication">
+        <item name="colorAccent">#FD9374</item>
+    </style>
+
+
 </resources>

@@ -75,14 +75,14 @@
 <!--            android:background="@drawable/comround"-->
 <!--            />-->
         <ImageButton
-            android:layout_width="170dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/comhome2"
+            android:src="@drawable/vectorbookbtn"
             android:layout_marginRight="10dp"
             android:background="@drawable/comround"/>
 
         <ImageButton
-            android:layout_width="170dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:src="@drawable/etc3"
             android:background="@drawable/etcround"/>
@@ -97,10 +97,11 @@
         android:backgroundTint="@color/white"/>
 
 
-    <ImageButton
+    <ImageView
         android:id="@+id/vectorBook"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/slidepicture"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:layout_marginLeft="15dp"

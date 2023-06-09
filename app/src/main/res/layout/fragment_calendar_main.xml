@@ -5,6 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="일정 등록하기"
+            android:textSize="23dp"
+            android:textColor="@color/black"
+            />
+
+
+    </LinearLayout>
+
+
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
@@ -12,7 +31,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:theme="@style/CalendarViewTheme"/>
 
     <TextView
         android:id="@+id/tvtodayDate"
@@ -21,7 +41,7 @@
         android:text="Date"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:layout_marginStart="20dp"
+        android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"/>
 
 
@@ -29,18 +49,14 @@
         android:id="@+id/calendarRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/activity_planlist"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvtodayDate"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/activity_planlist" />
+        android:background="#F5F5F5"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/calendar_DialogButton"
@@ -51,6 +67,7 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_baseline_add_24"
+        app:backgroundTint="#FD9374"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -29,6 +29,12 @@ class PetInfActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_inf)
 
+//        mpChoiceBack.setOnClickListener {
+//            val intent = Intent(this, ChoiceMyPetF::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
+
         val name = intent.getStringExtra("namepet")
         val birth = intent.getStringExtra("birthpet")
         val gender = intent.getStringExtra("genderpet")
@@ -53,10 +59,6 @@ class PetInfActivity : AppCompatActivity() {
 
         Log.d("value",value!!)
 
-        mpBack.setOnClickListener {
-            val intent = Intent(this, ChoiceMyPetF::class.java)
-            startActivity(intent)
-        }
 
 
         //유저가 이미 저장해둔 반려동물 진단기록 정가져오는 데이터 값들
@@ -93,9 +95,12 @@ class PetInfActivity : AppCompatActivity() {
 
                 }
             }
+
             override fun onFailure(call: Call<MypetVectDTO>, t: Throwable) {
                 Log.d("에러", t.message!!)
             }
+
+
         })
 
 

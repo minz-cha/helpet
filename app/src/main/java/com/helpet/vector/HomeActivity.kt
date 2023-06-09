@@ -1,15 +1,13 @@
 package com.helpet.vector
 
-import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.helpet.Hospital.HospitalActivity
 import com.helpet.R
-import com.helpet.login.Login
+import com.helpet.calendar.CalendarMainFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -42,11 +40,11 @@ class HomeActivity : AppCompatActivity() {
                             .replace(R.id.fl_container, mainVectorFragment).commit()
 
                     }
-                    /*R.id.calender->{
-                        val calFragment = CalendarMain()
+                    R.id.calender->{
+                        val calFragment = CalendarMainFragment()
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.fl_container, calFragment).commit()
-                    }*/
+                    }
                     R.id.myPet -> {
                         val mainVectorFragment = ChoiceMyPetF()
                         supportFragmentManager.beginTransaction()
