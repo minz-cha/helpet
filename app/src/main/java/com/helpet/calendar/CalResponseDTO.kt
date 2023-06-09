@@ -13,9 +13,7 @@ data class CalendarPlanResultDTO(
 //개별 일정 정보
 data class CalendarPlanDTO(
     @SerializedName("cal_idx")
-    val calIdx: Int,
-    @SerializedName("userId")
-    val userId: String,
+    val cal_idx: Int,
     @SerializedName("date")
     val date: String,
     @SerializedName("title")
@@ -30,6 +28,8 @@ data class MonthlyScheduleDTO(
     val status: String,
     @SerializedName("month")
     val month: Int,
+    @SerializedName("userId")
+    val userId : String,
     @SerializedName("result")
     val result: List<CalendarPlanDTO>
 )

@@ -1,5 +1,7 @@
 package com.helpet.calendar
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +15,6 @@ class ScheduleAdapter(private val scheduleList: MutableList<Schedule>) :
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
 
     private var listener: OnItemClickListener? = null
-
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val titleTextView: TextView = itemView.findViewById(R.id.plan)
@@ -37,9 +38,10 @@ class ScheduleAdapter(private val scheduleList: MutableList<Schedule>) :
         fun onItemClick(view: View?, position: Int)
     }
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.activity_planlist, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_planlist, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -51,39 +53,28 @@ class ScheduleAdapter(private val scheduleList: MutableList<Schedule>) :
     override fun getItemCount(): Int {
         return scheduleList.size
     }
-//
-//    // 월별 일정 데이터를 Schedule로 변환하는 함수
-//     fun convertToSchedule(calendarPlans: List<CalendarPlanDTO>): List<Schedule> {
-//        val scheduleList : MutableList<Schedule> = mutableListOf()
-//        for (calendarPlan in calendarPlans) {
-//            val schedule = Schedule(
-//                calIdx = calendarPlan.calIdx,
-//                userId = calendarPlan.userId,
-//                date = calendarPlan.date,
-//                title = calendarPlan.title,
-//                description = calendarPlan.description,
-//                month = calendarPlan.month
-//            )
-//            scheduleList.add(schedule)
-//        }
-//        return scheduleList
-//    }
 
     // 일정 데이터 업데이트 함수
-    fun updateData(calendarPlanList: List<CalendarPlanDTO>) {
-//        val convertedScheduleList = convertToSchedule(calendarPlanList)
-        scheduleList.clear()
-        scheduleList.addAll(convertToSchedule(calendarPlanList))
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(calendarPlanList: List<CalendarPlanDTO>, totalDay: String) {
+        scheduleList.clear() // 기존 데이터 제거
+        val filteredScheduleList = convertToSchedule(calendarPlanList).filter { it.date == totalDay }
+        scheduleList.addAll(filteredScheduleList) // 새로운 데이터 추가
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun clearData() {
+        scheduleList.clear()
+        notifyDataSetChanged()
+    }
     private fun convertToSchedule(calendarPlanList: List<CalendarPlanDTO>): List<Schedule> {
 
         val scheduleList : MutableList<Schedule> = mutableListOf()
         for (calendarPlan in calendarPlanList) {
             val schedule = Schedule(
-                calIdx = calendarPlan.calIdx.toString(),
-                userId = calendarPlan.userId,
+                calIdx = calendarPlan.cal_idx.toString(),
                 date = calendarPlan.date,
                 title = calendarPlan.title,
                 description = calendarPlan.description
@@ -92,19 +83,5 @@ class ScheduleAdapter(private val scheduleList: MutableList<Schedule>) :
         }
         return scheduleList
     }
-//
-//    private fun processMonthlySchedules(monthlySchedules: List<CalendarPlanDTO>) {
-//        // RecyclerView나 다른 방식을 사용하여 변환된 일정 데이터를 화면에 표시
-//        adapter.updateData(monthlySchedules)
-//    }
-
-//    // processMonthlySchedules 함수 내에서 convertToSchedule을 사용하여 변환 후 adapter에 전달
-//    private fun processMonthlySchedules(monthlySchedules: List<CalendarPlanDTO>) {
-//        val convertedScheduleList = convertToSchedule(monthlySchedules)
-//        // RecyclerView나 다른 방식을 사용하여 변환된 일정 데이터를 화면에 표시
-//        val adapter = ScheduleAdapter(convertedScheduleList)
-//        recyclerView.adapter = adapter
-//    }
-
 
 }

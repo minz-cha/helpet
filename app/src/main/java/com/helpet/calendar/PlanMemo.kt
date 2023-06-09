@@ -62,7 +62,7 @@ class PlanMemo : AppCompatActivity() {
             }
 
             //retrofit 서버 요청 _ date,userId,title,description
-            val server = CalRetrofitInterface.retrofit.create(CalendarService::class.java)
+            val server = CalRetrofitInterface.retrofit3.create(CalendarService::class.java)
 //            val schedule = Schedule(date, userId, title, description)
             Log.d("일정 등록", date.toString())
             Log.d("일정 등록", userId)
@@ -110,84 +110,15 @@ class PlanMemo : AppCompatActivity() {
         }
     }
 }
+
 //
 //interface CalendarService {
-//    @POST("auth/calendar")
+//    @FormUrlEncoded
+//    @POST("calendar/add")
 //    fun CalendarResult(
-//        @Body schedule: Schedule
-//    ): retrofit2.Call<CalendarPlanResultDTO?>
-//}
-
-interface CalendarService {
-    @FormUrlEncoded
-    @POST("calendar/add")
-    fun CalendarResult(
-        @Field("date") date: String?,
-        @Field("userId") userId: String,
-        @Field("title") title: String,
-        @Field("description") description: String
-    ): Call<CalendarPlanResultDTO?>
-}
-
-//        btnSave.setOnClickListener {
-//            val title = edtTitle.text.toString()
-//            val content = edtPlan.text.toString()
-//            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-//
-//            // SharedPreferences 객체 생성
-//            val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-//            // 유저아이디 데이터 읽기
-//            val userId = sharedPreferences.getString("userId", "null")
-//
-//            val server = CalRetrofitInterface.retrofit.create(CalendarService::class.java)
-//
-//            server.CalendarResult(date, userId!!, title, content).enqueue(object : Callback<CalendarPlanResult?> {
-//                override fun onResponse(call: Call<CalendarPlanResult?>?, response: Response<CalendarPlanResult?>) {
-//                    val result = response.body()
-//                    val success : Boolean? = response.body()?.success
-//                    Log.d("retrofit 로그인 성공 유무", "${result}")
-//                    if (success.toString() == "true") {
-//                        val intent = Intent(applicationContext , HomeActivity::class.java)
-//                        startActivity(intent)
-//
-//                        // SharedPreferences에 userId 저장
-//                        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-//                        val editor = sharedPreferences.edit()
-//                        editor.putString("userId", userId) // 로그인한 userId를 저장
-//                        Log.d("userId 전송 확인", userId)
-//
-//                        // "로그인 유지" 옵션을 선택한 경우, 체크박스 상태를 저장
-//                        val isLoginChecked = checkbox_login.isChecked
-//                        editor.putBoolean("isLoginChecked", isLoginChecked)
-//
-//                        editor.apply()
-//                    캘린더 받아와서 정리
-//
-//                    } else if (success.toString() == "false") {
-//                        Toast.makeText(applicationContext, "아이디 혹은 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
-//
-//                    }
-//                    Log.d("retrofit 로그인", "${result}")
-//
-//                }
-//
-//
-//                override fun onFailure(call: Call<CalendarPlanResult?>, t: Throwable) {
-//                    TODO("Not yet implemented")
-//                }
-//            })
-//
-//        }
-//    }
-//}
-//
-//interface CalendarService {
-//    @GET("auth/calendar")
-//    fun CalendarResult(
-////        @Query("error") error: String,
-//        @Query("date") date: String,
-//        @Query("userId") userId: String,
-//        @Query("title") title: String,
-//        @Query("content") content: String
-//    ): Call<CalendarPlanResult>
+//        @Field("date") date: String?,
+//        @Field("userId") userId: String,
+//        @Field("title") title: String,
+//        @Field("description") description: String
+//    ): Call<CalendarPlanResultDTO?>
 //}

@@ -95,7 +95,6 @@ class VectorResult : AppCompatActivity() {
                     vectorResultPro.indeterminateDrawable = progressDrawable
                 }
 
-//                vectorResultPro.progressDrawable.setLevel(symptonProbability.toInt() * 10000 / maxValue)
 //                resultImg.setImageBitmap(resultImg)
                 // 수치에 맞게 ProgressBar와 TextView를 연결합니다.
                 progressText.text = "$symptonProbability%"
@@ -131,7 +130,6 @@ class VectorResult : AppCompatActivity() {
                     progressDrawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
                     vectorResultPro.indeterminateDrawable = progressDrawable
                 }
-//                vectorResultPro.progressDrawable.setLevel(symptonProbability.toInt() * 10000 / maxValue)
 //                resultImg.setImageBitmap(vecimg)
                 progressText.text = "$symptonProbability%"
                 vectorContent.text = "$vectcontent"
@@ -139,7 +137,6 @@ class VectorResult : AppCompatActivity() {
 
         storeVector.setOnClickListener {
             VectorResultUpdate(userId!!,namepet!!,vectimg, vecdate2, name!!,symptonProbability,vectcontent!!)
-//            VectorResultUpdate(u,n,vecdate2, na,s,c)
         }
         goBooks.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)

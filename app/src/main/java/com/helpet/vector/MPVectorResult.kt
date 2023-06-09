@@ -2,6 +2,8 @@ package com.helpet.vector
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -42,10 +44,27 @@ class MPVectorResult : AppCompatActivity() {
         mpVectTitle.text = "안구 체크 결과 : $mpvectname"
         mpvectorName.text= mpvectname
         mpprogressText.text= " $mpvectprob %"
-        mpVectorDate.text = mpvectdate
+        mpVectorDate.text = "진단 날짜\n $mpvectdate"
         mpvectorResultPro.progressDrawable.setLevel(mpvectprob.toInt() * 10000 / maxValue)
-
-
+//        if (mpvectprob in 50.0..80.0){
+//            vectorResultPro.progressDrawable.setLevel(mpvectprob.toInt() * 10000 / maxValue)
+//            val progressDrawable = vectorResultPro.indeterminateDrawable
+//            progressDrawable.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_IN)
+//            mpvectorResultPro.indeterminateDrawable = progressDrawable
+//        }
+//        else if (mpvectprob < 50){
+//            vectorResultPro.progressDrawable.setLevel(mpvectprob.toInt() * 10000 / maxValue)
+//            val progressDrawable = vectorResultPro.indeterminateDrawable
+//            progressDrawable.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN)
+//            mpvectorResultPro.indeterminateDrawable = progressDrawable
+//        }
+//        else{
+//            vectorResultPro.progressDrawable.setLevel(mpvectprob.toInt() * 10000 / maxValue)
+//            val progressDrawable = vectorResultPro.indeterminateDrawable
+//            progressDrawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
+//            mpvectorResultPro.indeterminateDrawable = progressDrawable
+//        }
+//
 
     }
 }

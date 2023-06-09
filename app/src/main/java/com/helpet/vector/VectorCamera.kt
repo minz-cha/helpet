@@ -286,6 +286,10 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                     intent.putExtra("symptomProbability",symptomProbability)
                     intent.putExtra("asymptomaticProbability",asymptomaticProbability )
                     intent.putExtra("vectImg",image )
+                    intent.putExtra("vectContent", vectContent)
+                    intent.putExtra("value", value)
+
+
                     // 액티비티 시작
                     context.startActivity(intent)
                 }

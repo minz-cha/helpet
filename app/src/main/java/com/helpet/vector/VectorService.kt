@@ -49,7 +49,7 @@ interface dogSkinVectService {
 //반려동물 등록할때 보내는 요청
 interface PetService {
     @Multipart
-    @POST("/api/pet/register")
+    @POST("api/pet/register")
     fun PetRegister(
         @Part petImg: MultipartBody.Part,
         @Part("userId") userId: String,
@@ -97,7 +97,7 @@ interface VectResultService{
 //진단 결과 마이펫에서 불러오는 요청
 interface MyPetVectService{
     @FormUrlEncoded
-    @POST("/api/pet/mypet-list")
+    @POST("/api/pet/diag-list")
     fun myPetService(
         @Field("userId") userId: String,
         @Field("petName") petName: String,
