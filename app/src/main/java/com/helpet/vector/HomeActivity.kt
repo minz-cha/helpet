@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.helpet.MyPage.MyPage
 import com.helpet.R
 import com.helpet.calendar.CalendarMainFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -50,7 +51,11 @@ class HomeActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.fl_container, mainVectorFragment).commit()
 
-
+                    }
+                    R.id.myPage-> {
+                        val myPageFragment = MyPage()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fl_container, myPageFragment).commit()
                     }
 
                 }
