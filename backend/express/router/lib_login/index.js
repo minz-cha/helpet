@@ -1,24 +1,24 @@
 const authController = require("./auth")
 const authRouter = require("express").Router()
 
-/**
- * @swagger
- * paths:
- *  /api/auth/login:
- *    get:
- *      summary: "로그인 화면"
- *      tags: [Auth]
- *      responses:
- *        "200":
- *          content:
- *            application/json:
- *              schema:
- *                type: object
- *                properties:
- *                    title:
- *                      type: string
- *                      example: "로그인화면"
- */
+// /**
+//  * @swagger
+//  * paths:
+//  *  /api/auth/login:
+//  *    get:
+//  *      summary: "로그인 화면"
+//  *      tags: [Auth]
+//  *      responses:
+//  *        "200":
+//  *          content:
+//  *            application/json:
+//  *              schema:
+//  *                type: object
+//  *                properties:
+//  *                    title:
+//  *                      type: string
+//  *                      example: "로그인화면"
+//  */
 authRouter.get('/login', authController.loginMain)
 
 /**
@@ -48,24 +48,24 @@ authRouter.get('/login', authController.loginMain)
  */
 authRouter.post('/login', authController.login)
 
-/**
- * @swagger
- * paths:
- *  /api/auth/logout:
- *    get:
- *      summary: "로그아웃 화면"
- *      tags: [Auth]
- *      responses:
- *        "200":
- *          content:
- *            application/json:
- *              schema:
- *                type: object
- *                properties:
- *                    result:
- *                      type: string
- *                      example: "main으로 돌아갑니다"
- */
+// /**
+//  * @swagger
+//  * paths:
+//  *  /api/auth/logout:
+//  *    get:
+//  *      summary: "로그아웃 화면"
+//  *      tags: [Auth]
+//  *      responses:
+//  *        "200":
+//  *          content:
+//  *            application/json:
+//  *              schema:
+//  *                type: object
+//  *                properties:
+//  *                    result:
+//  *                      type: string
+//  *                      example: "main으로 돌아갑니다"
+//  */
 authRouter.get('/logout', authController.logout)
 
 /**

@@ -72,6 +72,8 @@ const upload = multer({ storage, limits });
  */
 petRouter.post('/', petController.petMain)
 
+petRouter.post('/img', upload.single('file'), petController.Img)
+
 /**
  * @swagger
  * paths:
@@ -113,7 +115,7 @@ petRouter.post('/', petController.petMain)
  *                      type: string
  *                      example: "여자"
  */
-petRouter.post('/register', upload.single('petImg'), petController.petRegister)
+petRouter.post('/register', petController.petRegister)
 
 /**
  * @swagger
@@ -182,7 +184,7 @@ petRouter.post('/delete', petController.petDelete)
  *                               }
  *                           ]
  */
-petRouter.post('/mypet-list', petController.petList)
+petRouter.post('/diag-list', petController.petList)
 
 /**
  * @swagger

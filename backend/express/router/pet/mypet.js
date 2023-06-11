@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../../db');
-
+const path = require('path');
+const fs = require('fs');
 const form = new FormData();
 
 // async function sendMultipart(req) {
@@ -49,61 +50,33 @@ exports.petMain = (req, res) => {
     })
 }
 
-// router.post('/upload', upload.single('petImg'), async (req, res) => {
-//     const file = req.file;
-//     const fileStream = fs.createReadStream(file.path);
+//이미지 처리 api
+exports.Img = (req, res) => {
+    const file = req.file;
+    const category = req.body.category;
+    var petImg = file.filename;
+    const filePath = path.join(__dirname, '..', 'main', 'uploads', petImg);
+    const imageBuffer = fs.readFileSync(filePath);
 
-//     form.append('userId', req.body.userId);
-//     form.append('petSpecies', req.body.petSpecies);
-//     form.append('petName', req.body.petName);
-//     form.append('petAge', req.body.petAge);
-//     form.append('petBirth', req.body.petBirth);
-//     form.append('petGender', req.body.petGender);
-//     form.append('petImg', fileStream, file.filename);
-//     res.setHeader('Content-Type', 'multipart/form-data');
-//     form.pipe(res);
+    // pet등록 - where userId, petName
+    if (category == '1') {
+        db.query('INSERT INTO test (testImg) VALUES (?)', [imageBuffer], (error, results) => {
+            if (error) {
+                console.error('Error saving image to MySQL:', error);
+                return res.status(500).send('Internal Server Error');
+            }
+        });
+    }
 
-//     console.log(form)
-// })
-
-// // router.post('/upload', upload.single('petImg'), async (req, res) => {
-// //     try {
-// //         const file = req.file;
-// //         const formData = new FormData();
-
-// //         // 클라이언트에서 받은 이미지 파일을 formData에 추가합니다.
-// //         formData.append('petImg', file.buffer, {
-// //             filename: file.originalname,
-// //             contentType: file.mimetype,
-// //         });
-
-// //         // 기타 필요한 데이터도 formData에 추가합니다.
-// //         formData.append('userId', req.body.userId);
-// //         formData.append('petSpecies', req.body.petSpecies);
-// //         formData.append('petName', req.body.petName);
-// //         formData.append('petAge', req.body.petAge);
-// //         formData.append('petBirth', req.body.petBirth);
-// //         formData.append('petGender', req.body.petGender);
-
-// //         // FormData를 multipart/form-data 형식으로 서버에 전송합니다.
-// //         const response = await axios.post('http://localhost:3000/api/pet/register', formData, {
-// //             headers: formData.getHeaders(),
-// //         });
-
-// //         // 서버에서 받은 응답을 클라이언트에게 전달합니다.
-// //         res.json(response.data);
-// //     } catch (error) {
-// //         console.error(error);
-// //         res.status(500).json({ error: 'Internal Server Error' });
-// //     }
-// // });
+    res.sendFile(filePath)
+}
 
 // 반려동물 등록
 exports.petRegister = (req, res) => {
     const file = req.file;
 
     var userId = req.body.userId;
-    var petImg = file.originalname;
+    // var petImg = file.originalname;
     var petSpecies = req.body.petSpecies;
     var petName = req.body.petName;
     var petAge = req.body.petAge;
@@ -113,22 +86,22 @@ exports.petRegister = (req, res) => {
     console.log(userId); // userId 출력
     console.log(file); // 파일 정보 출력
 
-    db.query('INSERT INTO pet (petIdx, userId, petImg, petSpecies, petName, petAge, petBirth, petGender) VALUES (?,?,?,?,?,?,?,?)', [null, userId, petImg, petSpecies, petName, petAge, petBirth, petGender], function (error, data) {
+    db.query('INSERT INTO pet (petIdx, userId, petSpecies, petName, petAge, petBirth, petGender) VALUES (?,?,?,?,?,?,?)', [null, userId, petSpecies, petName, petAge, petBirth, petGender], function (error, data) {
         if (error) {
             return res.status(500).json({ error: error.message });
         }
 
-        db.query('SELECT CONVERT(petImg USING utf8)  from pet where userId = ? and petName = ?', [userId, petName], function (error, result) {
-            if (error) {
-                return res.status(500).json({ error: error.message });
-            }
-            const petImg = result[0].petImg;
-        })
+        // db.query('SELECT CONVERT(petImg USING utf8)  from pet where userId = ? and petName = ?', [userId, petName], function (error, result) {
+        //     if (error) {
+        //         return res.status(500).json({ error: error.message });
+        //     }
+        //     const petImg = result[0].petImg;
+        // })
 
         res.json({
             status: "success",
             userId: userId,
-            petImg: petImg,
+            // petImg: petImg,
             petSpecies: petSpecies,
             petName: petName,
             petAge: petAge,

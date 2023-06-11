@@ -35,7 +35,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
 
 // 세션
 app.get('/api/*', function (req, res, next) {
-    if (req.session.userId == undefined) res.status(500).send('Something broke!');
+    if (req.session.userId == undefined) res.status(500).send('세션 만료 or 존재하지 않음 !');
     else next();
 });
 
