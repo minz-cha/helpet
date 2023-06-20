@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_vector_camera.*
 import kotlinx.android.synthetic.main.activity_vector_choice_pet.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -208,7 +209,6 @@ class PetRegisterActivity : BaseActivity() {
 
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
                         val imgString = SerialBitmap.translate(bitmap)
-                        val byteArrayString: String = Arrays.toString(imgString)
                         Log.d("imgString", imgString.toString())
                         UpdatePet(imgString,this )
                     }
@@ -223,39 +223,40 @@ class PetRegisterActivity : BaseActivity() {
         val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), imgString)
         val multipartBody: MultipartBody.Part? =
             MultipartBody.Part.createFormData("petImg", "petImg.jpeg", fileBody)
-//        val mediaType = "multipart/form-data".toMediaType()
         // SharedPreferences 객체 생성
-        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val sharedPreferences = applicationContext?.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         // 유저아이디 데이터 읽기
-        val value = sharedPreferences.getString("userId", "null")
+        val value = sharedPreferences?.getString("userId", "null")
 
-        val userId = value.toString()
-        val petSpecies = speciespet
-        val namepet: String = petName.text.toString()
+        Log.d("value",value!!)
+
+        //유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
+        val textuser = value.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val petSpecies = speciespet.toRequestBody("text/plain".toMediaTypeOrNull())
+        val namepet: RequestBody = petName.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val petName = namepet
         val textAge: String = petAge.text.toString()
-        val petAge = textAge
-        val textBirth: String = petBirth.text.toString()
+        val petAge :Int = textAge.toInt()
+        val textBirth: RequestBody = petBirth.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val petBirth= textBirth
-        val petGender = genderpet
-        Log.d("등록", value!!)
+        val petGender = genderpet.toRequestBody("text/plain".toMediaTypeOrNull())
+        Log.d("등록", textuser.toString())
         Log.d("등록", speciespet)
-        Log.d("등록", namepet)
-        Log.d("등록", textAge)
-        Log.d("등록", textBirth)
+        Log.d("등록", namepet.toString())
+        Log.d("등록", textAge.toString())
+        Log.d("등록", textBirth.toString())
         Log.d("등록", genderpet)
 
 
 
-        server2.PetRegister(multipartBody!!, userId, petSpecies, petName, petAge, petBirth, petGender).enqueue(object :
+        server2.PetRegister(multipartBody!!, textuser , petSpecies, petName, petAge, petBirth, petGender).enqueue(object :
             Callback<PetResponseDto?> {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(call: Call<PetResponseDto?>?, response: Response<PetResponseDto?>) {
-                Log.d("레트로핏 결과2", "" + response.body().toString())
+                Log.d("반려동물 등록 결과", "" + response.body().toString())
 
                 // 다른 액티비티로 intent
                 val intent = Intent(context, VectorChoicePet::class.java)
-
                 // 액티비티 시작
                 context.startActivity(intent)
             }

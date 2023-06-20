@@ -52,13 +52,24 @@ interface PetService {
     @POST("api/pet/register")
     fun PetRegister(
         @Part petImg: MultipartBody.Part,
-        @Part("userId") userId: String,
-        @Part("petSpecies") petSpecies : String,
-        @Part("petName") petName: String,
-        @Part("petAge") petAge: String,
-        @Part("petBirth") petBirth: String,
-        @Part("petGender") petGender: String
+        @Part("userId") userId: RequestBody,
+        @Part("petSpecies") petSpecies : RequestBody,
+        @Part("petName") petName: RequestBody,
+        @Part("petAge") petAge: Int,
+        @Part("petBirth") petBirth: RequestBody,
+        @Part("petGender") petGender: RequestBody
     ):Call<PetResponseDto>
+}
+
+interface petImgService{
+    @Multipart
+    @POST("api/pet/img")
+    fun petImgRegister(
+//        @Part("category") category : String,
+        @Part("img") img: MultipartBody.Part,
+//        @Part("petName") petName: String,
+//        @Part("userId") userId:String
+    ):Call<petImgResponseDTO>
 }
 
 //interface PetService {

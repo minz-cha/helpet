@@ -62,6 +62,7 @@ class ChoiceMyPetF : Fragment() {
                 // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
                 for (i in 0 until (response.body()?.result?.size!!)) {
 
+
                     val agepet = response.body()?.result?.get(i)?.petAge
                     val birthpet = response.body()?.result?.get(i)?.petBirth
                     val imgpet = response.body()?.result?.get(i)?.petImg
