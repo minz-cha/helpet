@@ -28,7 +28,7 @@ object RetrofitApi {
 }
 
 object RetrofitApi2 {
-    private const val BASE_URL = "http://172.30.1.7:3000/"
+    private const val BASE_URL = "http://172.30.1.8:3000/"
 
     var okHttpClient = OkHttpClient().newBuilder()
         .connectTimeout(30, TimeUnit.SECONDS)

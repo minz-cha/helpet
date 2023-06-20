@@ -86,12 +86,13 @@ class PetInfActivity : AppCompatActivity() {
                 // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
                 for (i in 0 until (response.body()?.result?.size!!)) {
 
+                    val vectimg = response.body()?.result?.get(i)?.vectImg
                     val vectname = response.body()?.result?.get(i)?.vectName
                     val vectdate = response.body()?.result?.get(i)?.vectDate
                     val vectprob = response.body()?.result?.get(i)?.vectProb
 
 
-                    vectorInfL.addView(createLayout(vectname!!, vectdate!!, vectprob!!, petname!!, petage!!, petbirth!!))
+                    vectorInfL.addView(createLayout(vectimg!!, vectname!!, vectdate!!, vectprob!!, petname!!, petage!!, petbirth!!))
 
                 }
             }
@@ -128,7 +129,7 @@ class PetInfActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n", "InflateParams")
-    fun createLayout(vectname: String, vectdate :String, vectprob: Double, petname:String, petage:Int, petbirth:String ) : View {
+    fun createLayout(vectImg: String, vectname: String, vectdate :String, vectprob: Double, petname:String, petage:Int, petbirth:String ) : View {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.activity_vect_sub_layout, null) as LinearLayout
 
@@ -145,6 +146,7 @@ class PetInfActivity : AppCompatActivity() {
 
         layout.setOnClickListener {
             val intent = Intent(this, MPVectorResult::class.java)
+            intent.putExtra("vectimg", vectImg)
             intent.putExtra("vectdate", vectdate)
             intent.putExtra("vectname", vectname)
             intent.putExtra("vectprob",vectprob)

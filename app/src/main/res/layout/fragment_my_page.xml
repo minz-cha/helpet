@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyPage.MyPage"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="25dp">
+        <ImageView
+            android:id="@+id/myPageUserImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/helpet_logo"/>
+        <TextView
+            android:id="@+id/myPageUser"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="15dp"
+            android:text="몽이파파"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:src="@drawable/dash_line"
+        android:layerType="software"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="내 정보"
+            android:textSize="20dp"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/editMyInf"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start"
+            android:background="#00ff0000"
+            android:textColor="#616161"
+            android:text="내 정보 수정"/>
+        <Button
+            android:id="@+id/myPagePush"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start"
+            android:background="#00ff0000"
+            android:textColor="#616161"
+            android:text="푸시 설정"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:src="@drawable/dash_hard_line"
+        android:layerType="software" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="고객센터"
+            android:textSize="20dp"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/myPageNotice"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start"
+            android:background="#00ff0000"
+            android:textColor="#616161"
+            android:text="공지사항"/>
+        <Button
+            android:id="@+id/myPageOne"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start"
+            android:background="#00ff0000"
+            android:textColor="#616161"
+            android:text="1:1 문의"/>
+        <Button
+            android:id="@+id/myPageHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start"
+            android:background="#00ff0000"
+            android:textColor="#616161"
+            android:text="자주찾는 도움말"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:src="@drawable/dash_hard_line"
+        android:layerType="software" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SNS"
+            android:textSize="20dp"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/myPageInsta"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start"
+            android:background="#00ff0000"
+            android:textColor="#616161"
+            android:text="인스타그램"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:src="@drawable/dash_hard_line"
+        android:layerType="software" />
+
+</LinearLayout>
+
+
+
+

@@ -39,11 +39,11 @@ class VectorChoicePet : AppCompatActivity() {
         val value = sharedPreferences.getString("userId", "null")
         Log.d("value",value!!)
 
-//        petRegister.setOnClickListener {
-//            Log.d("hi","hi")
-//            val intent= Intent(this, PetRegisterActivity::class.java  )
-//            startActivity(intent)
-//        }
+        petRegister.setOnClickListener {
+            Log.d("hi","hi")
+            val intent= Intent(this, PetRegisterActivity::class.java  )
+            startActivity(intent)
+        }
 
         back.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
@@ -77,7 +77,7 @@ class VectorChoicePet : AppCompatActivity() {
                     Log.d("imgpet", imgpet.toString())
 
 
-                    val choiceLayout = createLayout(namepet!!,speciespet!!, birthpet!!, agepet!!)
+                    val choiceLayout = createLayout(imgpet!!, namepet!!,speciespet!!, birthpet!!, agepet!!)
                     petLayout.addView(choiceLayout)
 
                     petRegister.setOnClickListener {
@@ -97,8 +97,6 @@ class VectorChoicePet : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
-
-
         })
     }
 
@@ -123,17 +121,21 @@ class VectorChoicePet : AppCompatActivity() {
         return bitmap
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
-    fun createLayout(name: String, species: String, birth: String, age: Int): View {
+    fun createLayout(imgpet:String, name: String, species: String, birth: String, age: Int): View {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.activity_sub_pet, null) as LinearLayout
+
+        val petimg = stringToBitmap(imgpet)
+
 
         val petImg = layout.findViewById<ImageView>(R.id.choicePetImg)
         val petName = layout.findViewById<TextView>(R.id.choicePetName)
         val petAge = layout.findViewById<TextView>(R.id.choicePetAge)
         val petBirth = layout.findViewById<TextView>(R.id.choicePetBirth)
 
-        petImg?.setImageResource(R.drawable.ex2)
+        petImg?.setImageBitmap(petimg)
         petName?.text = name
         petAge?.text = "나이: $age 살"
         petBirth?.text = "생일: $birth"

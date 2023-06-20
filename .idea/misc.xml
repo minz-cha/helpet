@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/comround.xml" value="0.1235" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/dash_hard_line.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/dash_hard_ling.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/dash_line.xml" value="0.1" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/edittext_rounded_corner_rectangle.xml" value="0.182" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/etcround.xml" value="0.1235" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.1305" />
@@ -27,6 +30,7 @@
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_hospital.xml" value="0.23489583333333333" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_main.xml" value="0.144" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_mpvector_result.xml" value="0.264" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_my_page.xml" value="0.176" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_my_pet.xml" value="0.1774262505344164" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_mypet.xml" value="0.2851646002565199" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_pet_inf.xml" value="0.264" />
@@ -50,6 +54,7 @@
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_find_pw.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_hospital_api.xml" value="0.1" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_hospital_list.xml" value="0.1" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_my_page.xml" value="0.176" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/fragment_vector_main.xml" value="0.2" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/login.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/petlist_view.xml" value="0.17666666666666667" />
