@@ -52,12 +52,12 @@ app.use('/api/community', communityRouter);
 app.use('/api/pet', pet);
 
 // 메인 페이지
-app.get('/main', (req, res) => {
-    if (!authCheck.isOwner(req, res)) {  // 로그인 안되어있으면 로그인 페이지로 이동시킴
-        res.json({ "result": "Login page로 이동" })
-    }
-    res.json({ "result": "Login Success! 메인화면입니다" })
-})
+// app.get('/main', (req, res) => {
+//     if (!authCheck.isOwner(req, res)) {  // 로그인 안되어있으면 로그인 페이지로 이동시킴
+//         res.json({ "result": "Login page로 이동" })
+//     }
+//     res.json({ "result": "Login Success! 메인화면입니다" })
+// })
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

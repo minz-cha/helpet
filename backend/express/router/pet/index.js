@@ -115,7 +115,7 @@ petRouter.post('/img', upload.single('file'), petController.Img)
  *                      type: string
  *                      example: "여자"
  */
-petRouter.post('/register', petController.petRegister)
+petRouter.post('/register', upload.single('petImg'), petController.petRegister)
 
 /**
  * @swagger
