@@ -5,32 +5,6 @@ const path = require('path');
 const fs = require('fs');
 const form = new FormData();
 
-// async function sendMultipart(req) {
-//     try {
-//         var form = new FormData();
-//         form.append('userId', req.body.userId);
-//         form.append('petImg', req.file.buffer, {
-//             filename: req.file.originalname,
-//             contentType: req.file.mimetype,
-//         });
-//         form.append('petSpecies', req.body.petSpecies);
-//         form.append('petName', req.body.petName);
-//         form.append('petAge', req.body.petAge);
-//         form.append('petBirth', req.body.petBirth);
-//         form.append('petGender', req.body.petGender);
-
-// const response = await axios.post('http://localhost:3000/api/pet/register', form, {
-//     headers: {
-//         'Content-Type': 'multipart/form-data',
-//     },
-// });
-//         res.setHeader('Content-Type', 'multipart/form-data');
-//         return response.data;
-//     } catch (error) {
-//         throw error;
-//     }
-// }
-
 // 반려동물 홈화면
 exports.petMain = (req, res) => {
     var userId = req.body.userId;
@@ -48,50 +22,6 @@ exports.petMain = (req, res) => {
         //     // db.end();
         // }
     })
-    // db.query('SELECT CONVERT(petImg USING utf8)  from pet where userId = ? and petName = ?', [userId, petName], function (error, result) {
-    //         if (error) {
-    //             return res.status(500).json({ error: error.message });
-    //         }
-    //         const petImg = result[0].petImg;
-    //     })
-}
-
-//이미지 처리 api
-exports.Img = (req, res) => {
-    const file = req.file;
-    // const petName = req.body.petName;
-    // const userId = req.body.userId;
-
-    // const category = req.body.category;
-    var imgName = file.filename;
-
-    const filePath = path.join(__dirname, '..', 'main', 'uploads', imgName);
-    const imageBuffer = fs.readFileSync(filePath);
-    let encode = Buffer.from(imageBuffer).toString('base64');
-
-    res.json({
-        "result": encode
-    })
-
-    // pet등록 - where userId, petName
-    // if (category == '1') {
-    //     db.query('INSERT INTO pet (petImg) VALUES (?) where petName = ? and userId = ?', [imageBuffer, petName, userId], (error, results) => {
-    //         if (error) {
-    //             console.error('Error saving image to MySQL:', error);
-    //             return res.status(500).send('Internal Server Error');
-    //         }
-    //     });
-    // }
-
-    // if (category == '2') {
-    //     db.query('INSERT INTO test (testImg) VALUES (?)', [imageBuffer], (error, results) => {
-    //         if (error) {
-    //             console.error('Error saving image to MySQL:', error);
-    //             return res.status(500).send('Internal Server Error');
-    //         }
-    //     });
-    // }
-    // res.sendFile(filePath)
 }
 
 // 반려동물 등록
@@ -117,13 +47,6 @@ exports.petRegister = (req, res) => {
         if (error) {
             return res.status(500).json({ error: error.message });
         }
-
-        // db.query('SELECT CONVERT(petImg USING utf8)  from pet where userId = ? and petName = ?', [userId, petName], function (error, result) {
-        //     if (error) {
-        //         return res.status(500).json({ error: error.message });
-        //     }
-        //     const petImg = result[0].petImg;
-        // })
 
         res.json({
             status: "success"
@@ -161,7 +84,6 @@ exports.petDelete = (req, res) => {
 exports.petList = (req, res) => {
     var userId = req.body.userId;
     var petName = req.body.petName;
-
 
     db.query('select pet.petName, pet.petAge, pet.petBirth,  CONVERT(diag_pet.vectImg USING utf8) as vectImg,  diag_pet.vectDate, diag_pet.vectName, diag_pet.vectProb from pet join diag_pet on pet.petIdx = diag_pet.petIdx where pet.userId = ? and pet.petName = ?; ', [userId, petName], function (error, result) {
         if (error) {

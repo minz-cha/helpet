@@ -72,8 +72,6 @@ const upload = multer({ storage, limits });
  */
 petRouter.post('/', petController.petMain)
 
-petRouter.post('/img', upload.single('file'), petController.Img)
-
 /**
  * @swagger
  * paths:
