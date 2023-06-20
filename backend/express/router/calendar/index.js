@@ -50,6 +50,8 @@ const calendarRouter = require("express").Router()
  */
 calendarRouter.post('/', calendarController.calendarMain)
 
+calendarRouter.post('/month', calendarController.calendarMonth)
+
 /**
  * @swagger
  * paths:

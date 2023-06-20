@@ -182,7 +182,7 @@ petRouter.post('/delete', petController.petDelete)
  *                               }
  *                           ]
  */
-petRouter.post('/mypet-list', petController.petList)
+petRouter.post('/diag-list', petController.petList)
 
 /**
  * @swagger

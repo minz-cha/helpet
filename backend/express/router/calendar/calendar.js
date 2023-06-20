@@ -12,7 +12,7 @@ exports.calendarMain = (req, res) => {
     var month = parseInt(now.slice(5, 7))
     var userId = req.body.userId;
 
-    db.query('SELECT * FROM calendar where month = ? and userId = ?', [month, userId], function (error, result) {
+    db.query('SELECT cal_idx, date, title, description FROM calendar where month = ? and userId = ?', [month, userId], function (error, result) {
         if (error) {
             return res.status(500).json({ error: error.message });
         }
@@ -20,8 +20,29 @@ exports.calendarMain = (req, res) => {
             status: "success",
             month: month,
             userId: userId,
-            result: result,
-            // "month": month
+            result: result
+        })
+        // if (db.state === 'connected') {
+        //     // 연결 종료
+        //     db.end();
+        // }
+    })
+}
+
+// 달력화면 접속 -> 해당 날짜(디폴트값)의 일정이 뜨게됨
+exports.calendarMonth = (req, res) => {
+    var month = req.body.month;
+    var userId = req.body.userId;
+
+    db.query('SELECT cal_idx, date, title, description FROM calendar where month = ? and userId = ?', [month, userId], function (error, result) {
+        if (error) {
+            return res.status(500).json({ error: error.message });
+        }
+        res.json({
+            status: "success",
+            month: month,
+            userId: userId,
+            result: result
         })
         // if (db.state === 'connected') {
         //     // 연결 종료
