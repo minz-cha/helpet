@@ -47,16 +47,10 @@ class CalendarMainFragment : Fragment() {
 
         //달력에 접속 요청
         fetchMonthlySchedules(userId)
+
         //당일 날짜
         binding.tvtodayDate.text = currentDate
 
-        //일정추가버튼_플로팅버튼
-        binding.calendarDialogButton.setOnClickListener {
-            val intent = Intent(requireContext(), PlanMemo::class.java)
-            intent.putExtra("date", currentDate)
-            intent.putExtra("userId", userId)
-            startActivityForResult(intent, 100)
-        }
         //recyclerview item 클릭 시, 해당 일정 추가 창으로 이동
         adapter.setOnItemClickListener(object:ScheduleAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
@@ -122,6 +116,15 @@ class CalendarMainFragment : Fragment() {
                         Log.d("에러", t.message!!)
                     }
                 })
+
+
+            //일정추가버튼_플로팅버튼
+            binding.calendarDialogButton.setOnClickListener {
+                val intent = Intent(requireContext(), PlanMemo::class.java)
+                intent.putExtra("date", totalDay)
+                intent.putExtra("userId", userId)
+                startActivityForResult(intent, 100)
+            }
         }
         return binding.root
     }

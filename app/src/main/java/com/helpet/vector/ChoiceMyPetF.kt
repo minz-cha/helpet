@@ -48,7 +48,7 @@ class ChoiceMyPetF : Fragment() {
 
         Log.d("value",value!!)
 
-           //유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
+        //유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
         val textuser = value.toString()
         val server3=  RetrofitApi2.retrofit2.create(GetPetService::class.java)
 
@@ -71,7 +71,7 @@ class ChoiceMyPetF : Fragment() {
                     val namepet = response.body()?.result?.get(i)?.petName
                     val genderpet = response.body()?.result?.get(i)?.petGender
 
-                    val layoutpet = createLayout(namepet!!, agepet!!, birthpet!!, genderpet!!)
+                    val layoutpet = createLayout(imgpet!!, namepet!!, agepet!!, birthpet!!, genderpet!!)
                     mypetLayout.addView(layoutpet)
 
 //                    //리스트가 눌리면 해당 동물 종이 고양이인지 강아지인지 같이 넘겨줌
@@ -121,8 +121,9 @@ class ChoiceMyPetF : Fragment() {
         return bitmap
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("InflateParams", "SetTextI18n")
-    fun createLayout(namepet: String, agepet :Int, birthpet:String,genderpet:String ) :View{
+    fun createLayout(imgpet: String, namepet: String, agepet :Int, birthpet:String,genderpet:String ) :View{
         val inflater = requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
         val layout = inflater?.inflate(R.layout.activity_sub_pet2, null) as LinearLayout
 
@@ -134,7 +135,7 @@ class ChoiceMyPetF : Fragment() {
         val mychoicePet = layout.findViewById<ImageView>(R.id.mychoicePet)
 
 
-        mychoicePetImg.setImageResource(R.drawable.ex2)
+        mychoicePetImg.setImageBitmap(stringToBitmap(imgpet))
         mychoicePetName.text = namepet
         mychoicePetAge.text = "나이 : $agepet 살"
         mychoicePetBirth.text = "생일: $birthpet "
@@ -144,6 +145,7 @@ class ChoiceMyPetF : Fragment() {
 
         layout.setOnClickListener {
             val intent = Intent(context, PetInfActivity::class.java)
+            intent.putExtra("imgpet", imgpet)
             intent.putExtra("namepet", namepet)
             intent.putExtra("agepet", agepet)
             intent.putExtra("birthpet", birthpet)

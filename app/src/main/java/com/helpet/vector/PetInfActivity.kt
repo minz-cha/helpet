@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import com.helpet.R
 import kotlinx.android.synthetic.main.activity_mpvector_result.*
 import kotlinx.android.synthetic.main.activity_pet_inf.*
@@ -24,17 +25,13 @@ import java.io.ByteArrayOutputStream
 import java.util.*
 
 class PetInfActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_inf)
 
-//        mpChoiceBack.setOnClickListener {
-//            val intent = Intent(this, ChoiceMyPetF::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
-
+        val petimg = intent.getStringExtra("imgpet")
         val name = intent.getStringExtra("namepet")
         val birth = intent.getStringExtra("birthpet")
         val gender = intent.getStringExtra("genderpet")
@@ -45,6 +42,7 @@ class PetInfActivity : AppCompatActivity() {
         Log.d("birth", birth!!)
         Log.d("gender", gender!!)
 
+        myPetImg.setImageBitmap(stringToBitmap(petimg))
         infName.text = name
         infAge.text = "나이: $age 살"
         infBirth.text = "생일: $birth"
@@ -71,29 +69,33 @@ class PetInfActivity : AppCompatActivity() {
 
         mpserver.myPetService(userId, petName).enqueue(object :retrofit2.Callback<MypetVectDTO>{
             @SuppressLint("SetTextI18n")
-            @RequiresApi(Build.VERSION_CODES.O)
-            override fun onResponse(call: Call<MypetVectDTO?>?, response: Response<MypetVectDTO?>){
+            override fun onResponse(call: Call<MypetVectDTO>, response: Response<MypetVectDTO>) {
                 Log.d("진단기록 리스트", "" + response.body().toString())
-//                Log.d("개수", response.body()?.result?.size!!.toString())
 
                 val petname = response.body()?.petName
-//                Log.d("petname", petname!!)
-
                 val petage = response.body()?.petAge
-//                Log.d("petage", petage.toString())
                 val petbirth = response.body()?.petBirth
-//                Log.d("petbirth", petbirth!!)
-                // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
-                for (i in 0 until (response.body()?.result?.size!!)) {
-
-                    val vectimg = response.body()?.result?.get(i)?.vectImg
-                    val vectname = response.body()?.result?.get(i)?.vectName
-                    val vectdate = response.body()?.result?.get(i)?.vectDate
-                    val vectprob = response.body()?.result?.get(i)?.vectProb
 
 
-                    vectorInfL.addView(createLayout(vectimg!!, vectname!!, vectdate!!, vectprob!!, petname!!, petage!!, petbirth!!))
+                if (response.body() == null){
+                    noVectResult.isVisible= true
 
+                    mpChoiceBack.setOnClickListener {
+                        finish()
+                    }
+                }
+                else{
+                    // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
+                    for (i in 0 until (response.body()?.result?.size!!)) {
+
+                        val vectimg = response.body()?.result?.get(i)?.vectImg
+                        val vectname = response.body()?.result?.get(i)?.vectName
+                        val vectdate = response.body()?.result?.get(i)?.vectDate
+                        val vectprob = response.body()?.result?.get(i)?.vectProb
+
+                        vectorInfL.addView(createLayout(vectimg!!, vectname!!, vectdate!!, vectprob!!, petname!!, petage!!, petbirth!!))
+
+                    }
                 }
             }
 
@@ -105,27 +107,6 @@ class PetInfActivity : AppCompatActivity() {
         })
 
 
-
-    }
-    //bitmap 을  string 형태로 변환하는 메서드 (이렇게 string 으로 변환된 데이터를 mysql 에서 longblob 의 형태로 저장하는식으로 사용가능)
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun bitmapToString(bitmap: Bitmap): String? {
-        var image = ""
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        val byteArray = stream.toByteArray()
-        image = Base64.getEncoder().encodeToString(byteArray)
-        return image
-    }
-
-    //string 을  bitmap 형태로 변환하는 메서드
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun stringToBitmap(data: String?): Bitmap? {
-        var bitmap: Bitmap? = null
-        val byteArray: ByteArray = Base64.getDecoder().decode(data)
-        val stream = ByteArrayInputStream(byteArray)
-        bitmap = BitmapFactory.decodeStream(stream)
-        return bitmap
     }
 
     @SuppressLint("SetTextI18n", "InflateParams")
@@ -133,13 +114,11 @@ class PetInfActivity : AppCompatActivity() {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.activity_vect_sub_layout, null) as LinearLayout
 
-
         Log.d("vectprob", vectprob.toString())
         val vectinfdate = layout.findViewById<TextView>(R.id.vectorInfDate)
         val vectinfname = layout.findViewById<TextView>(R.id.vectorInfName)
         val vectinfprob = layout.findViewById<TextView>(R.id.vectorInfProb)
 
-        // 설정할 내용들을 직접 지정해주세요.
         vectinfdate.text = vectdate
         vectinfname.text = vectname
         vectinfprob.text = "확률: $vectprob"
@@ -156,9 +135,19 @@ class PetInfActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+//        mpChoiceBack.setOnClickListener {
+//            finish()
+//        }
         return layout
 
     }
-
+    //string 을  bitmap 형태로 변환하는 메서드
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun stringToBitmap(data: String?): Bitmap? {
+        var bitmap: Bitmap? = null
+        val byteArray: ByteArray = Base64.getDecoder().decode(data)
+        val stream = ByteArrayInputStream(byteArray)
+        bitmap = BitmapFactory.decodeStream(stream)
+        return bitmap
+    }
 }

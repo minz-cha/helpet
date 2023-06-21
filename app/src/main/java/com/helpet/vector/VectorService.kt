@@ -94,13 +94,13 @@ interface VectResultService{
     @Multipart
     @POST("/api/pet/list-save")
     fun vectResultService(
-        @Part("userId") userId: String,
-        @Part("petName") petName: String,
         @Part vectImg : MultipartBody.Part,
-        @Part("vectDate") vectDate :String,
-        @Part("vectName") vectName :String,
+        @Part("userId") userId: RequestBody,
+        @Part("petName") petName: RequestBody,
+        @Part("vectDate") vectDate :RequestBody,
+        @Part("vectName") vectName :RequestBody,
         @Part("vectProb") vectProb :Double,
-        @Part("vectContent") vectContent :String
+        @Part("vectContent") vectContent :RequestBody
 
     ):Call<VectResultResponseDTO>
 }

@@ -29,6 +29,7 @@
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_home.xml" value="0.11578947368421053" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_hospital.xml" value="0.23489583333333333" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_main.xml" value="0.144" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_mpno_vect.xml" value="0.12013681060282172" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_mpvector_result.xml" value="0.264" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_my_page.xml" value="0.176" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_my_pet.xml" value="0.1774262505344164" />
@@ -40,7 +41,7 @@
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_sub_pet.xml" value="0.264" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_sub_pet2.xml" value="0.15220179563916203" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_title.xml" value="0.1483539974348012" />
-        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vect_sub_layout.xml" value="0.4" />
+        <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vect_sub_layout.xml" value="0.2" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_camera.xml" value="0.264" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_choice_pet.xml" value="0.152" />
         <entry key="..\:/Users/ellen/AndroidStudioProjects/helpetGithub/app/src/main/res/layout/activity_vector_imageshow.xml" value="0.4" />

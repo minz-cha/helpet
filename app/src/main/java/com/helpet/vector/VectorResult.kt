@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_vector_result.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -136,28 +137,30 @@ class VectorResult : AppCompatActivity() {
             }
 
         storeVector.setOnClickListener {
-            VectorResultUpdate(userId!!,namepet!!,vectimg, vecdate2, name!!,symptonProbability,vectcontent!!)
+            VectorResultUpdate(vectimg,userId!!,namepet!!, vecdate2, name!!,symptonProbability,vectcontent!!)
         }
         goBooks.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
 
-
     }
 
     private val vectserver = RetrofitApi2.retrofit2.create(VectResultService::class.java)
-    fun VectorResultUpdate(userId:String, namepet:String,vectImg:ByteArray, vecDate2 :String ,name:String,symptonProbability:Double,vectContent:String) {
+    fun VectorResultUpdate(vectImg:ByteArray,userId:String, namepet:String, vecDate2 :String ,name:String,symptonProbability:Double,vectContent:String) {
         val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), vectImg)
         val multipartBody: MultipartBody.Part? =
             MultipartBody.Part.createFormData("vectImg", "vectImg.jpeg", fileBody)
-        Log.d("userId", userId)
-        Log.d("namepet", namepet)
-        vectserver.vectResultService(userId, namepet, multipartBody!!, vecDate2, name, symptonProbability,vectContent ).enqueue(object : Callback<VectResultResponseDTO?> {
+        val userIdR = userId.toRequestBody("text/plain".toMediaTypeOrNull())
+        val namepetR = namepet.toRequestBody("text/plain".toMediaTypeOrNull())
+        val vectDateR = vecDate2.toRequestBody("text/plain".toMediaTypeOrNull())
+        val nameR = name.toRequestBody("text/plain".toMediaTypeOrNull())
+        val vectContentR = vectContent.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        vectserver.vectResultService(multipartBody!!,userIdR, namepetR, vectDateR, nameR, symptonProbability,vectContentR ).enqueue(object : Callback<VectResultResponseDTO?> {
                 override fun onResponse(call: Call<VectResultResponseDTO?>?, response: Response<VectResultResponseDTO?>) {
                     Log.d("진단 결과 저장", "" + response.body().toString())
                     Toast.makeText(this@VectorResult, "저장되었습니다.", Toast.LENGTH_SHORT).show()
-
 //                    intent = Intent(applicationContext, HomeActivity::class.java)
 //                    startActivity(intent)
 
@@ -169,15 +172,7 @@ class VectorResult : AppCompatActivity() {
                 }
             })
         }
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun bitmapToString(bitmap: Bitmap): String? {
-        var image = ""
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        val byteArray = stream.toByteArray()
-        image = Base64.getEncoder().encodeToString(byteArray)
-        return image
-    }
+
 }
 
 
