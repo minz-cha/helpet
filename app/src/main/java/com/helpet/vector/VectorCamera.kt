@@ -19,8 +19,6 @@ import androidx.annotation.LongDef
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import com.helpet.databinding.ActivityVectorCameraBinding
-import kotlinx.android.synthetic.main.activity_vector_camera.*
-import kotlinx.android.synthetic.main.activity_vector_result.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -41,16 +39,17 @@ class VectorCamera : BaseActivity() {
     val REQ_CAMERA=11
     val CROP_PICTURE = 2
 
+    val binding = ActivityVectorCameraBinding.inflate(layoutInflater)
 
-    val binding by lazy { ActivityVectorCameraBinding.inflate(LayoutInflater.from(applicationContext)) }
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        buttonVector.isEnabled=false
-        buttonVector.backgroundTintList = ColorStateList.valueOf(Color.LTGRAY) // 회색으로 설정
 
-        camback.setOnClickListener {
+        setContentView(binding.root)
+        binding.buttonVector.isEnabled=false
+        binding.buttonVector.backgroundTintList = ColorStateList.valueOf(Color.LTGRAY) // 회색으로 설정
+
+        binding.camback.setOnClickListener {
             val intent = Intent(this, VectorChoicePet::class.java)
             startActivity(intent)
             finish()
@@ -63,12 +62,12 @@ class VectorCamera : BaseActivity() {
     fun initViews(){
         binding.cameraBtn.setOnClickListener {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),PERM_CAMERA)
-            camTitle.text="촬영 완료"
-            sub1.text="아래의 진단 시작 버튼을\n누르면 진단이 시작됩니다."
-            sub2.isVisible=false
-            sub3.isVisible=false
-            camSubTitle.isVisible=false
-            buttonVector.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FD9374")) // 오렌지색으로 설정
+            binding.camTitle.text="촬영 완료"
+            binding.sub1.text="아래의 진단 시작 버튼을\n누르면 진단이 시작됩니다."
+            binding.sub2.isVisible=false
+            binding.sub3.isVisible=false
+            binding.camSubTitle.isVisible=false
+            binding.buttonVector.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FD9374")) // 오렌지색으로 설정
 
         }
     }
@@ -186,8 +185,8 @@ class VectorCamera : BaseActivity() {
                     startActivityForResult(intent, REQ_CAMERA);
                 }
                 REQ_CAMERA ->{
-                    buttonVector.isEnabled=true
-                    buttonVector.setBackgroundColor(Color.parseColor("#FD9374"))
+                    binding.buttonVector.isEnabled=true
+                    binding.buttonVector.setBackgroundColor(Color.parseColor("#FD9374"))
                     realUri?.let { uri ->
                         var bitmap: Bitmap? = null
                         //카메라에서 찍은 사진을 비트맵으로 변환
@@ -197,16 +196,16 @@ class VectorCamera : BaseActivity() {
                     }
 
 
-                    buttonVector.setOnClickListener {
+                    binding.buttonVector.setOnClickListener {
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
 
                         UpdatePhoto(SerialBitmap.translate(bitmap),this)
                         Log.d("사진" , SerialBitmap.translate(bitmap).toString())
-                        buttonVector.isVisible=false
-                        camSubLayout.isVisible=false
-                        loadingLayout.isVisible=true
-                        vectorProgress.isIndeterminate = true
-                        camTitle.text = "진단 중"
+                        binding.buttonVector.isVisible=false
+                        binding.camSubLayout.isVisible=false
+                        binding.loadingLayout.isVisible=true
+                        binding.vectorProgress.isIndeterminate = true
+                        binding.camTitle.text = "진단 중"
                     }
                 }
             }
@@ -278,7 +277,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
 
                     name= response.body()?.name!!
                     asymptomaticProbability= response.body()?.asymptomaticProbability!!
-                    symptomProbability=response.body()?.symptomProbability!!
+                    symptomProbability= response.body()?.symptomProbability!!
                     // 다른 액티비티로 intent
                     val intent = Intent(context, VectorResult::class.java)
                     // 인텐트에 데이터 추가

@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.helpet.MyPage.MyPage
 import com.helpet.R
 import com.helpet.calendar.CalendarMainFragment
-import kotlinx.android.synthetic.main.activity_home.*
+import com.helpet.databinding.ActivityHomeBinding
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -18,7 +18,9 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+
+        val binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         getHashKey()
@@ -29,7 +31,7 @@ class HomeActivity : AppCompatActivity() {
 //        }
 
 
-        bnv_main.run {
+        binding.bnvMain.run {
             setOnNavigationItemSelectedListener() {
                 when (it.itemId) {
                     // 다른 프래그먼트 화면으로 이동하는 기능

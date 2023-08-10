@@ -1,29 +1,16 @@
 package com.helpet.login
 
-import android.content.ContentValues
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Color.red
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
-import androidx.annotation.CheckResult
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.helpet.R
+import com.helpet.databinding.ActivityPetRegisterBinding
+import com.helpet.databinding.RegisterBinding
 import com.helpet.login.RetrofitInterface.retrofit
-import com.helpet.vector.ResponseDto
-import com.helpet.vector.RetrofitApi
-import com.helpet.vector.VectorService
-import kotlinx.android.synthetic.main.register.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,12 +20,13 @@ import retrofit2.http.*
 
 class Register : AppCompatActivity() {
 
-    val TAG: String = "Register"
     var isExistBlank = false
     var isPWSame = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val binding = RegisterBinding.inflate(layoutInflater)
         setContentView(R.layout.register)
 
         val username: EditText = findViewById(R.id.edit_name)
@@ -51,7 +39,7 @@ class Register : AppCompatActivity() {
 
         val server1 = retrofit.create(IDCheckService::class.java)
 
-        btn_Dup_check.setOnClickListener {
+        binding.btnDupCheck.setOnClickListener {
             val userId = userId.text.toString()
             server1.checkIDResult(userId).enqueue(object : Callback<IdCheckResult?> {
                 override fun onResponse(call: Call<IdCheckResult?>?, response: Response<IdCheckResult?>) {
@@ -59,11 +47,11 @@ class Register : AppCompatActivity() {
                     val success : Boolean? = response.body()?.success
                     Log.d("retrofit ID 중복 확인", "${result}")
                     if (success.toString() == "true") {
-                        id_check_result.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue))
-                        id_check_result.text = "이용 가능한 아이디입니다."
+                        binding.idCheckResult.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue))
+                        binding.idCheckResult.text = "이용 가능한 아이디입니다."
                     } else if (success.toString() == "false") {
-                        id_check_result.setTextColor(ContextCompat.getColor(applicationContext, R.color.red))
-                        id_check_result.text = "이미 존재하는 아이디입니다."
+                        binding.idCheckResult.setTextColor(ContextCompat.getColor(applicationContext, R.color.red))
+                        binding.idCheckResult.text = "이미 존재하는 아이디입니다."
                     }
                 }
 
@@ -76,7 +64,7 @@ class Register : AppCompatActivity() {
 
         val server2 = retrofit.create(NicknameCheckService::class.java)
 
-        btn_Dup_check2.setOnClickListener {
+        binding.btnDupCheck2.setOnClickListener {
             val nickname = nickname.text.toString()
             server2.checkNicknameResult(nickname).enqueue(object : Callback<NickCheckResult?> {
                 override fun onResponse(call: Call<NickCheckResult?>?, response: Response<NickCheckResult?>) {
@@ -84,11 +72,11 @@ class Register : AppCompatActivity() {
                     val success : Boolean? = response.body()?.success
                     Log.d("retrofit Nick 중복 확인", "${result}")
                     if (success.toString() == "true") {
-                        nick_check_result.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue))
-                        nick_check_result.text = "이용 가능한 닉네임입니다."
+                        binding.nickCheckResult.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue))
+                        binding.nickCheckResult.text = "이용 가능한 닉네임입니다."
                     } else if (success.toString() == "false") {
-                        nick_check_result.setTextColor(ContextCompat.getColor(applicationContext, R.color.red))
-                        nick_check_result.text = "이미 존재하는 닉네임입니다."
+                        binding.nickCheckResult.setTextColor(ContextCompat.getColor(applicationContext, R.color.red))
+                        binding.nickCheckResult.text = "이미 존재하는 닉네임입니다."
                     }
                 }
 
@@ -111,10 +99,10 @@ class Register : AppCompatActivity() {
             val nickname = nickname.text.toString()
 
             // 유저가 항목을 다 채우지 않았을 경우
-            if (edit_name.text.isBlank() || edit_phonenum.text.isEmpty() || edit_id.text.isEmpty() || edit_pw.text.isEmpty() || edit_pwcheck.text.isEmpty() || edit_nick.text.isEmpty()) {
+            if (binding.editName.text.isBlank() || binding.editPhonenum.text.isEmpty() || binding.editId.text.isEmpty() || binding.editPw.text.isEmpty() || edit_pwcheck.text.isEmpty() || binding.editNick.text.isEmpty()) {
                 isExistBlank = true
             } else {
-                if (edit_pw == edit_pwcheck) {
+                if (binding.editPw == edit_pwcheck) {
                     isPWSame = true
                 }
             }

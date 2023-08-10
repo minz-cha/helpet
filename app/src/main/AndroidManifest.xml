@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.helpet">
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- <uses-permission android:name ="android.permission.CAMERA"/> -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -30,7 +29,13 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="s">
         <activity
-            android:name=".vector.MPNoVect"
+            android:name=".books.VectDetailCat"
+            android:exported="false" />
+        <activity
+            android:name=".books.VectDetail"
+            android:exported="false" />
+        <activity
+            android:name=".books.VectList"
             android:exported="false" />
         <activity
             android:name=".vector.MPVectorResult"
@@ -78,7 +83,7 @@
             android:exported="false" />
         <activity
             android:name=".vector.VectorResult"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".calendar.Planlist"
             android:exported="false" />

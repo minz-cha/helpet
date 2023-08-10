@@ -70,8 +70,6 @@ exports.petDelete = (req, res) => {
         }
         res.json({
             status: "success",
-            userId: userId,
-            petName: petName,
         })
         // if (db.state === 'connected') {
         //     // 연결 종료

@@ -53,14 +53,14 @@
                 android:textSize="13dp" />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/petChoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/petchoice"
-            android:backgroundTint="@color/white"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="20dp"/>
+<!--        <ImageButton-->
+<!--            android:id="@+id/petChoice"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/petchoice"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:layout_marginLeft="70dp"-->
+<!--            android:layout_marginTop="20dp"/>-->
 
     </LinearLayout>
 </LinearLayout>

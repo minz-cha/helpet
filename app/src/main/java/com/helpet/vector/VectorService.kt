@@ -3,6 +3,7 @@ package com.helpet.vector
 import android.content.IntentFilter.create
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.Response
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -84,10 +85,13 @@ interface petImgService{
 interface GetPetService{
     @FormUrlEncoded
     @POST("/api/pet")
-    fun getPetRegister(
+    suspend fun getPetRegister(
     @Field("userId") userId: String
-    ):Call<petListResponseDTO>
+    ):retrofit2.Response<petListResponseDTO>
 }
+
+
+
 
 //진단 결과 저장하는 요청
 interface VectResultService{

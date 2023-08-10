@@ -15,21 +15,26 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
+import androidx.multidex.MultiDex
 import com.helpet.R
-import kotlinx.android.synthetic.main.activity_mpvector_result.*
-import kotlinx.android.synthetic.main.activity_pet_inf.*
+import com.helpet.databinding.ActivityPetInfBinding
 import retrofit2.Call
 import retrofit2.Response
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.util.*
+import kotlin.math.log
 
 class PetInfActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pet_inf)
+
+        val binding = ActivityPetInfBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        MultiDex.install(this)
 
         val petimg = intent.getStringExtra("imgpet")
         val name = intent.getStringExtra("namepet")
@@ -42,11 +47,11 @@ class PetInfActivity : AppCompatActivity() {
         Log.d("birth", birth!!)
         Log.d("gender", gender!!)
 
-        myPetImg.setImageBitmap(stringToBitmap(petimg))
-        infName.text = name
-        infAge.text = "나이: $age 살"
-        infBirth.text = "생일: $birth"
-        infGender.text = "성별: $gender"
+        binding.myPetImg.setImageBitmap(stringToBitmap(petimg))
+        binding.infName.text = name
+        binding.infAge.text = "나이: $age 살"
+        binding.infBirth.text = "생일: $birth"
+        binding.infGender.text = "성별: $gender"
 
 
 
@@ -78,13 +83,13 @@ class PetInfActivity : AppCompatActivity() {
 
 
                 if (response.body() == null){
-                    noVectResult.isVisible= true
+                    binding.noVectResult.isVisible= true
 
-                    mpChoiceBack.setOnClickListener {
+                    binding.mpChoiceBack.setOnClickListener {
                         finish()
                     }
                 }
-                else{
+                else if(response.body()!= null) {
                     // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
                     for (i in 0 until (response.body()?.result?.size!!)) {
 
@@ -93,7 +98,8 @@ class PetInfActivity : AppCompatActivity() {
                         val vectdate = response.body()?.result?.get(i)?.vectDate
                         val vectprob = response.body()?.result?.get(i)?.vectProb
 
-                        vectorInfL.addView(createLayout(vectimg!!, vectname!!, vectdate!!, vectprob!!, petname!!, petage!!, petbirth!!))
+
+                        binding.vectorInfL.addView(createLayout(stringToBitmap(vectimg)!!, vectname!!, vectdate!!, vectprob!!, petname!!, petage!!, petbirth!!))
 
                     }
                 }
@@ -109,8 +115,9 @@ class PetInfActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n", "InflateParams")
-    fun createLayout(vectImg: String, vectname: String, vectdate :String, vectprob: Double, petname:String, petage:Int, petbirth:String ) : View {
+    fun createLayout(vectImg: Bitmap, vectname: String, vectdate :String, vectprob: Double, petname:String, petage:Int, petbirth:String ) : View {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.activity_vect_sub_layout, null) as LinearLayout
 
@@ -124,20 +131,20 @@ class PetInfActivity : AppCompatActivity() {
         vectinfprob.text = "확률: $vectprob"
 
         layout.setOnClickListener {
-            val intent = Intent(this, MPVectorResult::class.java)
-            intent.putExtra("vectimg", vectImg)
+            val intent = Intent(applicationContext, MPVectorResult::class.java)
+//            Log.d("넘기자", "넘겨")
+            intent.putExtra("vectimg", SerialBitmap.translate(vectImg) )
             intent.putExtra("vectdate", vectdate)
             intent.putExtra("vectname", vectname)
             intent.putExtra("vectprob",vectprob)
             intent.putExtra("petname", petname)
             intent.putExtra("petage", petage)
             intent.putExtra("petbirth", petbirth)
+
             startActivity(intent)
+
         }
 
-//        mpChoiceBack.setOnClickListener {
-//            finish()
-//        }
         return layout
 
     }

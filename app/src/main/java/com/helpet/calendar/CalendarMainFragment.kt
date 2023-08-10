@@ -13,7 +13,6 @@ import androidx.appcompat.view.menu.MenuView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.helpet.databinding.FragmentCalendarMainBinding
-import kotlinx.android.synthetic.main.activity_calendar.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
