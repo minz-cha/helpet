@@ -16,11 +16,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.multidex.MultiDex
 import com.helpet.R
-import kotlinx.android.synthetic.main.activity_sub_pet2.*
-import kotlinx.android.synthetic.main.activity_vector_choice_pet.*
-import kotlinx.android.synthetic.main.fragment_choice_my_pet.*
+import com.helpet.databinding.FragmentChoiceMyPetBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
 import java.io.ByteArrayInputStream
@@ -30,75 +32,53 @@ import java.util.*
 
 class ChoiceMyPetF : Fragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        MultiDex.install(requireContext())
+        val binding = FragmentChoiceMyPetBinding.inflate(layoutInflater)
 
-        val view = inflater.inflate(R.layout.fragment_choice_my_pet, container, false)
-        // view 객체를 반환하고, 여기서 필요한 뷰를 findViewById()를 통해 찾을 수 있습니다.
-
-        // SharedPreferences 객체 생성
         val sharedPreferences = activity?.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        // 유저아이디 데이터 읽기
         val value = sharedPreferences?.getString("userId", "null")
 
-        Log.d("value",value!!)
-
-           //유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
         val textuser = value.toString()
-        val server3=  RetrofitApi2.retrofit2.create(GetPetService::class.java)
+        Log.d("value", value!!)
 
-        server3.getPetRegister(textuser).enqueue(object :retrofit2.Callback<petListResponseDTO>{
-            @SuppressLint("SetTextI18n")
-            @RequiresApi(Build.VERSION_CODES.O)
-            override fun onResponse(call: Call<petListResponseDTO?>?, response: Response<petListResponseDTO?>){
-                Log.d("반려동물 리스트", "" + response.body().toString())
-                Log.d("개수", response.body()?.result?.size!!.toString())
-
-                // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
-                for (i in 0 until (response.body()?.result?.size!!)) {
-
-
-                    val agepet = response.body()?.result?.get(i)?.petAge
-                    val birthpet = response.body()?.result?.get(i)?.petBirth
-                    val imgpet = response.body()?.result?.get(i)?.petImg
-                    Log.d("imgpet", imgpet.toString())
-//                  val imgpet2 = stringToBitmap(imgpet!!)
-                    val namepet = response.body()?.result?.get(i)?.petName
-                    val genderpet = response.body()?.result?.get(i)?.petGender
-
-                    val layoutpet = createLayout(namepet!!, agepet!!, birthpet!!, genderpet!!)
-                    mypetLayout.addView(layoutpet)
-
-//                    //리스트가 눌리면 해당 동물 종이 고양이인지 강아지인지 같이 넘겨줌
-//                    mypetLayout.setOnClickListener {
-//                        val intent = Intent(requireContext(), PetInfActivity::class.java)
-//                        intent.putExtra("namepet", namepet)
-//                        intent.putExtra("agepet", agepet)
-//                        intent.putExtra("birthpet", birthpet)
-//                        intent.putExtra("genderpet", genderpet)
-//
-//                        startActivity(intent)
-//                    }
-
-
+        lifecycleScope.launch {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    RetrofitApi2.retrofit2.create(GetPetService::class.java).getPetRegister(textuser)
                 }
-                mypetRegister.setOnClickListener {
-                    Log.d("hi","hi")
-                    val intent= Intent(requireContext(), PetRegisterActivity::class.java  )
-                    startActivity(intent)
-                }
-            }
-            override fun onFailure(call: Call<petListResponseDTO>, t: Throwable) {
-                Log.d("에러", t.message!!)
-            }
-        })
 
-        return view
+                response.body()?.let { petListResponse ->
+                    Log.d("반려동물 리스트", petListResponse.result.toString())
+                    Log.d("개수", petListResponse.result.size.toString())
+
+                    for (pet in petListResponse.result) {
+                        val agepet = pet.petAge
+                        val birthpet = pet.petBirth
+                        val imgpet = pet.petImg
+                        val namepet = pet.petName
+                        val genderpet = pet.petGender
+
+                        val layoutpet = createLayout(imgpet, namepet, agepet, birthpet, genderpet)
+                        binding.mypetLayout.addView(layoutpet)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("에러", e.message!!)
+            }
+        }
+
+        binding.mypetRegister.setOnClickListener {
+            val intent = Intent(requireContext(), PetRegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+        return binding.root
     }
     //bitmap 을  string 형태로 변환하는 메서드 (이렇게 string 으로 변환된 데이터를 mysql 에서 longblob 의 형태로 저장하는식으로 사용가능)
     @RequiresApi(Build.VERSION_CODES.O)
@@ -121,29 +101,31 @@ class ChoiceMyPetF : Fragment() {
         return bitmap
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("InflateParams", "SetTextI18n")
-    fun createLayout(namepet: String, agepet :Int, birthpet:String,genderpet:String ) :View{
-        val inflater = requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
-        val layout = inflater?.inflate(R.layout.activity_sub_pet2, null) as LinearLayout
+    fun createLayout(imgpet: String, namepet: String, agepet :Int, birthpet:String,genderpet:String ) :View{
+        val inflater = requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val layout = inflater.inflate(R.layout.activity_sub_pet2, null) as LinearLayout
 
 
         val mychoicePetImg = layout.findViewById<ImageView>(R.id.mychoicePetImg)
         val mychoicePetName = layout.findViewById<TextView>(R.id.mychoicePetName)
         val mychoicePetAge = layout.findViewById<TextView>(R.id.mychoicePetAge)
         val mychoicePetBirth = layout.findViewById<TextView>(R.id.mychoicePetBirth)
-        val mychoicePet = layout.findViewById<ImageView>(R.id.mychoicePet)
+//        val mychoicePet = layout.findViewById<ImageView>(R.id.mychoicePet)
 
 
-        mychoicePetImg.setImageResource(R.drawable.ex2)
+        mychoicePetImg.setImageBitmap(stringToBitmap(imgpet))
         mychoicePetName.text = namepet
         mychoicePetAge.text = "나이 : $agepet 살"
         mychoicePetBirth.text = "생일: $birthpet "
-        mychoicePet.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-        mychoicePet.setImageResource(R.drawable.petchoice)
-        mychoicePet.setPadding(0, 0, 0, 0)
+//        mychoicePet.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+//        mychoicePet.setImageResource(R.drawable.petchoice)
+//        mychoicePet.setPadding(0, 0, 0, 0)
 
         layout.setOnClickListener {
             val intent = Intent(context, PetInfActivity::class.java)
+            intent.putExtra("imgpet", imgpet)
             intent.putExtra("namepet", namepet)
             intent.putExtra("agepet", agepet)
             intent.putExtra("birthpet", birthpet)

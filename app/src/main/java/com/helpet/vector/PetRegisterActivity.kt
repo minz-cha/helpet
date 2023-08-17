@@ -12,14 +12,14 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.helpet.R
+import com.helpet.databinding.ActivityPetRegisterBinding
 import com.helpet.databinding.ActivityVectorCameraBinding
-import kotlinx.android.synthetic.main.activity_pet_register.*
-import kotlinx.android.synthetic.main.activity_pet_register.view.*
-import kotlinx.android.synthetic.main.activity_vector_camera.*
-import kotlinx.android.synthetic.main.activity_vector_choice_pet.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -32,13 +32,6 @@ import java.util.*
 
 class PetRegisterActivity : BaseActivity() {
 
-//    @Part("petImg") petImg: RequestBody,
-//    @Part("userId") userId: RequestBody,
-//    @Part("petSpecies") petSpecies : RequestBody,
-//    @Part("petName") petName: RequestBody,
-//    @Part("petAge") petAge: RequestBody,
-//    @Part("petBirth") petBirth: RequestBody,
-//    @Part("petGender") petGender: RequestBody
 
     var speciespet = ""
     private set
@@ -50,38 +43,48 @@ class PetRegisterActivity : BaseActivity() {
     val REQ_CAMERA=11
     val CROP_PICTURE = 2
 
+
+    val btnChoiceSuccess = findViewById<Button>(R.id.btnChoiceSuccess)
+    val choiceCamera = findViewById<ImageButton>(R.id.choiceCamera)
+    val petName = findViewById<TextView>(R.id.petName)
+    val petAge = findViewById<TextView>(R.id.petAge)
+    val petBirth = findViewById<TextView>(R.id.petBirth)
+
+
     val binding by lazy { ActivityVectorCameraBinding.inflate(LayoutInflater.from(applicationContext)) }
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pet_register)
+
+        val binding = ActivityPetRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
-        choiceDog.setOnClickListener {
-            choiceDog.setImageResource(R.drawable.choicedog)
+        binding.choiceDog.setOnClickListener {
+            binding.choiceDog.setImageResource(R.drawable.choicedog)
             speciespet = "강아지"
         }
-        choiceCat.setOnClickListener {
-            choiceCat.setImageResource(R.drawable.choicecatpink)
+        binding.choiceCat.setOnClickListener {
+            binding.choiceCat.setImageResource(R.drawable.choicecatpink)
             speciespet = "고양이"
         }
         Log.d("petSpecies", speciespet)
 
 
 
-        genderBoy.setOnClickListener {
-            genderBoy.setImageResource(R.drawable.choiceboypink)
+        binding.genderBoy.setOnClickListener {
+            binding.genderBoy.setImageResource(R.drawable.choiceboypink)
             genderpet = "남자"
         }
-        genderGirl.setOnClickListener {
-            genderGirl.setImageResource(R.drawable.choicegirlpink)
+        binding.genderGirl.setOnClickListener {
+            binding.genderGirl.setImageResource(R.drawable.choicegirlpink)
             genderpet = "여자"
         }
         Log.d("petGender", genderpet)
         requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERM_STORAGE)
 
-        registerBack.setOnClickListener {
+        binding.registerBack.setOnClickListener {
             val intent = Intent(this, VectorChoicePet::class.java)
             startActivity(intent)
         }
@@ -90,7 +93,9 @@ class PetRegisterActivity : BaseActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun initViews(){
-        choiceCamera.setOnClickListener {
+        val choicCamera = findViewById<ImageButton>(R.id.choiceCamera)
+
+        choicCamera.setOnClickListener {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),PERM_CAMERA)
         }
     }
@@ -201,6 +206,7 @@ class PetRegisterActivity : BaseActivity() {
                         //카메라에서 찍은 사진을 비트맵으로 변환
                         bitmap = MediaStore.Images.Media
                             .getBitmap(contentResolver, realUri)
+
                         //이미지뷰에 이미지 로딩
                         choiceCamera.setImageBitmap(bitmap)
                     }

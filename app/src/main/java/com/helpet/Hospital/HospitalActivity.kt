@@ -9,8 +9,8 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.helpet.R
+import com.helpet.databinding.ActivityHospitalBinding
 import com.helpet.vector.HomeActivity
-import kotlinx.android.synthetic.main.activity_hospital.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -20,7 +20,9 @@ class HospitalActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hospital)
+
+        val binding = ActivityHospitalBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         /* 키 해시 얻기*/try {
@@ -37,7 +39,7 @@ class HospitalActivity : AppCompatActivity() {
         }
 
 
-        back.setOnClickListener {
+        binding.back.setOnClickListener {
             val intent= Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
@@ -47,7 +49,7 @@ class HospitalActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().add(R.id.hospitalLayout, fragment0!!).commit()
 
-        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
                 var selected: Fragment? = null

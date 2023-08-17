@@ -12,76 +12,64 @@
         android:padding="20dp"
         android:gravity="center"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginBottom="10dp"
-            android:text="이름"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
 
         <EditText
-            android:id="@+id/edit_name"
+            android:id="@+id/edit_findpw_name"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginBottom="15dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/edittext_rounded_corner_rectangle"
-            android:layout_marginLeft="15dp"
             android:ems="15"
             android:hint="이름"
-            android:textSize="20dp"
-            android:inputType="textPersonName"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginBottom="10dp"
-            android:text="전화번호"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+
 
         <EditText
-            android:id="@+id/edit_phonenum"
+            android:id="@+id/edit_findpw_num"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginBottom="15dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/edittext_rounded_corner_rectangle"
-            android:layout_marginLeft="15dp"
             android:ems="15"
             android:hint="전화번호"
-            android:textSize="20dp"
-            android:inputType="phone"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginBottom="10dp"
-            android:text="아이디"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+
 
         <EditText
-            android:id="@+id/edit_id"
+            android:id="@+id/edit_findpw_id"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginBottom="15dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/edittext_rounded_corner_rectangle"
-            android:layout_marginLeft="15dp"
             android:ems="15"
             android:hint="아이디"
-            android:textSize="20dp"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
 
-
-        <Button
-            android:id="@+id/btn_id_ok"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="#FD9374"
-            android:textSize="20dp"
-            android:text="확인"/>
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp">
+
+            <Button
+                android:id="@+id/btn_success"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#FD9374"
+                android:text="로그인"
+                android:textColor="@color/black"
+                android:textSize="20dp">
+            </Button>
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

@@ -4,19 +4,14 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.helpet.R
-import com.helpet.databinding.FindBinding
 import com.helpet.databinding.FragmentMyPageBinding
-import kotlinx.android.synthetic.main.fragment_my_page.*
-import kotlin.math.log
 
 class MyPage : Fragment() {
 
@@ -28,6 +23,9 @@ class MyPage : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
+
+        val binding = FragmentMyPageBinding.inflate(layoutInflater)
+
         val root = inflater.inflate(R.layout.fragment_my_page, container, false)
         val editmyinf = root.findViewById<Button>(R.id.editMyInf) // 버튼 초기화
         val mypagepush = root.findViewById<Button>(R.id.myPagePush)

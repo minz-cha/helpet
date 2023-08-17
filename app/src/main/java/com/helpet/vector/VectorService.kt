@@ -3,6 +3,7 @@ package com.helpet.vector
 import android.content.IntentFilter.create
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.Response
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -61,6 +62,16 @@ interface PetService {
     ):Call<PetResponseDto>
 }
 
+//반려동물 삭제할 때 보내는 요청
+interface PetDelService{
+    @FormUrlEncoded
+    @POST("api/pet/delete")
+    fun petDelete(
+        @Field("userId") userId : String,
+        @Field("petName") petName : String,
+    ):Call<petDeleteDTO>
+}
+
 interface petImgService{
     @Multipart
     @POST("api/pet/img")
@@ -86,21 +97,24 @@ interface GetPetService{
     @POST("/api/pet")
     fun getPetRegister(
     @Field("userId") userId: String
-    ):Call<petListResponseDTO>
+    ):retrofit2.Response<petListResponseDTO>
 }
+
+
+
 
 //진단 결과 저장하는 요청
 interface VectResultService{
     @Multipart
     @POST("/api/pet/list-save")
     fun vectResultService(
-        @Part("userId") userId: String,
-        @Part("petName") petName: String,
         @Part vectImg : MultipartBody.Part,
-        @Part("vectDate") vectDate :String,
-        @Part("vectName") vectName :String,
+        @Part("userId") userId: RequestBody,
+        @Part("petName") petName: RequestBody,
+        @Part("vectDate") vectDate :RequestBody,
+        @Part("vectName") vectName :RequestBody,
         @Part("vectProb") vectProb :Double,
-        @Part("vectContent") vectContent :String
+        @Part("vectContent") vectContent :RequestBody
 
     ):Call<VectResultResponseDTO>
 }

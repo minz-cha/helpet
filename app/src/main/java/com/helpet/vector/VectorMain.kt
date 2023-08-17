@@ -14,19 +14,20 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import com.helpet.Hospital.HospitalActivity
-import kotlinx.android.synthetic.main.fragment_vector_main.*
+import com.helpet.books.VectList
+import com.helpet.databinding.FragmentVectorMainBinding
 
 
 class VectorMain : Fragment(), View.OnClickListener {
 
-    //private lateinit var binding: FragmentVectorMainBinding
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val root: View = inflater.inflate(R.layout.fragment_vector_main, container, false)
+        val binding = FragmentVectorMainBinding.inflate(layoutInflater)
 
-        val eyeBtn = root.findViewById<ImageButton>(R.id.vector_eye)
-
-        val hospital1 = root.findViewById<ImageButton>(R.id.hospital)
+        val eyeBtn = binding.root.findViewById<ImageButton>(R.id.vector_eye)
+        val hospital1 = binding.root.findViewById<ImageButton>(R.id.hospital)
+        val mainbooks = binding.root.findViewById<ImageButton>(R.id.mainBooks)
 
 
         eyeBtn.setOnClickListener {
@@ -38,12 +39,15 @@ class VectorMain : Fragment(), View.OnClickListener {
             val intent = Intent(requireContext(), HospitalActivity::class.java)
             startActivity(intent)
         }
+        mainbooks.setOnClickListener {
+            val intent = Intent(requireContext(), VectList::class.java)
+            startActivity(intent)
+        }
 
-        return root
+        return binding.root
     }
 
     override fun onClick(v: View) {
-        Log.v("test2","test2")
         when (v.id) {
             R.id.vector_eye -> {
                 val intent = Intent(requireActivity(), VectorChoicePet::class.java)
