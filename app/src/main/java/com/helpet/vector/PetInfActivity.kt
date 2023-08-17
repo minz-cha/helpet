@@ -12,7 +12,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.multidex.MultiDex
@@ -20,6 +22,7 @@ import com.helpet.R
 import com.helpet.databinding.ActivityPetInfBinding
 import retrofit2.Call
 import retrofit2.Response
+import retrofit2.create
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -111,6 +114,50 @@ class PetInfActivity : AppCompatActivity() {
 
 
         })
+
+        val delservice = RetrofitApi2.retrofit2.create(PetDelService::class.java)
+
+        binding.petOptions.setOnClickListener { view->
+            val popupMenu = PopupMenu(this, view) // 팝업 메뉴 생성
+
+            // 메뉴 아이템 추가
+            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.deletePet -> {
+                        // 메뉴 아이템 1 클릭 처리
+                        Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+
+                        delservice.petDelete(userId, petName).enqueue(object :retrofit2.Callback<petDeleteDTO> {
+                            @SuppressLint("SetTextI18n")
+                            override fun onResponse(call: Call<petDeleteDTO>, response: Response<petDeleteDTO>) {
+                                if (response.isSuccessful) {
+                                    Log.d("반려동물 삭제하기", "" + response.body()?.status)
+                                    val intent = Intent(applicationContext, ChoiceMyPetF::class.java)
+                                    startActivity(intent)
+                                    // 서버로부터 성공적으로 응답 받았을 때의 처리
+                                } else {
+                                    Log.d("반려동물 삭제하기", "서버 응답 오류: " + response.code())
+                                    // 서버 응답 오류에 대한 처리
+                                }
+                            }
+
+                            override fun onFailure(call: Call<petDeleteDTO>, t: Throwable) {
+                                Log.d("반려동물 삭제하기", "서버 요청 실패: " + t.message)
+                                // 서버 요청 실패에 대한 처리
+                            }
+                        })
+
+                        true // 클릭 처리 완료
+                    }
+
+                    // ...
+                    else -> false
+                }
+            }
+            popupMenu.show() // 팝업 메뉴 표시
+        }
 
 
     }

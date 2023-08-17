@@ -33,6 +33,21 @@
                 android:textSize="25dp"
                 android:padding="10dp"
                 android:textColor="#6C6C6C"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_gravity="center">
+                <ImageButton
+                    android:id="@+id/petOptions"
+                    android:src="@drawable/baseline_more_vert_24"
+                    android:backgroundTint="@color/white"
+                    android:layout_gravity="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

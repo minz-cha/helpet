@@ -62,6 +62,16 @@ interface PetService {
     ):Call<PetResponseDto>
 }
 
+//반려동물 삭제할 때 보내는 요청
+interface PetDelService{
+    @FormUrlEncoded
+    @POST("api/pet/delete")
+    fun petDelete(
+        @Field("userId") userId : String,
+        @Field("petName") petName : String,
+    ):Call<petDeleteDTO>
+}
+
 interface petImgService{
     @Multipart
     @POST("api/pet/img")
@@ -85,7 +95,7 @@ interface petImgService{
 interface GetPetService{
     @FormUrlEncoded
     @POST("/api/pet")
-    suspend fun getPetRegister(
+    fun getPetRegister(
     @Field("userId") userId: String
     ):retrofit2.Response<petListResponseDTO>
 }

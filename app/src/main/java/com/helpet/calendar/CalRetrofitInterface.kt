@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object CalRetrofitInterface {
-        private const val BASE_URL = "http://172.30.1.24:3000/api/"
+        private const val BASE_URL = "http://172.30.1.54:3000/api/"
 
         val retrofit3: Retrofit = Retrofit
             .Builder()
