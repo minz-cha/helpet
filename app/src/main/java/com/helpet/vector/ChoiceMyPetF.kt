@@ -14,10 +14,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.multidex.MultiDex
+import com.google.android.material.card.MaterialCardView
 import com.helpet.R
 import com.helpet.databinding.FragmentChoiceMyPetBinding
 import kotlinx.coroutines.Dispatchers
@@ -47,36 +50,111 @@ class ChoiceMyPetF : Fragment() {
         val textuser = value.toString()
         Log.d("value", value!!)
 
-        lifecycleScope.launch {
-            try {
-                val response = withContext(Dispatchers.IO) {
-                    RetrofitApi2.retrofit2.create(GetPetService::class.java).getPetRegister(textuser)
+//        lifecycleScope.launch {
+//            try {
+//                val response = withContext(Dispatchers.IO) {
+//                    RetrofitApi2.retrofit2.create(GetPetService::class.java).getPetRegister(textuser)
+//                }
+//
+//                response.let { petListResponse ->
+//                    Log.d("반려동물 리스트", petListResponse.result.toString())
+//                    Log.d("개수", petListResponse.result.size.toString())
+//
+//                    for (pet in petListResponse.result) {
+//                        val agepet = pet.petAge
+//                        val birthpet = pet.petBirth
+//                        val imgpet = pet.petImg
+//                        val namepet = pet.petName
+//                        val genderpet = pet.petGender
+//
+//                        val layoutpet = createLayout(imgpet, namepet, agepet, birthpet, genderpet)
+//                        binding.mypetLayout.addView(layoutpet)
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                Log.d("에러", e.message!!)
+//            }
+//        }
+
+        //유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
+        val server3=  RetrofitApi2.retrofit2.create(GetPetService::class.java)
+
+        server3.getPetRegister(value).enqueue(object :retrofit2.Callback<petListResponseDTO>{
+            @SuppressLint("SetTextI18n")
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onResponse(call: Call<petListResponseDTO?>?, response: Response<petListResponseDTO?>){
+                Log.d("반려동물 리스트", "" + response.body().toString())
+                Log.d("개수", response.body()?.result?.size!!.toString())
+
+                // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
+                for (i in 0 until (response.body()?.result?.size!!)) {
+
+                    val agepet = response.body()?.result!![i].petAge
+                        val birthpet = response.body()?.result!![i].petBirth
+                        val imgpet = response.body()?.result!![i].petImg
+                        val namepet = response.body()?.result!![i].petName
+                        val genderpet = response.body()?.result!![i].petGender
+
+//                    val imgpet = response.body()?.result?.get(i)?.petImg
+//                    val namepet = response.body()?.result?.get(i)?.petName
+//                    val genderpet = response.body()?.result?.get(i)?.petGender
+//                    val birthpet = response.body()?.result?.get(i)?.petBirth
+//                    val agepet = response.body()?.result?.get(i)?.petAge
+//                    val speciespet = response.body()?.result?.get(i)?.petSpecies
+                    Log.d("imgpet", imgpet.toString())
+
+
+                    val choiceLayout = createLayout(imgpet, namepet, agepet, birthpet, genderpet)
+                    binding.mypetLayout.addView(choiceLayout)
+
+//                    binding.mypetRegister.setOnClickListener {
+//                        Log.d("hi","hi")
+//                        val intent= Intent(requireContext(), PetRegisterActivity::class.java  )
+//                        startActivity(intent)
+//                    }
+
                 }
 
-                response.body()?.let { petListResponse ->
-                    Log.d("반려동물 리스트", petListResponse.result.toString())
-                    Log.d("개수", petListResponse.result.size.toString())
-
-                    for (pet in petListResponse.result) {
-                        val agepet = pet.petAge
-                        val birthpet = pet.petBirth
-                        val imgpet = pet.petImg
-                        val namepet = pet.petName
-                        val genderpet = pet.petGender
-
-                        val layoutpet = createLayout(imgpet, namepet, agepet, birthpet, genderpet)
-                        binding.mypetLayout.addView(layoutpet)
-                    }
-                }
-            } catch (e: Exception) {
-                Log.d("에러", e.message!!)
             }
+
+            override fun onFailure(call: Call<petListResponseDTO>, t: Throwable) {
+                Log.d("에러", t.message!!)
+//                binding.mypetRegister.setOnClickListener {
+//                    val intent= Intent(requireContext(), PetRegisterActivity::class.java  )
+//                    startActivity(intent)
+//                }
+            }
+        })
+
+//        binding.mypetRegister.setOnClickListener {
+//            val intent = Intent(requireContext(), PetRegisterActivity::class.java)
+//            startActivity(intent)
+//        }
+
+        binding.petPlus.setOnClickListener { view->
+            val popupMenu = PopupMenu(requireContext(), view) // 팝업 메뉴 생성
+
+            // 메뉴 아이템 추가
+            popupMenu.menuInflater.inflate(R.menu.pet_plus, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.plusPet -> {
+                        // 우리 아이 등록하기
+                        val intent = Intent(requireContext(), PetRegisterActivity::class.java)
+                        startActivity(intent)
+                        true // 클릭 처리 완료
+                    }
+
+                    // ...
+                    else -> false
+                }
+            }
+            popupMenu.show() // 팝업 메뉴 표시
         }
 
-        binding.mypetRegister.setOnClickListener {
-            val intent = Intent(requireContext(), PetRegisterActivity::class.java)
-            startActivity(intent)
-        }
+
+
 
         return binding.root
     }
@@ -105,7 +183,7 @@ class ChoiceMyPetF : Fragment() {
     @SuppressLint("InflateParams", "SetTextI18n")
     fun createLayout(imgpet: String, namepet: String, agepet :Int, birthpet:String,genderpet:String ) :View{
         val inflater = requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val layout = inflater.inflate(R.layout.activity_sub_pet2, null) as LinearLayout
+        val layout = inflater.inflate(R.layout.activity_sub_pet2, null) as MaterialCardView
 
 
         val mychoicePetImg = layout.findViewById<ImageView>(R.id.mychoicePetImg)
@@ -132,6 +210,21 @@ class ChoiceMyPetF : Fragment() {
             intent.putExtra("genderpet", genderpet)
             startActivity(intent)
         }
+        // Create layout parameters for the MaterialCardView
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        // 마진 설정
+        params.topMargin = resources.getDimensionPixelSize(R.dimen.margin)
+        params.bottomMargin = resources.getDimensionPixelSize(R.dimen.margin)
+        params.leftMargin = resources.getDimensionPixelSize(R.dimen.marginside)
+        params.rightMargin = resources.getDimensionPixelSize(R.dimen.marginside)
+
+        // Set the layout parameters to the MaterialCardView
+        layout.layoutParams = params
+
 
         return layout
 

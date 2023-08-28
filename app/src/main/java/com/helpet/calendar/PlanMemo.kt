@@ -1,56 +1,75 @@
 package com.helpet.calendar
 
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.ImageButton
+import androidx.core.util.Pair
 import android.widget.Toast
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.helpet.R
-import com.helpet.login.LogResponseDTO
-import com.helpet.login.LoginService
-import com.helpet.login.RetrofitInterface
-import com.helpet.vector.HomeActivity
+import com.helpet.databinding.ActivityPlanMemoBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.*
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Calendar.getInstance
 
 
 class PlanMemo : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_plan_memo)
 
-        val tvtodayDate = findViewById<TextView>(R.id.tvtodayDate)
+        val binding = ActivityPlanMemoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         val date = intent.getStringExtra("date")
-        val btnClose = findViewById<Button>(R.id.btnClose)
-        val edtTitle: EditText = findViewById(R.id.edtTitle)
-        val edtPlan: EditText = findViewById(R.id.edtPlan)
-        val btnSave: Button = findViewById(R.id.btnSave)
 
         //일정 등록하기
-        tvtodayDate.text = date
+        binding.tvtodayDate.text = date
 
         val userId: String = intent.getStringExtra("userId") ?: "" // userId 값을 인텐트로부터 추출
 
 
-//        val title = edtTitle.text.toString()
-//        val description = edtPlan.text.toString()
-//        setResult(RESULT_CANCELED)
+        binding.selectCal.setOnClickListener {
+            val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+                    .setTitleText("등록할 기간을 선택해주세요.")
+                    .setSelection(
+                        Pair(
+                            MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                            MaterialDatePicker.todayInUtcMilliseconds()
+                        )
+                    )
+                    .build()
 
-        btnClose.setOnClickListener {
+            dateRangePicker.show(supportFragmentManager, "date_picker")
+            dateRangePicker.addOnPositiveButtonClickListener { selection ->
+                val calendar = getInstance()
+                calendar.timeInMillis = selection?.first ?: 0
+                val startDate = SimpleDateFormat("yyyyMMdd").format(calendar.time).toString()
+                Log.d("start", startDate)
+
+                calendar.timeInMillis = selection?.second ?: 0
+                val endDate = SimpleDateFormat("yyyyMMdd").format(calendar.time).toString()
+                Log.d("end", endDate)
+
+                binding.tvtodayDate.text = dateRangePicker.headerText
+//                                    getInstance(customerNumString, startDate, endDate, itemNumstring)
+            }
+        }
+
+        binding.btnClose.setOnClickListener {
             finish()
         }
 
 
-        btnSave.setOnClickListener {
-            val title = edtTitle.text.toString()
-            val description = edtPlan.text.toString()
+        binding.btnSave.setOnClickListener {
+            val title = binding.edtTitle.text.toString()
+            val description = binding.edtPlan.text.toString()
 //            val intent = Intent(this,MainActivity::class.java)
             if (title.isNotEmpty()) {
                 val intent = Intent()
@@ -73,7 +92,7 @@ class PlanMemo : AppCompatActivity() {
 
             server.CalendarResult(date, userId, title, description).enqueue(object : Callback<CalendarPlanResultDTO?> {
                 override fun onResponse(
-                    call: Call<CalendarPlanResultDTO?>?,
+                    call: Call<CalendarPlanResultDTO?>,
                     response: Response<CalendarPlanResultDTO?>
                 ) {
                     val result = response.body()

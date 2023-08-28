@@ -5,23 +5,6 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="10dp">-->
-<!--        <View-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1" />-->
-<!--        <ImageButton-->
-<!--            android:id="@+id/btn_close"-->
-<!--            android:layout_width="42dp"-->
-<!--            android:layout_height="37dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:src="@drawable/ic_baseline_close_24">-->
-<!--        </ImageButton>-->
-<!--    </LinearLayout>-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -92,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp">
 

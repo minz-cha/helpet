@@ -43,30 +43,26 @@ class PetRegisterActivity : BaseActivity() {
     val REQ_CAMERA=11
     val CROP_PICTURE = 2
 
-
-    val btnChoiceSuccess = findViewById<Button>(R.id.btnChoiceSuccess)
-    val choiceCamera = findViewById<ImageButton>(R.id.choiceCamera)
-    val petName = findViewById<TextView>(R.id.petName)
-    val petAge = findViewById<TextView>(R.id.petAge)
-    val petBirth = findViewById<TextView>(R.id.petBirth)
-
-
-    val binding by lazy { ActivityVectorCameraBinding.inflate(LayoutInflater.from(applicationContext)) }
+    private lateinit var binding: ActivityPetRegisterBinding
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityPetRegisterBinding.inflate(layoutInflater)
+        binding = ActivityPetRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
         binding.choiceDog.setOnClickListener {
             binding.choiceDog.setImageResource(R.drawable.choicedog)
+            //중복 방지
+            binding.choiceCat.setImageResource(R.drawable.choicecat)
             speciespet = "강아지"
         }
         binding.choiceCat.setOnClickListener {
             binding.choiceCat.setImageResource(R.drawable.choicecatpink)
+            //중복방지
+            binding.choiceDog.setImageResource(R.drawable.choicedogblack)
             speciespet = "고양이"
         }
         Log.d("petSpecies", speciespet)
@@ -75,10 +71,14 @@ class PetRegisterActivity : BaseActivity() {
 
         binding.genderBoy.setOnClickListener {
             binding.genderBoy.setImageResource(R.drawable.choiceboypink)
+            //중복방지
+            binding.genderGirl.setImageResource(R.drawable.gendergirl)
             genderpet = "남자"
         }
         binding.genderGirl.setOnClickListener {
             binding.genderGirl.setImageResource(R.drawable.choicegirlpink)
+            //중복방지
+            binding.genderBoy.setImageResource(R.drawable.genderboy)
             genderpet = "여자"
         }
         Log.d("petGender", genderpet)
@@ -199,8 +199,8 @@ class PetRegisterActivity : BaseActivity() {
                     startActivityForResult(intent, REQ_CAMERA);
                 }
                 REQ_CAMERA ->{
-                    btnChoiceSuccess.isEnabled=true
-                    btnChoiceSuccess.setBackgroundColor(Color.parseColor("#FD9374"))
+                    binding.btnChoiceSuccess.isEnabled=true
+                    binding.btnChoiceSuccess.setBackgroundColor(Color.parseColor("#FD9374"))
                     realUri?.let { uri ->
                         var bitmap: Bitmap? = null
                         //카메라에서 찍은 사진을 비트맵으로 변환
@@ -208,10 +208,10 @@ class PetRegisterActivity : BaseActivity() {
                             .getBitmap(contentResolver, realUri)
 
                         //이미지뷰에 이미지 로딩
-                        choiceCamera.setImageBitmap(bitmap)
+                        binding.choiceCamera.setImageBitmap(bitmap)
                     }
 
-                    btnChoiceSuccess.setOnClickListener {
+                    binding.btnChoiceSuccess.setOnClickListener {
 
                         var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
                         val imgString = SerialBitmap.translate(bitmap)
@@ -239,17 +239,17 @@ class PetRegisterActivity : BaseActivity() {
         //유저가 이미 저장해둔 반려동물 정보 가져오는 데이터 값들
         val textuser = value.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val petSpecies = speciespet.toRequestBody("text/plain".toMediaTypeOrNull())
-        val namepet: RequestBody = petName.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val namepet: RequestBody = binding.petName.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val petName = namepet
-        val textAge: String = petAge.text.toString()
+        val textAge: String = binding.petAge.text.toString()
         val petAge :Int = textAge.toInt()
-        val textBirth: RequestBody = petBirth.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val textBirth: RequestBody = binding.petBirth.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val petBirth= textBirth
         val petGender = genderpet.toRequestBody("text/plain".toMediaTypeOrNull())
         Log.d("등록", textuser.toString())
         Log.d("등록", speciespet)
         Log.d("등록", namepet.toString())
-        Log.d("등록", textAge.toString())
+        Log.d("등록", textAge)
         Log.d("등록", textBirth.toString())
         Log.d("등록", genderpet)
 
@@ -258,7 +258,7 @@ class PetRegisterActivity : BaseActivity() {
         server2.PetRegister(multipartBody!!, textuser , petSpecies, petName, petAge, petBirth, petGender).enqueue(object :
             Callback<PetResponseDto?> {
             @RequiresApi(Build.VERSION_CODES.O)
-            override fun onResponse(call: Call<PetResponseDto?>?, response: Response<PetResponseDto?>) {
+            override fun onResponse(call: Call<PetResponseDto?>, response: Response<PetResponseDto?>) {
                 Log.d("반려동물 등록 결과", "" + response.body().toString())
 
                 // 다른 액티비티로 intent
@@ -267,7 +267,7 @@ class PetRegisterActivity : BaseActivity() {
                 context.startActivity(intent)
             }
 
-            override fun onFailure(call: Call<PetResponseDto?>?, t: Throwable) {
+            override fun onFailure(call: Call<PetResponseDto?>, t: Throwable) {
                 Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
                 Log.d("에러", t.message!!)
             }

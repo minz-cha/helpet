@@ -39,12 +39,13 @@ class VectorCamera : BaseActivity() {
     val REQ_CAMERA=11
     val CROP_PICTURE = 2
 
-    val binding = ActivityVectorCameraBinding.inflate(layoutInflater)
+    private lateinit var binding : ActivityVectorCameraBinding
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = ActivityVectorCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.buttonVector.isEnabled=false
         binding.buttonVector.backgroundTintList = ColorStateList.valueOf(Color.LTGRAY) // 회색으로 설정

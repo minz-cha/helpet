@@ -29,12 +29,15 @@ import java.util.*
 import kotlin.math.log
 
 class PetInfActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityPetInfBinding
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityPetInfBinding.inflate(layoutInflater)
+        binding = ActivityPetInfBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         MultiDex.install(this)
@@ -203,5 +206,15 @@ class PetInfActivity : AppCompatActivity() {
         val stream = ByteArrayInputStream(byteArray)
         bitmap = BitmapFactory.decodeStream(stream)
         return bitmap
+    }
+
+    override fun onStop() {
+        super.onStop()
+        finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        finish()
     }
 }

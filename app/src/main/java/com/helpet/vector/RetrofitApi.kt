@@ -23,12 +23,12 @@ object RetrofitApi {
         .client(okHttpClient)
         .build()
 
-//    val service: VectorService = retrofit.create(VectorService::class.java)
+//    val service: VectorService = retrofit.create(VectorSfervice::class.java)
 
 }
 
 object RetrofitApi2 {
-    private const val BASE_URL = "http://172.29.4.42:3000/"
+    private const val BASE_URL = "http://192.168.219.136:3000/"
 
     var okHttpClient = OkHttpClient().newBuilder()
         .connectTimeout(30, TimeUnit.SECONDS)

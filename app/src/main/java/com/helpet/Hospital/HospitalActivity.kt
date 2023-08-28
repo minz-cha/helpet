@@ -2,10 +2,10 @@ package com.helpet.Hospital
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.helpet.R
@@ -40,7 +40,7 @@ class HospitalActivity : AppCompatActivity() {
 
 
         binding.back.setOnClickListener {
-            val intent= Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
 
@@ -55,16 +55,16 @@ class HospitalActivity : AppCompatActivity() {
                 var selected: Fragment? = null
                 if (position == 0) {
                     selected = fragment0
-                }
-                else if (position == 1) {
+                } else if (position == 1) {
                     selected = fragment1
                 }
-                supportFragmentManager.beginTransaction().replace(R.id.hospitalLayout, selected!!).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.hospitalLayout, selected!!)
+                    .commit()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
-    }
 
+    }
 }

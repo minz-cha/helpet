@@ -42,5 +42,13 @@
         <item name="colorAccent">#FD9374</item>
     </style>
 
+    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+    </style>
+    <style name="BottomNavigationTextStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@drawable/selector_bottom_navigation_item</item>
+    </style>
 
 </resources>

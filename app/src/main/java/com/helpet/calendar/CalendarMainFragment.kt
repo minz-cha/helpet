@@ -24,7 +24,6 @@ import java.util.*
 class CalendarMainFragment : Fragment() {
 
     private val scheduleList: MutableList<Schedule> = mutableListOf()
-    private lateinit var binding: FragmentCalendarMainBinding
     private lateinit var adapter: ScheduleAdapter
     private lateinit var userId: String
 
@@ -33,7 +32,7 @@ class CalendarMainFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         userId = sharedPreferences.getString("userId", "") ?: ""
 
-        binding = FragmentCalendarMainBinding.inflate(inflater, container, false)
+        val binding = FragmentCalendarMainBinding.inflate(inflater, container, false)
 
 
         adapter = ScheduleAdapter(scheduleList)
@@ -119,10 +118,12 @@ class CalendarMainFragment : Fragment() {
 
             //일정추가버튼_플로팅버튼
             binding.calendarDialogButton.setOnClickListener {
-                val intent = Intent(requireContext(), PlanMemo::class.java)
+                Log.d("calendarDialogButton", "calendarDialogButton")
+                val intent = Intent(requireActivity(), PlanMemo::class.java)
                 intent.putExtra("date", totalDay)
                 intent.putExtra("userId", userId)
-                startActivityForResult(intent, 100)
+                startActivity(intent)
+
             }
         }
         return binding.root
@@ -135,7 +136,10 @@ class CalendarMainFragment : Fragment() {
         val server = CalRetrofitInterface.retrofit3.create(CalendarDateService::class.java)
         Log.d("userId", userid)
         server.getMonthlySchedule(userid).enqueue(object : Callback<MonthlyScheduleDTO> {
-            override fun onResponse(call: Call<MonthlyScheduleDTO>?, response: Response<MonthlyScheduleDTO>) {
+            override fun onResponse(
+                call: Call<MonthlyScheduleDTO>,
+                response: Response<MonthlyScheduleDTO>
+            ) {
                 Log.d("해당 월별", response.body().toString())
                 val monthlyScheduleDTO = response.body()
                 val monthlySchedules = monthlyScheduleDTO?.result
@@ -157,24 +161,25 @@ class CalendarMainFragment : Fragment() {
                     adapter.updateData(monthlySchedules, currentDate)
                 }
             }
-            override fun onFailure(call: Call<MonthlyScheduleDTO>?,t: Throwable) {
+            override fun onFailure(call: Call<MonthlyScheduleDTO>, t: Throwable) {
                 Log.d("에러", t.message!!)
             }
         })
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == 100 && resultCode == AppCompatActivity.RESULT_OK) {
-//            val title = data?.getStringExtra("title")
-//            // RecyclerView에 데이터를 추가하는 로직을 구현
-//            val plan = Schedule("","", title!!,"")
-//            scheduleList.add(plan)
-//            if (::adapter.isInitialized) {
-//                adapter.notifyDataSetChanged()
-//            }
-//        }
-//    }
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 100 && resultCode == AppCompatActivity.RESULT_OK) {
+            val title = data?.getStringExtra("title")
+            // RecyclerView에 데이터를 추가하는 로직을 구현
+            val plan = Schedule("","", title!!,"")
+            scheduleList.add(plan)
+            if (::adapter.isInitialized) {
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
 
 
 }

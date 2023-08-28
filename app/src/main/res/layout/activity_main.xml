@@ -30,12 +30,12 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/mainButtonLayout"
         android:layout_marginRight="-45dp"
-        android:layout_marginBottom="-6dp">
+        android:layout_marginBottom="-15dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="-45dp"
+            android:layout_marginRight="-75dp"
             android:src="@drawable/maindog" />
 
     </LinearLayout>
