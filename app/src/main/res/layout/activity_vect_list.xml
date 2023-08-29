@@ -34,43 +34,156 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
+        android:orientation="horizontal">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/booksTabs"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
-            <com.google.android.material.tabs.TabItem
+            <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="강아지"/>
-            <com.google.android.material.tabs.TabItem
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="강아지"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipStrokeColor="#B6B6B6"
+                app:chipStrokeWidth="1dp"
+                app:chipBackgroundColor="@color/white"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"/>
+
+            <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="고양이"/>
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="고양이"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipStrokeColor="#B6B6B6"
+                app:chipStrokeWidth="1dp"
+                app:chipBackgroundColor="@color/white"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"
+                />
 
-        </com.google.android.material.tabs.TabLayout>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="결막염"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="#B6B6B6"
+                app:chipStrokeWidth="1dp"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"/>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="백내장"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="#B6B6B6"
+                app:chipStrokeWidth="1dp"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"/>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="각막궤양"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="#B6B6B6"
+                app:chipStrokeWidth="1dp"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"/>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="유루증"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeWidth="1dp"
+                app:chipStrokeColor="#B6B6B6"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"/>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="안구건조증"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="#B6B6B6"
+                app:chipStrokeWidth="1dp"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"/>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="포도막염"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="#B6B6B6"
+                app:chipStrokeWidth="1dp"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"/>
+
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="각막염"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="#B6B6B6"
+                app:chipStrokeWidth="1dp"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"/>
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:text="녹내장"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="#B6B6B6"
+                app:chipStrokeWidth="1dp"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/helpet"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/vectBooksFrameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ListView
-            android:id="@+id/listView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bookListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </ListView>
-
-    </FrameLayout>
-
-
-
-
-
-
+        </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

@@ -5,28 +5,28 @@
     <item
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@drawable/home4"
+        android:icon="@drawable/baseline_home_24"
         android:title="홈"
-        app:showAsAction="always"/>
+        app:showAsAction="withText"/>
     <item
         android:id="@+id/calender"
         android:enabled="true"
-        android:icon="@drawable/calender2"
+        android:icon="@drawable/baseline_calendar_month_24"
         android:title="캘린더"
-        app:showAsAction="always"/>
+        app:showAsAction="withText"/>
     <item
         android:id="@+id/myPet"
         android:enabled="true"
-        android:icon="@drawable/mypet2"
+        android:icon="@drawable/baseline_pets_24"
         android:title="마이펫"
-        app:showAsAction="always"/>
+        app:showAsAction="withText"/>
 
     <item
         android:id="@+id/myPage"
         android:enabled="true"
-        android:icon="@drawable/mypage"
+        android:icon="@drawable/outline_contact_page_24"
         android:title="마이페이지"
-        app:showAsAction="always"/>
+        app:showAsAction="withText"/>
 
 
 </menu>

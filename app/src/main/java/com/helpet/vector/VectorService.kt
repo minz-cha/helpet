@@ -97,7 +97,7 @@ interface GetPetService{
     @POST("/api/pet")
     fun getPetRegister(
     @Field("userId") userId: String
-    ):retrofit2.Response<petListResponseDTO>
+    ):Call<petListResponseDTO>
 }
 
 

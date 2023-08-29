@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="5dp">
 
@@ -28,11 +28,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="우리 아이"
-                android:layout_marginLeft="10dp"
-                android:textSize="25dp"
+                android:text="우리 아이🧡"
+                android:layout_marginStart="10dp"
+                android:textSize="25sp"
                 android:padding="10dp"
-                android:textColor="#6C6C6C"/>
+                android:textColor="@color/black"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,27 +56,44 @@
             android:layout_marginTop="15dp"
             android:padding="20dp">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardElevation="5dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/round5">
-
-                <ImageView
-                    android:id="@+id/myPetImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ex2"
-                    android:padding="3dp"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/round5"
+                app:strokeWidth="1dp"
+                app:strokeColor="#D8D8D8">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:padding="20dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        app:cardCornerRadius="55dp">
+
+                        <ImageView
+                            android:id="@+id/myPetImg"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:src="@drawable/ex2" />
+
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:padding="20dp"
+                    android:layout_marginStart="30dp">
 
                     <TextView
                         android:id="@+id/infName"
@@ -102,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:text="2017.03.18"/>
                 </LinearLayout>
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
         <LinearLayout

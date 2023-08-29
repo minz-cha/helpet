@@ -14,7 +14,7 @@ var pet = require('../pet');
 var communityRouter = require('../community/community');
 
 app.use('/static', express.static('static'))
-app.use(express.urlencoded({
+app.use(express.urlencoded({ 
     extended: true
 }))
 app.use(express.json());
