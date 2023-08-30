@@ -107,20 +107,25 @@ exports.petList = (req, res) => {
         //     // db.end();
         // }
     })
-}
-
-//진단결과 저장
+}//진단결과 저장
 exports.petListSave = (req, res) => {
     const file = req.file;
 
     var userId = req.body.userId;
+    console.log("userId", userId)
     var petName = req.body.petName;
+    console.log("petName", petName)
     var vectDate = req.body.vectDate;
+    console.log("vectDate", vectDate)
     var vectName = req.body.vectName;
+    console.log("vectName", vectName)
     var vectProb = req.body.vectProb;
+    console.log("vectProb", vectProb)
     var vectContent = req.body.vectContent;
+    console.log("vectContent", vectContent)
 
     var imgName = file.filename;
+    console.log(imgName)
     const filePath = path.join(__dirname, '..', 'main', 'uploads', imgName);
     const imageBuffer = fs.readFileSync(filePath);
     let vectImg = Buffer.from(imageBuffer).toString('base64');
@@ -134,8 +139,11 @@ exports.petListSave = (req, res) => {
         }
         const petIdx = result[0].petIdx;
 
-        db.query('INSERT INTO diag_pet(diagIdx, petIdx, vectImg, vectDate, vectName, vectProb, vectContent) VALUES (?,?,?,?,?,?,?)', [null, petIdx, vectImg, vectDate, vectName, vectProb, vectContent], function (error, result) {
+        console.log("petIdx", petIdx)
+
+        db.query('INSERT INTO diag_pet(diagIdx, petIdx, vectImg, vectDate, vectName, vectProb, vectContent) VALUES (?,?,?,?,?,?,?)', [null, petIdx, vectImg, vectDate, JSON.stringify(vectName), vectProb, vectContent], function (error, result) {
             if (error) {
+                console.log("error", error.message)
                 return res.status(500).json({ error: error.message });
             }
             res.json({

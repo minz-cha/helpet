@@ -40,6 +40,10 @@ class PetInfActivity : AppCompatActivity() {
         binding = ActivityPetInfBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.mpChoiceBack.setOnClickListener {
+            finish()
+        }
+
         MultiDex.install(this)
 
         val petimg = intent.getStringExtra("imgpet")
@@ -90,10 +94,6 @@ class PetInfActivity : AppCompatActivity() {
 
                 if (response.body() == null){
                     binding.noVectResult.isVisible= true
-
-                    binding.mpChoiceBack.setOnClickListener {
-                        finish()
-                    }
                 }
                 else if(response.body()!= null) {
                     // 서버에서 가져온 데이터의 개수만큼 반복문을 실행합니다
@@ -109,11 +109,14 @@ class PetInfActivity : AppCompatActivity() {
 
                     }
                 }
+
+
             }
 
             override fun onFailure(call: Call<MypetVectDTO>, t: Throwable) {
                 Log.d("에러", t.message!!)
             }
+
 
 
         })

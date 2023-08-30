@@ -69,7 +69,7 @@ class PlanMemo : AppCompatActivity() {
 
         binding.btnSave.setOnClickListener {
             val title = binding.edtTitle.text.toString()
-            val description = binding.edtPlan.text.toString()
+            val description = binding.edtTitle.text.toString()
 //            val intent = Intent(this,MainActivity::class.java)
             if (title.isNotEmpty()) {
                 val intent = Intent()

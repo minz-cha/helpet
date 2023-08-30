@@ -9,11 +9,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#E5E5E6</color>
-    <color name="pink">#E75F64</color>
     <color name="blue">#5B93ED</color>
     <color name="yellow">#F2A645</color>
     <color name="helpet">#FD9374</color>
     <color name="red">#FF0000</color>
+
+    <color name= "pink">#FF8585</color>
+    <color name= "lightgray">#898989</color>
+
+    <color name= "progressline">#FF5B5B</color>
 
 
 </resources>

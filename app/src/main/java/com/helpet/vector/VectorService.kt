@@ -20,7 +20,7 @@ interface VectorService {
 //        @Part("petname") petname: RequestBody,
 //        @Part("username") username: RequestBody,
 
-    ): Call<ResponseDto>
+    ): Call<ResultVectDTO>
 }
 //고양이 눈 진단
 interface catVectorService {
@@ -32,7 +32,7 @@ interface catVectorService {
 //        @Part("petname") petname: RequestBody,
 //        @Part("username") username: RequestBody,
 
-    ): Call<ResponseDto>
+    ): Call<ResultVectDTO>
 }
 //강아지 피부 진단
 interface dogSkinVectService {

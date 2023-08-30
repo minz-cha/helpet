@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -18,7 +19,6 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="일정 등록하기"
-            android:textStyle="bold"
             android:textSize="23dp"
             android:textColor="#515151"
             />
@@ -27,40 +27,40 @@
     </LinearLayout>
 
 
+    <!--    <TextView-->
+<!--        android:id="@+id/tvtodayDate"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Date"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="20dp"-->
+<!--        android:padding="10dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/calendarView"/>-->
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/calendarRecyclerview"-->
+<!--        android:layout_width="413dp"-->
+<!--        android:layout_height="451dp"-->
+<!--        android:background="#FFFFFF"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvtodayDate"-->
+<!--        tools:listitem="@layout/activity_planlist" />-->
+
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:foregroundGravity="center"
-        android:theme="@style/CalendarViewTheme"/>
-
-    <TextView
-        android:id="@+id/tvtodayDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:padding="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"/>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/calendarRecyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/activity_planlist"
+        android:theme="@style/CalendarViewTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvtodayDate"
-        android:background="#F5F5F5"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.497" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/calendar_DialogButton"
