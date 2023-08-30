@@ -6,9 +6,9 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
-modelPath = './model_saved/efficientnet_5/'  # 모델이 저장된 경로
-weight = 'model-004-0.953172-0.960466.h5'        # 학습된 모델의 파일이름
-test_Path = './test-set/' # 테스트 이미지 폴더
+modelPath = '/content/drive/MyDrive/helpet-training/model/model_saved/train_cat/efficientnet_100/'  # 모델이 저장된 경로
+weight = 'modelName.h5'        # 학습된 모델의 파일이름
+test_Path = '/content/val_cat/' # 테스트 이미지 폴더
 model = load_model(modelPath + weight)
 datagen_test = ImageDataGenerator()
 generator_test = datagen_test.flow_from_directory(directory=test_Path,
@@ -17,7 +17,7 @@ generator_test = datagen_test.flow_from_directory(directory=test_Path,
                                                   shuffle=False)
 print('--------------------------------')
 # model로 test set 추론
-generator_test.reset()
+#generator_test.reset()
 cls_test = generator_test.classes
 cls_pred = model.predict_generator(generator_test, verbose=1, workers=0)
 cls_pred_argmax = cls_pred.argmax(axis=1)

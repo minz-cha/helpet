@@ -1,8 +1,8 @@
 from efficientNet_ops_3 import *
 
-train_path = './train-set/' #경로 마지막에 반드시 '/'를 기입해야합니다.
+train_path = '/content/train_cat/' 
 model_name = 'efficientnet'
-epoch = 8
+epoch = 100
 
 import os
 
