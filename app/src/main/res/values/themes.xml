@@ -51,4 +51,13 @@
         <item name="android:textColor">@drawable/selector_bottom_navigation_item</item>
     </style>
 
+
+    <style name="RoundCornerBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/RoundCornerModalStyle</item>
+    </style>
+
+    <style name="RoundCornerModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_rounded</item>
+    </style>
+
 </resources>

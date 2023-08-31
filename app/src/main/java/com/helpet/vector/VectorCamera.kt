@@ -29,7 +29,7 @@ import java.text.SimpleDateFormat
 import kotlin.concurrent.thread
 
 class VectorCamera : BaseActivity() {
-    var name = ""
+    var name :List<String> = listOf()
     var symptomProbability = 0.0
     var asymptomaticProbability = 0.0
     var vectContent = ""
@@ -40,6 +40,9 @@ class VectorCamera : BaseActivity() {
     val CROP_PICTURE = 2
 
     private lateinit var binding : ActivityVectorCameraBinding
+
+    private val diseaseList = mutableListOf<DiseaseName>()
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -236,20 +239,23 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
         //만약 강아지 눈진단이면 if문 활용
 
         if (petSpecies == "강아지"){
-            server.vectorResult(multipartBody!!).enqueue(object : Callback<ResponseDto?> {
-                override fun onResponse(call: Call<ResponseDto?>?, response: Response<ResponseDto?>) {
+            server.vectorResult(multipartBody!!).enqueue(object : Callback<ResultVectDTO?> {
+                override fun onResponse(call: Call<ResultVectDTO?>?, response: Response<ResultVectDTO?>) {
 //                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                     Log.d("레트로핏 결과2", "" + response.body().toString())
 
+                    for (i in response.body()?.diseaseNames!!.indices){
+                        diseaseList.add(DiseaseName("$i"))
+                    }
 
-                    val name= response.body()?.name!!
-                    val asymptomaticProbability= response.body()?.asymptomaticProbability!!
-                    val symptomProbability=response.body()?.symptomProbability!!
-                    val vectContent = response.body()?.vectContent!!
+                    name= response.body()?.diseaseNames!!
+                    asymptomaticProbability= response.body()?.asymptomaticProbability!!
+                    symptomProbability=response.body()?.symptomProbability!!
+//                    val vectContent = response.body()?.vectContent!!
                     // 다른 액티비티로 intent
                     val intent = Intent(context, VectorResult::class.java)
                     // 인텐트에 데이터 추가
-                    intent.putExtra("name", name)
+                    intent.putParcelableArrayListExtra("name" ,ArrayList(diseaseList))
                     intent.putExtra("symptomProbability",symptomProbability)
                     intent.putExtra("asymptomaticProbability",asymptomaticProbability )
                     intent.putExtra("vectImg",image)
@@ -259,7 +265,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                     context.startActivity(intent)
                 }
 
-                override fun onFailure(call: Call<ResponseDto?>?, t: Throwable) {
+                override fun onFailure(call: Call<ResultVectDTO?>, t: Throwable) {
 //                    Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
                     Log.d("에러", t.message!!)
                 }
@@ -270,23 +276,25 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
 
         else if (petSpecies == "고양이"){
 
-            server2.catvectorResult(multipartBody!!).enqueue(object : Callback<ResponseDto?> {
-                override fun onResponse(call: Call<ResponseDto?>?, response: Response<ResponseDto?>) {
+            server2.catvectorResult(multipartBody!!).enqueue(object : Callback<ResultVectDTO?> {
+                override fun onResponse(call: Call<ResultVectDTO?>, response: Response<ResultVectDTO?>) {
 //                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                     Log.d("레트로핏 결과2", "" + response.body().toString())
 
+                    for (i in response.body()?.diseaseNames!!.indices){
+                        diseaseList.add(DiseaseName("$i"))
+                    }
 
-                    name= response.body()?.name!!
+                    name = response.body()?.diseaseNames!!
                     asymptomaticProbability= response.body()?.asymptomaticProbability!!
                     symptomProbability= response.body()?.symptomProbability!!
                     // 다른 액티비티로 intent
                     val intent = Intent(context, VectorResult::class.java)
                     // 인텐트에 데이터 추가
-                    intent.putExtra("name", name)
+                    intent.putParcelableArrayListExtra("name" ,ArrayList(diseaseList))
                     intent.putExtra("symptomProbability",symptomProbability)
                     intent.putExtra("asymptomaticProbability",asymptomaticProbability )
                     intent.putExtra("vectImg",image )
-                    intent.putExtra("vectContent", vectContent)
                     intent.putExtra("value", value)
 
 
@@ -294,7 +302,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                     context.startActivity(intent)
                 }
 
-                override fun onFailure(call: Call<ResponseDto?>?, t: Throwable) {
+                override fun onFailure(call: Call<ResultVectDTO?>, t: Throwable) {
                     Toast.makeText(context, "통신 실패", Toast.LENGTH_SHORT).show()
                     Log.d("에러", t.message!!)
                 }
