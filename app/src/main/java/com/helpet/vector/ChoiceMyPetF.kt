@@ -95,23 +95,8 @@ class ChoiceMyPetF : Fragment() {
                         val namepet = response.body()?.result!![i].petName
                         val genderpet = response.body()?.result!![i].petGender
 
-//                    val imgpet = response.body()?.result?.get(i)?.petImg
-//                    val namepet = response.body()?.result?.get(i)?.petName
-//                    val genderpet = response.body()?.result?.get(i)?.petGender
-//                    val birthpet = response.body()?.result?.get(i)?.petBirth
-//                    val agepet = response.body()?.result?.get(i)?.petAge
-//                    val speciespet = response.body()?.result?.get(i)?.petSpecies
-                    Log.d("imgpet", imgpet.toString())
-
-
                     val choiceLayout = createLayout(imgpet, namepet, agepet, birthpet, genderpet)
                     binding.mypetLayout.addView(choiceLayout)
-
-//                    binding.mypetRegister.setOnClickListener {
-//                        Log.d("hi","hi")
-//                        val intent= Intent(requireContext(), PetRegisterActivity::class.java  )
-//                        startActivity(intent)
-//                    }
 
                 }
 
@@ -119,10 +104,6 @@ class ChoiceMyPetF : Fragment() {
 
             override fun onFailure(call: Call<petListResponseDTO>, t: Throwable) {
                 Log.d("에러", t.message!!)
-//                binding.mypetRegister.setOnClickListener {
-//                    val intent= Intent(requireContext(), PetRegisterActivity::class.java  )
-//                    startActivity(intent)
-//                }
             }
         })
 

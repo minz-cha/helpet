@@ -9,7 +9,7 @@ data class ResultXX(
     @SerializedName("vectDate")
     val vectDate: String,
     @SerializedName("vectName")
-    val vectName: String,
+    val vectName: List<String>,
     @SerializedName("vectProb")
     val vectProb: Double
 )

@@ -60,6 +60,7 @@ class PetAdapter(private val dataList: List<Result>) : RecyclerView.Adapter<PetA
                 val intent = Intent(itemView.context, VectorCamera::class.java)
                 intent.putExtra("namepet", result.petName)
                 intent.putExtra("birthpet", result.petBirth)
+                intent.putExtra("speciespet", result.petSpecies)
                 intent.putExtra("genderpet", result.petGender)
                 intent.putExtra("agepet", result.petAge)
 

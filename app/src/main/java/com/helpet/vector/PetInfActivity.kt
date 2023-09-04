@@ -52,10 +52,6 @@ class PetInfActivity : AppCompatActivity() {
         val gender = intent.getStringExtra("genderpet")
         val age = intent.getIntExtra("agepet", 0)
 
-        Log.d("name", name!!)
-        Log.d("age", age.toString())
-        Log.d("birth", birth!!)
-        Log.d("gender", gender!!)
 
         binding.myPetImg.setImageBitmap(stringToBitmap(petimg))
         binding.infName.text = name
@@ -70,15 +66,12 @@ class PetInfActivity : AppCompatActivity() {
         // 유저아이디 데이터 읽기
         val value = sharedPreferences.getString("userId", "null")
 
-        Log.d("value",value!!)
 
 
 
         //유저가 이미 저장해둔 반려동물 진단기록 정가져오는 데이터 값들
         val userId = value.toString()
-        Log.d("ellen", userId)
         val petName = name.toString()
-        Log.d("몽이", petName)
         val mpserver=  RetrofitApi2.retrofit2.create(MyPetVectService::class.java)
 
 
@@ -105,7 +98,7 @@ class PetInfActivity : AppCompatActivity() {
                         val vectprob = response.body()?.result?.get(i)?.vectProb
 
 
-                        binding.vectorInfL.addView(createLayout(stringToBitmap(vectimg)!!, vectname!!, vectdate!!, vectprob!!, petname!!, petage!!, petbirth!!))
+                        binding.vectorInfL.addView(createLayout(vectimg!!, vectname!!, vectdate!!, vectprob!!, petname!!, petage!!, petbirth!!))
 
                     }
                 }
@@ -158,7 +151,6 @@ class PetInfActivity : AppCompatActivity() {
                         true // 클릭 처리 완료
                     }
 
-                    // ...
                     else -> false
                 }
             }
@@ -170,7 +162,7 @@ class PetInfActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n", "InflateParams")
-    fun createLayout(vectImg: Bitmap, vectname: String, vectdate :String, vectprob: Double, petname:String, petage:Int, petbirth:String ) : View {
+    fun createLayout(vectImg: String, vectname: List<String>, vectdate :String, vectprob: Double, petname:String, petage:Int, petbirth:String ) : View {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.activity_vect_sub_layout, null) as LinearLayout
 
@@ -180,15 +172,29 @@ class PetInfActivity : AppCompatActivity() {
         val vectinfprob = layout.findViewById<TextView>(R.id.vectorInfProb)
 
         vectinfdate.text = vectdate
-        vectinfname.text = vectname
+//        vectinfname.text = vectname.toString()
+        if(vectprob >= 50.0){
+            vectinfname.text = "유증상"
+        }
+        else{
+            vectinfname.text = "무증상"
+        }
         vectinfprob.text = "확률: $vectprob"
+
+        val diseaseList = mutableListOf<DiseaseName>()
+
+        for (diseaseName in vectname) {
+            diseaseList.add(DiseaseName(diseaseName))
+        }
+
+        Log.d("diseaseList", diseaseList.toString())
 
         layout.setOnClickListener {
             val intent = Intent(applicationContext, MPVectorResult::class.java)
 //            Log.d("넘기자", "넘겨")
-            intent.putExtra("vectimg", SerialBitmap.translate(vectImg) )
+            intent.putExtra("vectImg", vectImg )
             intent.putExtra("vectdate", vectdate)
-            intent.putExtra("vectname", vectname)
+            intent.putParcelableArrayListExtra("vectname" ,ArrayList(diseaseList))
             intent.putExtra("vectprob",vectprob)
             intent.putExtra("petname", petname)
             intent.putExtra("petage", petage)

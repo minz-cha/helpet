@@ -230,6 +230,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         // 유저아이디 데이터 읽기
         val value = sharedPreferences?.getString("userId", "null")
+        val namepet = intent.getStringExtra("namepet")
 
         val fileBody = RequestBody.create("image/*".toMediaTypeOrNull(), byteArray)
         val multipartBody: MultipartBody.Part? =
@@ -240,13 +241,14 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
 
         if (petSpecies == "강아지"){
             server.vectorResult(multipartBody!!).enqueue(object : Callback<ResultVectDTO?> {
-                override fun onResponse(call: Call<ResultVectDTO?>?, response: Response<ResultVectDTO?>) {
+                override fun onResponse(call: Call<ResultVectDTO?>, response: Response<ResultVectDTO?>) {
 //                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
                     Log.d("레트로핏 결과2", "" + response.body().toString())
 
-                    for (i in response.body()?.diseaseNames!!.indices){
-                        diseaseList.add(DiseaseName("$i"))
+                    for (diseaseName in response.body()?.diseaseNames!!) {
+                        diseaseList.add(DiseaseName(diseaseName))
                     }
+
 
                     name= response.body()?.diseaseNames!!
                     asymptomaticProbability= response.body()?.asymptomaticProbability!!
@@ -255,6 +257,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                     // 다른 액티비티로 intent
                     val intent = Intent(context, VectorResult::class.java)
                     // 인텐트에 데이터 추가
+                    intent.putExtra("namepet", namepet )
                     intent.putParcelableArrayListExtra("name" ,ArrayList(diseaseList))
                     intent.putExtra("symptomProbability",symptomProbability)
                     intent.putExtra("asymptomaticProbability",asymptomaticProbability )

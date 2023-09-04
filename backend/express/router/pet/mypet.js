@@ -91,17 +91,17 @@ exports.petList = (req, res) => {
             return res.status(404).json({ message: "No results found." });
         }
         res.json({
-            status: "success",
-            petName: petName,
             petAge: result[0].petAge,
             petBirth: result[0].petBirth,
+            petName: result[0].petName,
             result: result.map(item => ({
                 vectImg: item.vectImg,
                 vectDate: item.vectDate,
-                vectName: item.vectName,
+                vectName: item.vectName.split(","), 
                 vectProb: item.vectProb
-            }))
-        })
+            })),
+            status: "success"
+        });
         // if (db.state === 'connected') {
         //     // 연결 종료
         //     // db.end();
