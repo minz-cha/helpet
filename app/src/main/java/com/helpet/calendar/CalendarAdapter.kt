@@ -1,12 +1,15 @@
 package com.helpet.calendar
 
+import android.app.Dialog
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuView.ItemView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.helpet.R
 class CalendarAdapter(
@@ -16,6 +19,12 @@ class CalendarAdapter(
     private val description: List<String>,
     private val calIdx : List<Int>
 ) : RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
+
+    interface ItemClick {
+        fun onClick(view: View, )
+    }
+    var itemClick: ItemClick? = null
+
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textTitle: TextView = itemView.findViewById(R.id.textTitle)
@@ -51,13 +60,12 @@ class CalendarAdapter(
             intent.putExtra("calIdx", calIdxItem)
             Log.d("cal_idx", calIdxItem.toString())
             it.context.startActivity(intent)
-
+            itemClick?.onClick(it)
         }
     }
 
     override fun getItemCount(): Int {
         return startDate.size
     }
-
 
 }

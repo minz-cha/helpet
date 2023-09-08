@@ -121,11 +121,19 @@ class CalendarMainFragment : Fragment() {
                             recyclerview.layoutManager = LinearLayoutManager(dialog!!.context)
                             recyclerview.adapter = calAdapter
 
+                            calAdapter.itemClick = object : CalendarAdapter.ItemClick {
+                                override fun onClick(view: View) {
+                                   dialog!!.dismiss()
+                                }
+                            }
+
                             val registerCal =
                                 dialog!!.findViewById<Button>(R.id.RegisterCal)  // Dialog의 뷰에서 버튼 찾기
                             registerCal.setOnClickListener {
                                 val intent = Intent(requireActivity(), PlanMemo::class.java)
+                                intent.putExtra("selectedDay", totalDay)
                                 startActivityForResult(intent, 200)
+                                dialog!!.dismiss()
                             }
                         }
                     }
@@ -139,9 +147,11 @@ class CalendarMainFragment : Fragment() {
         return binding.root
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 200 && resultCode == AppCompatActivity.RESULT_OK) {
+
 //            if (data != null) {
 //                val startDate = data.getStringExtra("startDate")
 //                val endDate = data.getStringExtra("endDate")
@@ -158,9 +168,9 @@ class CalendarMainFragment : Fragment() {
 //                scheduleList.add(addItem)
 //                val insertedPosition = scheduleList.size - 1 // 추가된 아이템의 위치
 //                calAdapter.notifyItemInserted(insertedPosition)
-//            }
         }
     }
+
 
 }
 

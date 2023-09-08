@@ -76,11 +76,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/vectorTitle"
-                        android:layout_width="390dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
@@ -89,6 +89,25 @@
                         android:textStyle="bold"
                         android:textColor="#5C5C5C"
                         android:textSize="25sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:gravity="right"
+                        android:layout_gravity="center">
+
+                        <com.google.android.material.button.MaterialButton
+                        android:id="@+id/reVector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="다시 진단하기"
+                        android:gravity="right"
+                        android:textColor="@color/black"
+                        android:backgroundTint="@color/white"
+                        android:layout_gravity="center"/>
+                    </LinearLayout>
 
                   </LinearLayout>
 
@@ -270,20 +289,34 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/resultBooks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:text="질병백과\n이동하기"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:backgroundTint="@color/white"
+                    android:textColor="#FF6E43"/>
+
                 <TextView
+                    android:id="@+id/diseaseExplain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:background="@drawable/result_round"
                     android:gravity="center"
                     android:padding="20dp"
+                    android:text="진단 결과, 다음 질환 중 한가지 이상의 질환이 있을\n가능성이 높으니 동물병원에 방문하여,\n전문가의 진단을 받아보시길 추천드립니다 !\n\n*아래 질환을 클릭하여 우리 아이의 증상을\n비교해보세요."
                     android:textColor="#545352"
                     android:textSize="15sp"
-                    android:background="@drawable/result_round"
-                    android:text="진단 결과, 다음 질환 중 한가지 이상의 질환이 있을\n가능성이 높으니 동물병원에 방문하여,\n전문가의 진단을 받아보시길 추천드립니다 !\n\n*아래 질환을 클릭하여 우리 아이의 증상을\n비교해보세요."
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/resultBooks" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

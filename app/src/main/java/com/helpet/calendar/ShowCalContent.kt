@@ -1,5 +1,7 @@
 package com.helpet.calendar
 
+import android.app.Dialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,11 +10,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.util.Pair
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.helpet.R
 import com.helpet.databinding.ActivityShowCalContentBinding
 import com.helpet.databinding.FragmentCalendarMainBinding
+import com.helpet.vector.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,10 +29,23 @@ class ShowCalContent : AppCompatActivity() {
     private lateinit var newTitleText : String
     private lateinit var newMemoText : String
 
+//    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+//        override fun handleOnBackPressed() {
+//            val intent= Intent(this@ShowCalContent, HomeActivity::class.java)
+//            startActivity(intent)
+//            Log.e(ContentValues.TAG, "뒤로가기 클릭")
+//            // 뒤로가기 시 실행할 코드
+//        }
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityShowCalContentBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback) //위에서 생성한 콜백 인스턴스 붙여주기
+
+
         //세션 유지_ userId 불러오기
         val sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getString("userId", "") ?: ""
@@ -81,8 +98,6 @@ class ShowCalContent : AppCompatActivity() {
             }
         }
         binding.showEdtTitle.addTextChangedListener(memotextWatcher)
-
-        val calendar = Calendar.getInstance()
 
 // startDate를 파싱하고 1일을 더하여 다음 날로 설정
         val startDateCalendar = Calendar.getInstance()
@@ -144,6 +159,9 @@ class ShowCalContent : AppCompatActivity() {
                 ) {
                     Log.d("일정 삭제", response.body().toString())
                     Toast.makeText(this@ShowCalContent, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+//                    onBackPressedDispatcher.onBackPressed()
+                    onBackPressedDispatcher.onBackPressed()
+
 
                 }
 
@@ -156,8 +174,7 @@ class ShowCalContent : AppCompatActivity() {
 
 
         binding.showCalEdit.setOnClickListener {
-            Log.d("hi", "hi")
-            updateServer.CalendarUpdate(calIdx, userId, startDate, endDate, newTitleText , newMemoText).enqueue(object : retrofit2.Callback<UpdateScheduleDTO?>{
+            updateServer.CalendarUpdate(calIdx, userId, startDate, endDate, newTitleText , newMemoText).enqueue(object : Callback<UpdateScheduleDTO?>{
                 override fun onResponse(
                     call: Call<UpdateScheduleDTO?>,
                     response: Response<UpdateScheduleDTO?>
@@ -166,8 +183,9 @@ class ShowCalContent : AppCompatActivity() {
                     Log.d("result", result.toString())
                     if (result?.status == true ){
                         Toast.makeText(this@ShowCalContent, "수정 완료되었습니다.", Toast.LENGTH_SHORT).show()
-//                        val intent = Intent(this@ShowCalContent, FragmentCalendarMainBinding::class.java )
-//                        startActivity(intent)
+//                        onBackPressedDispatcher.onBackPressed()
+                        onBackPressedDispatcher.onBackPressed()
+
                     }
                 }
                 override fun onFailure(call: Call<UpdateScheduleDTO?>, t: Throwable) {

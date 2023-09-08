@@ -12,8 +12,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.helpet.R
+import com.helpet.books.VectList
 import com.helpet.databinding.ActivityMpvectorResultBinding
 import java.io.ByteArrayInputStream
 import java.text.SimpleDateFormat
@@ -32,16 +34,38 @@ class MPVectorResult : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val vectimg = intent.getStringExtra("vectImg")
         val vectdate = intent.getStringExtra("vectdate")
-        val vectname = intent.getParcelableArrayListExtra<DiseaseName>("vectname")
         val vectprob = intent.getDoubleExtra("vectprob", 0.0)
         val nonvectprob = 100 - vectprob!!.toInt()
         val petname = intent.getStringExtra("petname")
         val petage = intent.getIntExtra("petage" , 0)
         val petbirth = intent.getStringExtra("petbirth")
 
-        val adapter = ResultAdapter(vectname!!, supportFragmentManager)
+
+        val dbHelper = VectHelper(this)
+        val vectorInfo = dbHelper.getVectorInfo(petage, petbirth!!, petname!!, vectdate!!, vectprob)
+        val vectnameList = vectorInfo?.vectname // vectname은 여러 개의 진단명이 저장된 리스트인 경우도 있을 수 있습니다.
+
+        val diseaseList = mutableListOf<DiseaseName>()
+
+        for (diseaseNames in vectnameList!!) {
+            val individualDiseaseNames = diseaseNames.split(",").map { it.trim() }
+
+            for (diseaseName in individualDiseaseNames) {
+                diseaseList.add(DiseaseName(diseaseName))
+            }
+        }
+        Log.d("diseaseList", vectnameList.toString())
+
+
+        val vectImg = vectorInfo.vectImg
+        // ByteArray를 Bitmap으로 변환
+        val bitmap = BitmapFactory.decodeByteArray(vectImg, 0, vectImg.size)
+        // ImageView에 Bitmap 설정
+        binding.resultImg.setImageBitmap(bitmap)
+
+
+        val adapter = ResultAdapter(diseaseList, supportFragmentManager)
         binding.resultRecyclerView.adapter = adapter
         val layoutManager = LinearLayoutManager(this)
         binding.resultRecyclerView.layoutManager = layoutManager
@@ -90,20 +114,27 @@ class MPVectorResult : AppCompatActivity() {
         binding.symptonText.text = "${vectprob.toInt()}%"
         binding.asymptonText.text = "${nonvectprob}%"
 
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        if (symptomLevel >= 50.0)   {
+        binding.vectorDate.text = vectdate
+
+
+        if (vectprob >= 50.0)   {
             binding.vectorSubT.text = "${petname}의 눈은 꼼꼼한 관리가 필요해요!"
             binding.vectorCheck.text = "동물병원 방문을 추천드려요."
+            val adapter = ResultAdapter(diseaseList!!, supportFragmentManager)
+            binding.resultRecyclerView.adapter = adapter
+            val layoutManager = LinearLayoutManager(this)
+            binding.resultRecyclerView.layoutManager = layoutManager
+
         }
         else{
+            binding.textView4.isVisible = false
             binding.vectorSubT.text = "${petname}의 눈은 건강하게 관리되고 있어요!"
             binding.vectorCheck.text = "정기적으로 안구 검진을 부탁드려요."
+            binding.resultRecyclerView.isVisible = false
+            binding.diseaseExplain.text  = "진단 결과, 가능성 있는 질환이 나타나지 않습니다.\n\n다른 질환들이 궁금하시다면\n질병백과를 통해 확인해주세요:) "
         }
 
 //        binding.resultImg.setImageBitmap(stringToBitmap(vectimg))
-//                binding.VectorDate.text = "진단 날짜\n $date "
-//                binding.vectorName.text = "진단결과: $name"
-
 
     }
 

@@ -60,4 +60,8 @@
         <item name="android:background">@drawable/bottom_sheet_rounded</item>
     </style>
 
+    <style name="CustomProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:colorAccent">#80FC937B</item>
+    </style>
+
 </resources>

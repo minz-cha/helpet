@@ -1,6 +1,7 @@
 package com.helpet.calendar
 
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +10,11 @@ import android.util.Log
 import android.widget.ImageButton
 import androidx.core.util.Pair
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.helpet.R
 import com.helpet.databinding.ActivityPlanMemoBinding
+import com.helpet.vector.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,10 +34,22 @@ class PlanMemo : AppCompatActivity() {
         val binding = ActivityPlanMemoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val date = intent.getStringExtra("date")
+//        this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback) //위에서 생성한 콜백 인스턴스 붙여주기
+
+        val date = intent.getStringExtra("selectedDay")
 
         //일정 등록하기
         binding.tvtodayDate.text = date
+
+
+        // startDate를 파싱하고 1일을 더하여 다음 날로 설정
+        val startDateCalendar = Calendar.getInstance()
+        startDateCalendar.time = SimpleDateFormat("yyyy-MM-dd").parse(date!!)
+        startDateCalendar.add(Calendar.DAY_OF_MONTH, 1) // 1일 더하기
+
+
+        val startDateInMillis = startDateCalendar.timeInMillis
+
 
         //세션 유지_ userId 불러오기
         val sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
@@ -48,6 +63,12 @@ class PlanMemo : AppCompatActivity() {
                     Pair(
                         MaterialDatePicker.thisMonthInUtcMilliseconds(),
                         MaterialDatePicker.todayInUtcMilliseconds()
+                    )
+                )
+                .setSelection(
+                    Pair(
+                        startDateInMillis,
+                        startDateInMillis
                     )
                 )
                 .build()
@@ -79,15 +100,17 @@ class PlanMemo : AppCompatActivity() {
                 val description = binding.calendarMemo.text.toString()
 
                 if (title.isNotEmpty()) {
-                    val intent = Intent()
-//                    val schedule = Schedule(startDate, endDate, title, description, calIdx)
+//                    val intent = Intent()
+//                    val schedule = Schedule(startDate, endDate, title, description)
 //                    intent.putExtra("title", title)
 //                    intent.putExtra("startdDate", startDate)
 //                    intent.putExtra("endDate", endDate)
 //                    intent.putExtra("description", description)
 //                    intent.putExtra("schedule", schedule)
-                    setResult(RESULT_OK, intent)
-                    finish()
+//                    setResult(RESULT_OK, intent)
+//                    finish()
+                    onBackPressedDispatcher.onBackPressed()
+
                 } else {
                     Toast.makeText(this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
@@ -111,21 +134,14 @@ class PlanMemo : AppCompatActivity() {
                             val status = response.body()?.status
                             Log.d("status", status!!)
 
+
                             Log.d("retrofit 서버 요청 성공여부", "$result")
                             if (status.toString() == "success") {
-                                val intent = Intent()
-                                intent.putExtra("startDate", startDate)
-                                intent.putExtra("endDate", endDate)
-                                intent.putExtra("title", title)
-                                intent.putExtra("description", description)
-                                setResult(RESULT_OK, intent)
-                                finish()
+                                Toast.makeText(applicationContext, "저장되었습니다.", Toast.LENGTH_SHORT).show()
+                                onBackPressedDispatcher.onBackPressed()
+
                             } else {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "저장 실패",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Toast.makeText(applicationContext, "저장 실패", Toast.LENGTH_SHORT).show()
 
                             }
                             Log.d("retrofit 일정 추가", "$result")

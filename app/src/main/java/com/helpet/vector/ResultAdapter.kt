@@ -44,12 +44,13 @@ class ResultAdapter(private val diseaseList: List<DiseaseName>, private val frag
         private val diseaseName = itemView.findViewById<TextView>(R.id.diseaseTv)
         private val bookMark = itemView.findViewById<ImageButton>(R.id.bookMarks)
         fun bind(disease: DiseaseName) {
-            diseaseName.text = disease.name
-            // 여기서 북마크 버튼 처리 등을 추가할 수 있습니다.
+            val cleanedName = disease.name.replace("\"", "")
+            Log.d("disease.name", cleanedName)
+            diseaseName.text = cleanedName
 
             itemView.setOnClickListener {
                 val dbHelper = DBHelper(itemView.context) // DBHelper 인스턴스 생성
-                val diseaseInfo = dbHelper.getDiseaseInformation(disease.name) // 디비에서 질병 정보 가져오기
+                val diseaseInfo = dbHelper.getDiseaseInformation(cleanedName) // 디비에서 질병 정보 가져오기
 
                 if (diseaseInfo != null) {
                     val resultBottomSheet = ResultBottomSheet.newInstance(diseaseInfo)

@@ -32,7 +32,7 @@ class Login : AppCompatActivity() {
         val btn_login: Button = findViewById(R.id.btn_success)
 //        val btn_register: Button = findViewById(R.id.btn_register)
 //        val btn_find_id_pw: Button = findViewById(R.id.btn_find_id_pw)
-        val checkbox_login: CheckBox = findViewById(R.id.checkbox_login)
+//        val checkbox_login: CheckBox = findViewById(R.id.checkbox_login)
         val editId: EditText = findViewById(R.id.edit_id)
         val editPw: EditText = findViewById(R.id.edit_pw)
 
@@ -64,9 +64,9 @@ class Login : AppCompatActivity() {
                         editor.putString("userId", userId) // 로그인한 userId를 저장
 
                         // "로그인 유지" 옵션을 선택한 경우, 체크박스 상태를 저장
-                        val isLoginChecked = checkbox_login.isChecked
-                        editor.putBoolean("isLoginChecked", isLoginChecked)
-
+//                        val isLoginChecked = checkbox_login.isChecked
+//                        editor.putBoolean("isLoginChecked", isLoginChecked)
+//
                         editor.apply()
 
                     } else if (success.toString() == "false") {

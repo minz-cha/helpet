@@ -265,6 +265,9 @@ class PetRegisterActivity : BaseActivity() {
                 val intent = Intent(context, VectorChoicePet::class.java)
                 // 액티비티 시작
                 context.startActivity(intent)
+//                onBackPressedDispatcher.onBackPressed()
+                finish()
+
             }
 
             override fun onFailure(call: Call<PetResponseDto?>, t: Throwable) {

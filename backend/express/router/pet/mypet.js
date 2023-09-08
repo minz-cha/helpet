@@ -64,20 +64,40 @@ exports.petDelete = (req, res) => {
     var userId = req.body.userId;
     var petName = req.body.petName;
 
-    db.query('DELETE FROM pet WHERE petName = ? and userId = ?', [petName, userId], function (error, data) {
+    db.query('SELECT petIdx FROM pet WHERE petName = ? and userId = ?', [petName, userId], function (error, petData) {
         if (error) {
             return res.status(500).json({ error: error.message });
         }
-        res.json({
-            status: "success",
-        })
-        // if (db.state === 'connected') {
-        //     // 연결 종료
-        //     // db.end();
-        // }
-    })
-}
 
+        if (petData.length > 0) {
+            const petIdx = petData[0].petIdx;
+            db.query('DELETE FROM diag_pet WHERE petIdx = ?', [petIdx], function (error, data) {
+                if (error) {
+                    return res.status(500).json({ error: error.message });
+                }
+
+                db.query('DELETE FROM pet WHERE petName = ? and userId = ?', [petName, userId], function (error, data) {
+                    if (error) {
+                        return res.status(500).json({ error: error.message });
+                    }
+
+                    res.json({
+                        status: "success",
+                    });
+                });
+            });
+        } else {
+            db.query('DELETE FROM pet WHERE petName = ? and userId = ?', [petName, userId], function (error, data) {
+                if (error) {
+                    return res.status(500).json({ error: error.message });
+                }
+                res.json({
+                    status: "success",
+                });
+            });
+        }
+    });
+}
 //진단결과 리스트 조회 (진단리스트 홈화면)
 exports.petList = (req, res) => {
     var userId = req.body.userId;

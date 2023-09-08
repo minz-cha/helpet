@@ -79,13 +79,6 @@ class VectorResult : AppCompatActivity() {
 //        val decodedByteArray: ByteArray = Base64.decode(base64String, Base64.DEFAULT)
 //        val vectimg: ByteArray = byteArrayOf()
 
-        val adapter = ResultAdapter(name!!, supportFragmentManager)
-        binding.resultRecyclerView.adapter = adapter
-        val layoutManager = LinearLayoutManager(this)
-        binding.resultRecyclerView.layoutManager = layoutManager
-
-        Log.d("symptonProbability", symptonProbability.toString())
-
 // 최소값과 최대값을 설정합니다.
         val minValue = 0
         val maxValue = 10000
@@ -131,26 +124,53 @@ class VectorResult : AppCompatActivity() {
         binding.symptonText.text = "${symptonProbability.toInt()}%"
         binding.asymptonText.text = "${asymptomaticProbability.toInt()}%"
 
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         if (symptonProbability >= 50.0)   {
             binding.vectorSubT.text = "${namepet}의 눈은 꼼꼼한 관리가 필요해요!"
             binding.vectorCheck.text = "동물병원 방문을 추천드려요."
+            val adapter = ResultAdapter(name!!, supportFragmentManager)
+            binding.resultRecyclerView.adapter = adapter
+            val layoutManager = LinearLayoutManager(this)
+            binding.resultRecyclerView.layoutManager = layoutManager
+
         }
         else{
+            binding.textView4.isVisible = false
             binding.vectorSubT.text = "${namepet}의 눈은 건강하게 관리되고 있어요!"
             binding.vectorCheck.text = "정기적으로 안구 검진을 부탁드려요."
+            binding.resultRecyclerView.isVisible = false
+            binding.diseaseExplain.text  = "진단 결과, 가능성 있는 질환이 나타나지 않습니다.\n\n다른 질환들이 궁금하시다면\n질병백과를 통해 확인해주세요:) "
+            binding.resultBooks.setOnClickListener{
+                val intent = Intent(applicationContext, VectList::class.java)
+                startActivity(intent)
+            }
         }
 
         binding.resultImg.setImageBitmap(resultimg)
 //                binding.VectorDate.text = "진단 날짜\n $date "
 //                binding.vectorName.text = "진단결과: $name"
 
+//        val adapter = ResultAdapter(name!!, supportFragmentManager)
+//        binding.resultRecyclerView.adapter = adapter
+//        val layoutManager = LinearLayoutManager(this)
+//        binding.resultRecyclerView.layoutManager = layoutManager
+
+        Log.d("symptonProbability", symptonProbability.toString())
 
 
         binding.storeVector.setOnClickListener {
-            VectorResultUpdate(vectimg, userId!!,namepet!!, vecdate2, name ,symptonProbability,"값이 없습니다.")
+            VectorResultUpdate(vectimg, userId!!,namepet!!, vecdate2, name!! ,symptonProbability,"값이 없습니다.")
         }
 
+        binding.reVector.setOnClickListener {
+            val intent = Intent(this, VectorChoicePet::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.resultBooks.setOnClickListener {
+            val intent = Intent(this, VectList::class.java)
+            startActivity(intent)
+        }
 
     }
 

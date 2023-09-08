@@ -25,6 +25,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 import java.text.SimpleDateFormat
 import kotlin.concurrent.thread
 
@@ -66,13 +67,6 @@ class VectorCamera : BaseActivity() {
     fun initViews(){
         binding.cameraBtn.setOnClickListener {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),PERM_CAMERA)
-            binding.camTitle.text="촬영 완료"
-            binding.sub1.text="아래의 진단 시작 버튼을\n누르면 진단이 시작됩니다."
-            binding.sub2.isVisible=false
-            binding.sub3.isVisible=false
-            binding.camSubTitle.isVisible=false
-            binding.buttonVector.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FD9374")) // 오렌지색으로 설정
-
         }
     }
 
@@ -153,6 +147,7 @@ class VectorCamera : BaseActivity() {
         }
     }
 
+
     override fun permissionDenied(requestCode: Int) {
         when(requestCode){
             PERM_STORAGE->{
@@ -197,6 +192,13 @@ class VectorCamera : BaseActivity() {
                         bitmap = MediaStore.Images.Media.getBitmap(contentResolver, realUri)
                         //이미지뷰에 이미지 로딩
                         binding.cameraBtn.setImageBitmap(bitmap)
+                        binding.camTitle.text="촬영 완료"
+                        binding.sub1.text="아래의 진단 시작 버튼을\n누르면 진단이 시작됩니다."
+                        binding.sub2.isVisible=false
+                        binding.sub3.isVisible=false
+                        binding.camSubTitle.isVisible=false
+                        binding.buttonVector.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FD9374")) // 오렌지색으로 설정
+                        binding.ReCam.isVisible = true
                     }
 
 
@@ -210,6 +212,18 @@ class VectorCamera : BaseActivity() {
                         binding.loadingLayout.isVisible=true
                         binding.vectorProgress.isIndeterminate = true
                         binding.camTitle.text = "진단 중"
+                    }
+                    binding.ReCam.setOnClickListener {
+                        // 기존 이미지 파일 삭제
+                        if (realUri != null) {
+                            val file = File(getRealPathFromURI(realUri!!))
+                            if (file.exists()) {
+                                file.delete()
+                            }
+                        }
+
+                        // 다시 카메라 열기
+                        openCamera()
                     }
                 }
             }
@@ -266,6 +280,7 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
                     intent.putExtra("value", value)
                     // 액티비티 시작
                     context.startActivity(intent)
+                    finish()
                 }
 
                 override fun onFailure(call: Call<ResultVectDTO?>, t: Throwable) {
@@ -282,27 +297,28 @@ private val server2 = RetrofitApi.retrofit.create(catVectorService::class.java)
             server2.catvectorResult(multipartBody!!).enqueue(object : Callback<ResultVectDTO?> {
                 override fun onResponse(call: Call<ResultVectDTO?>, response: Response<ResultVectDTO?>) {
 //                Toast.makeText(context, "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
-                    Log.d("레트로핏 결과2", "" + response.body().toString())
 
-                    for (i in response.body()?.diseaseNames!!.indices){
-                        diseaseList.add(DiseaseName("$i"))
+                    for (diseaseName in response.body()?.diseaseNames!!) {
+                        diseaseList.add(DiseaseName(diseaseName))
                     }
 
-                    name = response.body()?.diseaseNames!!
+                    name= response.body()?.diseaseNames!!
                     asymptomaticProbability= response.body()?.asymptomaticProbability!!
-                    symptomProbability= response.body()?.symptomProbability!!
+                    symptomProbability=response.body()?.symptomProbability!!
+//                    val vectContent = response.body()?.vectContent!!
                     // 다른 액티비티로 intent
                     val intent = Intent(context, VectorResult::class.java)
                     // 인텐트에 데이터 추가
+                    intent.putExtra("namepet", namepet )
                     intent.putParcelableArrayListExtra("name" ,ArrayList(diseaseList))
                     intent.putExtra("symptomProbability",symptomProbability)
                     intent.putExtra("asymptomaticProbability",asymptomaticProbability )
-                    intent.putExtra("vectImg",image )
+                    intent.putExtra("vectImg",image)
+                    intent.putExtra("vectContent", vectContent)
                     intent.putExtra("value", value)
-
-
                     // 액티비티 시작
                     context.startActivity(intent)
+                    finish()
                 }
 
                 override fun onFailure(call: Call<ResultVectDTO?>, t: Throwable) {

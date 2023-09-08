@@ -1,16 +1,17 @@
 package com.helpet.vector
 
+import android.app.Dialog
 import com.helpet.R
-
-
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import com.helpet.Hospital.HospitalActivity
@@ -20,29 +21,53 @@ import com.helpet.databinding.FragmentVectorMainBinding
 
 class VectorMain : Fragment(), View.OnClickListener {
 
+    private var dialog: Dialog? = null
+    private lateinit var binding : FragmentVectorMainBinding
 
+    private lateinit var adapter : ViewPagerAdapter
 
+    // 3초마다 자동 슬라이드 시작
+    val handler = Handler()
+    private val runnable = object : Runnable {
+        override fun run() {
+            val currentItem = binding.viewPager2.currentItem
+            val nextItem = if (currentItem < adapter.itemCount - 1) currentItem + 1 else 0
+            binding.viewPager2.currentItem = nextItem
+            handler.postDelayed(this, 3000) // 3초마다 실행
+        }
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding = FragmentVectorMainBinding.inflate(layoutInflater)
+        binding = FragmentVectorMainBinding.inflate(layoutInflater)
+//        val hospital1 = binding.root.findViewById<ImageButton>(R.id.hospital)
 
-        val eyeBtn = binding.root.findViewById<ImageButton>(R.id.vector_eye)
-        val hospital1 = binding.root.findViewById<ImageButton>(R.id.hospital)
-        val mainbooks = binding.root.findViewById<ImageButton>(R.id.mainBooks)
+        adapter = ViewPagerAdapter(requireActivity())
+        binding.viewPager2.adapter = adapter
 
+        handler.postDelayed(runnable, 3000)
 
-        eyeBtn.setOnClickListener {
+        binding.vectorEye.setOnClickListener {
             val intent= Intent(requireContext(), VectorChoicePet::class.java)
             startActivity(intent)
         }
-
-        hospital1.setOnClickListener {
-            val intent = Intent(requireContext(), HospitalActivity::class.java)
-            startActivity(intent)
-        }
-        mainbooks.setOnClickListener {
+//
+//        hospital1.setOnClickListener {
+//            val intent = Intent(requireContext(), HospitalActivity::class.java)
+//            startActivity(intent)
+//        }
+        binding.mainBooks.setOnClickListener {
             val intent = Intent(requireContext(), VectList::class.java)
             startActivity(intent)
         }
+
+        binding.camGuide.setOnClickListener {
+            dialog = Dialog(requireContext())    // Dialog 초기화
+            dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE) // 타이틀 제거
+            dialog!!.setContentView(R.layout.activity_cam_guide) // xml 레이아웃 파일과 연결
+
+            dialog!!.show()
+        }
+
+
 
         return binding.root
     }
@@ -60,68 +85,15 @@ class VectorMain : Fragment(), View.OnClickListener {
 
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("pause", "pause")
+        handler.removeCallbacks(runnable)
+    }
 }
 
 
 
 
 
-
-/*
-class VectorMain : Fragment() , View.OnClickListener{
-
-    private lateinit var binding: FragmentVectorChoicePetBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_vector_choice_pet,container,false)
-        return binding.root
-
-        val rootView = inflater.inflate(R.layout.fragment_vector_main, container, false)
-
-        val skinBtn = rootView.findViewById(R.id.skinbtn) as ImageButton
-        skinBtn.setOnClickListener(View.OnClickListener() {
-            override fun onClick() {
-                val intent = Intent(activity, VectorChoicePet1::class.java)
-                startActivity(intent)
-            }
-        });
-
-        skinBtn.setOnClickListener {
-            val intent=Intent(activity, VectorChoicePet1::class.java )
-            startActivity(intent)
-
-        }
-        // Inflate the layout for this fragment
-
-
-    }
-
-
-
-      override fun onClick(v: View?){
-          println("test1")
-          when(v?.id){
-              R.id.skinbtn->{
-                  println("test2")
-                  val intent=Intent(activity,VectorChoicePet1::class.java)
-                  startActivity(intent)
-              }
-          }
-      }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        skinbtn.setOnClickListener {
-            activity?.let{
-                val intent = Intent(activity?.applicationContext, VectorChoicePet1::class.java)
-                startActivity(intent)
-            }
-        }
-    }
-
-}*/
