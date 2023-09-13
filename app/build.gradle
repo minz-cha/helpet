@@ -3,6 +3,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+
 }
 
 android {
@@ -93,4 +95,16 @@ dependencies {
     //csv 공공데이터
     implementation 'com.opencsv:opencsv:5.5.2'
 
+    //multimodule
+    implementation project(':data')
+    implementation project(':domain')
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+
+}
+
+kapt {
+    correctErrorTypes true
 }
