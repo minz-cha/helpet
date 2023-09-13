@@ -20,6 +20,7 @@ class VectDetailCat : AppCompatActivity() {
 
         binding.detailDisease.text= name
         binding.detailSymptoms.text = symptoms
+        binding.detailCauses.text = cause
         binding.detailTreats.text = treats
 
         binding.otherBooks.setOnClickListener {
@@ -28,9 +29,4 @@ class VectDetailCat : AppCompatActivity() {
         }
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        finish()
-    }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context=".vector.VectorMain"
     android:orientation="vertical"
     android:background="@color/white">
@@ -12,24 +13,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!--            <ImageView-->
-<!--                android:id="@+id/helpetImg"-->
-<!--                android:layout_width="134dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_alignParentStart="true"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_marginStart="31dp"-->
-<!--                android:layout_marginTop="17dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:backgroundTint="@color/white"-->
-<!--                android:src="@drawable/helpetlogo" />-->
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/helpetImg"
@@ -49,104 +39,217 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.515" />
 
-            <ImageButton
-                android:id="@+id/hospital"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/helpetImg"
-                android:backgroundTint="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/baseline_location_on_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.888"
-                app:layout_constraintStart_toEndOf="@+id/helpetImg"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+<!--            <ImageButton-->
+<!--                android:id="@+id/hospital"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_toEndOf="@+id/helpetImg"-->
+<!--                android:backgroundTint="@color/white"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/baseline_location_on_24"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.888"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/helpetImg"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.0" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
-        android:id="@+id/vector_eye"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:backgroundTint="#F4F2F2"
-        android:background="@drawable/round"
-        android:scaleType="fitXY"
-        android:src="@drawable/vectoreyehome"
-        android:elevation="3dp"
-        />
+<!--    <ImageButton-->
+<!--        android:id="@+id/vector_eye"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginRight="15dp"-->
+<!--        android:backgroundTint="#F4F2F2"-->
+<!--        android:background="@drawable/round"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/vectoreyehome"-->
+<!--        android:elevation="3dp"-->
+<!--        />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_gravity="center"
-        android:gravity="center">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="370dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="4dp">
 
-<!--        <ImageButton-->
-<!--            android:layout_width="170dp"-->
-<!--            android:layout_height="170dp"-->
-<!--            android:src="@drawable/comhome"-->
-<!--            android:layout_marginRight="15dp"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            android:background="@drawable/comround"-->
-<!--            />-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vector_eye"
+            android:layout_width="370dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:background="@drawable/vector_main_background"
+            >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="36dp"
+                android:text="우 리 아 이"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="8dp"
+                android:text="안 구 진 단 하 기"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintVertical_bias="0.044" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="-10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/vector_main_dog"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView10"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.842" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <ImageButton
-            android:id="@+id/mainBooks"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/vectorbookbtn"
-            android:layout_marginRight="10dp"
-            android:elevation="3dp"
-            android:background="@drawable/comround"/>
+            android:id="@+id/camGuide"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/camguide"
+            android:backgroundTint="@color/white"/>
 
-        <ImageButton
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/etc3"
-            android:elevation="3dp"
-            android:background="@drawable/etcround"/>
-    </LinearLayout>
-    <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_marginTop="30dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="350dp"
+        android:layout_height="70dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:src="@drawable/camguide"
-        android:backgroundTint="@color/white"/>
-
-
-    <ImageView
-        android:id="@+id/vectorBook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/slidepicture"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:backgroundTint="#F4F2F2"
-        android:background="@drawable/round"
-        android:scaleType="fitXY" />
+        android:background="@drawable/vector_main_book_background"
+        android:gravity="center"
+        android:id="@+id/mainBooks">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:text="질병 백과 사전"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="56dp"
+                android:background="@drawable/comround"
+                android:elevation="3dp"
+                android:src="@drawable/vector_main_book"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.514" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.viewpager2.widget.ViewPager2>
+<!--    <ImageView-->
+<!--        android:id="@+id/vectorBook"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/slidepicture"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginRight="15dp"-->
+<!--        android:backgroundTint="#F4F2F2"-->
+<!--        android:background="@drawable/round"-->
+<!--        android:scaleType="fitXY" />-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#65F0EDED"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:padding="15dp"
+                android:text="Notice"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.075"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager2"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView16"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/baseline_keyboard_arrow_left_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/viewPager2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.639" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/baseline_keyboard_arrow_right_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/viewPager2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.639" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </ScrollView>

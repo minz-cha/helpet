@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:padding="15dp"
                     app:cornerRadius="23dp"
-                    android:text="원인,예방법"
+                    android:text="원인"
                     android:textColor="#898989"
                     android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:padding="15dp"
                     app:cornerRadius="23dp"
-                    android:text="치료법"
+                    android:text="치료법, 예방법"
                     android:textColor="#898989"
                     android:textStyle="bold" />
             </com.google.android.material.button.MaterialButtonToggleGroup>

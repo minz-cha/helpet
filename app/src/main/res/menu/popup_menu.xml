@@ -3,7 +3,7 @@
     <item
         android:id="@+id/deletePet"
         android:title="반려동물 삭제하기"/>
-    <item
-        android:id="@+id/deleteVec"
-        android:title="진단기록 삭제하기"/>
+<!--    <item-->
+<!--        android:id="@+id/deleteVec"-->
+<!--        android:title="진단기록 삭제하기"/>-->
 </menu>

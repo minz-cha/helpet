@@ -59,7 +59,7 @@ class ScheduleAdapter(private val scheduleList: MutableList<Schedule>) :
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(calendarPlanList: List<CalendarPlanDTO>, totalDay: String) {
         scheduleList.clear() // 기존 데이터 제거
-        val filteredScheduleList = convertToSchedule(calendarPlanList).filter { it.date == totalDay }
+        val filteredScheduleList = convertToSchedule(calendarPlanList).filter { it.startDate == totalDay }
         scheduleList.addAll(filteredScheduleList) // 새로운 데이터 추가
         notifyDataSetChanged()
     }
@@ -74,10 +74,11 @@ class ScheduleAdapter(private val scheduleList: MutableList<Schedule>) :
         val scheduleList : MutableList<Schedule> = mutableListOf()
         for (calendarPlan in calendarPlanList) {
             val schedule = Schedule(
-                calIdx = calendarPlan.cal_idx.toString(),
-                date = calendarPlan.date,
+                startDate = calendarPlan.startdate,
+                endDate = calendarPlan.enddate,
                 title = calendarPlan.title,
-                description = calendarPlan.description
+                description = calendarPlan.description,
+                cal_idx = calendarPlan.cal_idx,
             )
             scheduleList.add(schedule)
         }

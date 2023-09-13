@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
@@ -18,7 +20,7 @@ import com.helpet.books.DBHelper
 class ResultAdapter(private val diseaseList: List<DiseaseName>, private val fragmentManager: FragmentManager) :
     RecyclerView.Adapter<ResultAdapter.ViewHolder>() {
 
-
+    private var bookCount = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -40,13 +42,15 @@ class ResultAdapter(private val diseaseList: List<DiseaseName>, private val frag
 //        private val bottomSheet = itemView.findViewById<FrameLayout>(R.id.bottomSheet)
 //        private val persistentBottomSheet: BottomSheetBehavior<View> = BottomSheetBehavior.from(bottomSheet)
         private val diseaseName = itemView.findViewById<TextView>(R.id.diseaseTv)
+        private val bookMark = itemView.findViewById<ImageButton>(R.id.bookMarks)
         fun bind(disease: DiseaseName) {
-            diseaseName.text = disease.name
-            // 여기서 북마크 버튼 처리 등을 추가할 수 있습니다.
+            val cleanedName = disease.name.replace("\"", "")
+            Log.d("disease.name", cleanedName)
+            diseaseName.text = cleanedName
 
             itemView.setOnClickListener {
                 val dbHelper = DBHelper(itemView.context) // DBHelper 인스턴스 생성
-                val diseaseInfo = dbHelper.getDiseaseInformation(disease.name) // 디비에서 질병 정보 가져오기
+                val diseaseInfo = dbHelper.getDiseaseInformation(cleanedName) // 디비에서 질병 정보 가져오기
 
                 if (diseaseInfo != null) {
                     val resultBottomSheet = ResultBottomSheet.newInstance(diseaseInfo)
@@ -57,6 +61,20 @@ class ResultAdapter(private val diseaseList: List<DiseaseName>, private val frag
                 }
             }
 
+            bookMark.setOnClickListener {
+                if (bookCount == 1) {
+                    bookMark.setImageResource(R.drawable.baseline_bookmark_border_24)
+                    Toast.makeText(itemView.context, "취소되었습니다.", Toast.LENGTH_SHORT).show()
+                    bookCount = 0
+                }
+                else{
+                    bookMark.setImageResource(R.drawable.baseline_bookmark_24)
+                    Toast.makeText(itemView.context, "저장되었습니다.", Toast.LENGTH_SHORT).show()
+                    bookCount = 1
+
+                }
+
+            }
         }
     }
 }

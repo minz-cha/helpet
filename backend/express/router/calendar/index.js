@@ -128,6 +128,6 @@ calendarRouter.put('/update', calendarController.calendarUpdate)
  *                      type: string
  *                      example: "일정이 삭제되었습니다."
  */
-calendarRouter.delete('/delete', calendarController.calendarDelete)
+calendarRouter.delete('/delete/:cal_idx', calendarController.calendarDelete)
 
 module.exports = calendarRouter

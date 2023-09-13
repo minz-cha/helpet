@@ -6,212 +6,298 @@
     android:layout_height="match_parent"
     tools:context=".vector.MPVectorResult"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="#FFFFFF">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp">
-
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-
+                <ImageButton
+                    android:id="@+id/back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/white"
                     android:layout_marginTop="10dp"
-                    android:text="진단기록"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20dp"
-                    android:padding="10dp"
-                    android:textColor="#6C6C6C"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:src="@drawable/back2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView8"
+                    app:layout_constraintHorizontal_bias="0.054"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:layout_gravity="center">
+                    android:layout_marginEnd="156dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="진단 결과"
+                    android:textColor="#393939"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
 
-                    <ImageButton
-                        android:id="@+id/mpclose"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:src="@drawable/closebutton"
-                        android:backgroundTint="@color/white" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </LinearLayout>
-
-            </LinearLayout>
-            <TextView
-                android:id="@+id/mpVectTitle"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="안구 체크 결과: "
-                android:textSize="25dp"
-                android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="5dp" />
+                android:src="@drawable/choicepetline"
+                android:layout_marginTop="10dp"
+                android:background="#DCDCDC"
+                android:layout_marginBottom="20dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/round3"
-                android:layout_margin="10dp"
-                android:padding="7dp">
+                android:orientation="vertical">
 
                 <TextView
-
-                    android:layout_width="match_parent"
+                    android:id="@+id/vectorTitle"
+                    android:layout_width="390dp"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:text="증상결과에 표시된 %수치는 AI 분석을 통한 \n증상이 있을 확률로 아래와 같이 구분해 제공하고 있습니다."
-                    android:textSize="14dp"
-                    android:textColor="#8E8E8F"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="안구 진단 결과"
+                    android:textStyle="bold"
+                    android:textColor="#5C5C5C"
+                    android:textSize="25sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/vectorDate"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:background="@color/blue"/>
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.4"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:background="@color/yellow"/>
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:background="@color/pink"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0%"/>
+                    android:layout_marginLeft="20dp"
+                    android:text="진단날짜: "/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="50%"
-                        android:gravity="right"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.4"
-                        android:text="85%"
-                        android:gravity="right"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:text="100%"
-                        android:gravity="right"/>
-                </LinearLayout>
             </LinearLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:padding="10dp">
 
+                <ImageView
+                    android:id="@+id/resultImg"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/ex1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.666" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="220dp"
+                    android:layout_marginTop="92dp"
+                    android:text="유증상"
+                    android:textColor="#FC7B7B"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="92dp"
+                    android:text="무증상"
+                    android:textColor="#CECECE"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.395"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/symptom"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="164dp"
+                    android:rotation="-90"
+                    app:indicatorColor="#FC7B7B"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.645"
+                    app:trackColor="#FFFFFF"
+                    app:trackThickness="4dp" />
+
+                <ProgressBar
+                    android:id="@+id/aSymptom"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="228dp"
+                    android:rotation="-90"
+                    app:indicatorColor="#CECECE"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.597"
+                    app:trackColor="#FFFFFF"
+                    app:trackThickness="4dp" />
+
+                <TextView
+                    android:id="@+id/symptonText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="228dp"
+                    android:layout_marginTop="5dp"
+                    android:text="86%"
+                    android:textColor="#FC7B7B"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/asymptonText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="5dp"
+                    android:text="14%"
+                    android:textColor="#CECECE"
+                    android:textColorHighlight="#333333"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.264"
+                    app:layout_constraintStart_toEndOf="@+id/symptonText"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="4dp"
+                android:elevation="4dp"
+                android:layout_margin="20dp"
+                android:background="@color/white">
                 <LinearLayout
-                        android:id="@+id/mpresultLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:background="#FFE9E9"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/vectorSubT"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/round5"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical"
-                        android:padding="15dp">
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="꼬깜이의 눈은 꼼꼼한 관리가 필요해요!"
+                        android:textColor="#373737"
+                        android:textFontWeight="700"
+                        android:textSize="16dp"/>
+                    <TextView
+                        android:id="@+id/vectorCheck"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FF6464"
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="동물병원 방문을 추천드려요"
+                        />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/mpvectorName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="진단명"
-                            android:textColor="#515151"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/mpresultImg"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="5dp" />
-                            <ProgressBar
-                                android:id="@+id/mpvectorResultPro"
-                                android:layout_width="50dp"
-                                android:layout_height="60dp"
-                                android:layout_marginLeft="15dp"
-                                android:rotation="270"
-                                android:progress="0"
-                                android:max="100"
-                                android:layout_marginTop="5dp"
-                                style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
-                            <!--                                style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
-                            <TextView
-                                android:layout_marginLeft="10dp"
-                                android:text="90% "
-                                android:textSize="25dp"
-                                android:textStyle="bold"
-                                android:textColor="#EE7975"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:id="@+id/mpprogressText" />
+            </com.google.android.material.card.MaterialCardView>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="right">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/mpVectorDate"
-                                    android:textSize="14dp"
-                                    android:text="진단날짜"
-                                    android:textColor="@color/black"
-                                    android:layout_marginTop="38dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="#F1F1F1"
+                android:layout_marginBottom="20dp"/>
 
-                            </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
 
-                        </LinearLayout>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_marginTop="20dp"
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="가능성 있는 질환"
+                    android:textColor="#5C5C5C"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
-                            android:src="@drawable/vectorexp"
-                            android:textColor="@color/black"
-                            android:gravity="left"/>
-                        <TextView
-                            android:id="@+id/mpvectorContent"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="20dp"
-                            android:layout_marginLeft="10dp"
-                            android:text="내용~"
-                            android:textSize="14dp"
-                            android:textColor="#2C2C2C"/>
-                    </LinearLayout>
+                <TextView
+                    android:id="@+id/diseaseExplain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:textColor="#545352"
+                    android:textSize="15sp"
+                    android:background="@drawable/result_round"
+                    android:text="진단 결과, 다음 질환 중 한가지 이상의 질환이 있을\n가능성이 높으니 동물병원에 방문하여,\n전문가의 진단을 받아보시길 추천드립니다 !\n\n*아래 질환을 클릭하여 우리 아이의 증상을\n비교해보세요."
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/resultRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/activity_result_item"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+            </LinearLayout>
         </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </ScrollView>

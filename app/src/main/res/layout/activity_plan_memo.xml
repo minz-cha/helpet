@@ -32,33 +32,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tvplus" />
 
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvtodayDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvplus"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/calendar_textview"
-        android:hint="일정 기간"
-        android:padding="7dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTitle" />
-
-    <ImageButton
-        android:id="@+id/selectCal"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:scaleType="fitXY"
-        android:src="@drawable/baseline_calendar_month_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toEndOf="@+id/tvtodayDate"
-        tools:layout_editor_absoluteY="248dp" />
-
     <!--    <EditText-->
 <!--        android:id="@+id/edtPlan"-->
 <!--        android:layout_width="match_parent"-->
@@ -72,14 +45,35 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/edtTitle" />-->
 
-    <!--&lt;!&ndash;    <ImageButton&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:id="@+id/btnSave"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_width="35dp"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_height="35dp"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_alignParentRight="true"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:layout_marginBottom="100dp"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:background="@drawable/ic_baseline_check_24"&ndash;&gt;-->
-    <!--&lt;!&ndash;        android:backgroundTint="#FD9374" />&ndash;&gt;-->
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvtodayDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvplus"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="70dp"
+        android:background="@drawable/calendar_textview"
+        android:hint="일정 기간"
+        android:padding="7dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <ImageButton
+        android:id="@+id/selectCal"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/white"
+        android:scaleType="fitXY"
+        android:src="@drawable/baseline_calendar_month_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toEndOf="@+id/tvtodayDate"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edtTitle"
@@ -87,13 +81,42 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvtodayDate"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:hint="제목"
-        android:textSize="15dp"
-        android:textStyle="bold"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="30dp"
+        android:hint="제목 없음"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/tvtodayDate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="메모"
+        android:textColor="#8A8A8A"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/calendarMemo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTitle"
+        app:layout_constraintVertical_bias="0.814" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/calendarMemo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/calendar_memo"
+        android:hint="MEMO"
+        android:padding="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.566"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTitle" />
 
     <ImageButton
         android:id="@+id/btnClose"

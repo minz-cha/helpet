@@ -3,10 +3,9 @@ package com.helpet.calendar
 import java.io.Serializable
 
 data class Schedule(
-    val calIdx: String,
-//    val userId: String,
-    val date: String?,
+    val startDate : String?,
+    val endDate: String?,
     val title: String,
-//    val month: String,
-    val description: String
+    val description: String,
+    val cal_idx : Int
     ) : Serializable

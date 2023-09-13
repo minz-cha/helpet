@@ -29,6 +29,9 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="s">
         <activity
+            android:name=".calendar.ShowCalContent"
+            android:exported="false" />
+        <activity
             android:name=".vector.ResultBottomSheet"
             android:exported="false" />
         <activity
@@ -50,13 +53,11 @@
             android:name=".TitleActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".vector.HomeActivity"
@@ -92,13 +93,7 @@
             android:exported="false" />
         <activity
             android:name=".vector.VectorResult"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".calendar.Planlist"
             android:exported="false" />

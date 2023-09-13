@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.helpet.R
@@ -37,8 +36,8 @@ class ResultBottomSheet : BottomSheetDialogFragment() {
         if (receivedArgs != null) {
             receivedDiseaseInfo = receivedArgs.getParcelable(ARG_DISEASE_INFO)!!
             binding.bottomSheetTitle.text= receivedDiseaseInfo.name
-            binding.bottomContent.text = "확인하고 싶은 내용의 버튼을 클릭해주세요."
         }
+        binding.bottomContent.text = "확인하고 싶은 내용의 버튼을 클릭해주세요."
 
         binding.toggleButton.addOnButtonCheckedListener{ toggleButton, checkedId, isChecked ->
             if(isChecked) {

@@ -9,7 +9,7 @@
     android:layout_marginEnd="20dp">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/diseaseImg"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@color/helpet"
@@ -27,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/diseaseImg"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
