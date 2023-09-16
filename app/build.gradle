@@ -3,6 +3,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+
 }
 
 android {
@@ -96,4 +98,15 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0' // 최신 버전 사용 가능
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0' // 최신 버전 사용 가능
 
+    //multimodule
+    implementation project(':domain')
+    implementation project(':data')
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+}
+
+kapt {
+    correctErrorTypes true
 }
