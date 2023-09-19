@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.tabs.TabLayout
-import com.helpet.R
 import com.helpet.databinding.FragmentVectSubCatListBinding
-import com.helpet.databinding.FragmentVectSubDogListBinding
+import com.helpet.view.Books.VectDetails
 
 
 class VectSubCatList : Fragment() {
@@ -27,32 +25,32 @@ class VectSubCatList : Fragment() {
 
 
         binding.booksSubTitle6.setOnClickListener{
-            val intent = Intent(requireContext(), VectDetailCat::class.java)
+            val intent = Intent(requireContext(), VectDetails::class.java)
             val string = "6"
             intent.putExtra("string2", string)
             startActivity(intent)
         }
 
         binding.booksSubTitle7.setOnClickListener{
-            val intent = Intent(requireContext(), VectDetailCat::class.java)
+            val intent = Intent(requireContext(), VectDetails::class.java)
             val string = "7"
             intent.putExtra("string2", string)
             startActivity(intent)
         }
         binding.booksSubTitle8.setOnClickListener{
-            val intent = Intent(requireContext(), VectDetailCat::class.java)
+            val intent = Intent(requireContext(), VectDetails::class.java)
             val string = "8"
             intent.putExtra("string2", string)
             startActivity(intent)
         }
         binding.booksSubTitle9.setOnClickListener{
-            val intent = Intent(requireContext(), VectDetailCat::class.java)
+            val intent = Intent(requireContext(), VectDetails::class.java)
             val string = "9"
             intent.putExtra("string2", string)
             startActivity(intent)
         }
         binding.booksSubTitle10.setOnClickListener{
-            val intent = Intent(requireContext(), VectDetailCat::class.java)
+            val intent = Intent(requireContext(), VectDetails::class.java)
             val string = "10"
             intent.putExtra("string2", string)
             startActivity(intent)
