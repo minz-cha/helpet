@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
-import com.helpet.books.BookAdapter
 import com.helpet.databinding.ActivityVectListBinding
 import com.helpet.viewmodel.Books.VectListVIewModel
 import dagger.hilt.android.AndroidEntryPoint

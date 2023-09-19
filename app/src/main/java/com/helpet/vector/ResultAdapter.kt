@@ -4,17 +4,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.helpet.R
-import com.helpet.books.DBHelper
+import com.helpet.view.Books.DBHelper
 
 
 class ResultAdapter(private val diseaseList: List<DiseaseName>, private val fragmentManager: FragmentManager) :

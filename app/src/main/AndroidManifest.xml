@@ -42,9 +42,6 @@
             android:name=".view.Books.VectDetails"
             android:exported="false" />
         <activity
-            android:name=".books.VectDetail"
-            android:exported="false" />
-        <activity
             android:name=".view.Books.VectList"
             android:exported="false" />
         <activity

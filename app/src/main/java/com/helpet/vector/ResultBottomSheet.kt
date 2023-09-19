@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.helpet.R
-import com.helpet.books.DBHelper
+import com.helpet.view.Books.DBHelper
 import com.helpet.databinding.ActivityResultBottomSheetBinding
 
 class ResultBottomSheet : BottomSheetDialogFragment() {

@@ -1,4 +1,4 @@
-package com.helpet.books
+package com.helpet.view.Books
 
 import android.content.Context
 import android.content.Intent
@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.BookDisease
 import com.helpet.R
-import com.helpet.view.Books.DiffCallback
-import com.helpet.view.Books.Disease
-import com.helpet.view.Books.VectDetails
 
 class BookAdapter(private val context: Context) : ListAdapter<BookDisease, BookAdapter.ViewHolder>(
     DiffCallback()

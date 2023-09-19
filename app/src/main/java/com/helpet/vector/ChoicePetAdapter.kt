@@ -17,7 +17,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.helpet.R
-import com.helpet.books.DBHelper
 import java.io.ByteArrayInputStream
 import java.util.Base64
 

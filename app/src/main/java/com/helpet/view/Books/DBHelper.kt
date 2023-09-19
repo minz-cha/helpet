@@ -1,4 +1,4 @@
-package com.helpet.books
+package com.helpet.view.Books
 
 import android.content.ContentValues
 import android.content.Context
@@ -230,7 +230,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         return diseaseList
     }
 
-    fun getSpeciesDisease(diseaseSpecies : String):Disease?{
+    fun getSpeciesDisease(diseaseSpecies : String): Disease?{
             val db = readableDatabase
             val cursor = db.query(
                 TABLE_DISEASES,
