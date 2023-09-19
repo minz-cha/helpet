@@ -1,12 +1,11 @@
-package com.helpet.books
+package com.helpet.view.Books
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.helpet.R
 import com.helpet.databinding.ActivityVectDetailCatBinding
 
-class VectDetailCat : AppCompatActivity() {
+class VectDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

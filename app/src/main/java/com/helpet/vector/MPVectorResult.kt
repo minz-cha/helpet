@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -15,10 +14,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.helpet.R
-import com.helpet.books.VectList
 import com.helpet.databinding.ActivityMpvectorResultBinding
 import java.io.ByteArrayInputStream
-import java.text.SimpleDateFormat
 import java.util.*
 
 class MPVectorResult : AppCompatActivity() {

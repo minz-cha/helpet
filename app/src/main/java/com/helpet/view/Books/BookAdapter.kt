@@ -1,18 +1,21 @@
-package com.helpet.books
+package com.helpet.view.Books
 
 import android.content.Context
 import android.content.Intent
-import android.telecom.DisconnectCause
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.BookDisease
 import com.helpet.R
 
-class BookAdapter(private val context: Context, private val diseases: List<Disease>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter(private val context: Context) : ListAdapter<BookDisease, BookAdapter.ViewHolder>(
+    DiffCallback()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.activity_vect_list_item, parent, false)
@@ -20,17 +23,17 @@ class BookAdapter(private val context: Context, private val diseases: List<Disea
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val disease = diseases[position]
+        val disease = getItem(position)
         holder.bind(disease)
     }
 
-    override fun getItemCount(): Int = diseases.size
+//    override fun getItemCount(): Int = diseases.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val diseaseNameTextView: TextView = itemView.findViewById(R.id.bookDiseaseName)
         private val diseaseImg : ImageView = itemView.findViewById(R.id.diseaseImg)
 
-        fun bind(disease: Disease) {
+        fun bind(disease: BookDisease) {
             Log.d("disease", disease.toString())
             diseaseNameTextView.text = disease.name
 
@@ -51,7 +54,7 @@ class BookAdapter(private val context: Context, private val diseases: List<Disea
             }
 
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, VectDetailCat::class.java)
+                val intent = Intent(itemView.context, VectDetails::class.java)
                 intent.putExtra("name", disease.name)
                 intent.putExtra("symptoms", disease.symptoms)
                 intent.putExtra("cause", disease.cause)

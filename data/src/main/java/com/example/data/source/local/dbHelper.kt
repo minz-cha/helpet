@@ -1,4 +1,4 @@
-package com.helpet.books
+package com.example.data.source.local
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 
-class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class dbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "vector.db"
         private const val DATABASE_VERSION = 1
@@ -165,13 +165,118 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 
     }
 
-    fun getDiseaseInformation(diseaseName: String): Disease? {
+//    fun getDiseaseInformation(diseaseName: String): Disease? {
+//        val db = readableDatabase
+//        val cursor = db.query(
+//            TABLE_DISEASES,
+//            arrayOf(COLUMN_NAME, COLUMN_SPECIES, COLUMN_SYMPTOMS, COLUMN_CAUSES, COLUMN_TREATMENTS),
+//            "$COLUMN_NAME=?",
+//            arrayOf(diseaseName),
+//            null,
+//            null,
+//            null
+//        )
+//
+//        var disease: Disease? = null
+//        if (cursor.moveToFirst()) {
+//            val nameIndex = cursor.getColumnIndex(COLUMN_NAME)
+//            val speciesIndex = cursor.getColumnIndex(COLUMN_SPECIES)
+//            val symptomsIndex = cursor.getColumnIndex(COLUMN_SYMPTOMS)
+//            val causesIndex = cursor.getColumnIndex(COLUMN_CAUSES)
+//            val treatmentsIndex = cursor.getColumnIndex(COLUMN_TREATMENTS)
+//
+//            if (nameIndex >= 0 && symptomsIndex >= 0 && causesIndex >= 0 && treatmentsIndex >= 0) {
+//                val name = cursor.getString(nameIndex)
+//                val species = cursor.getString(speciesIndex)
+//                val symptoms = cursor.getString(symptomsIndex)
+//                val causes = cursor.getString(causesIndex)
+//                val treatments = cursor.getString(treatmentsIndex)
+//                disease = Disease(name,species, symptoms, causes, treatments)
+//            } else {
+//                Log.d("Cursor Error", "One or more column indexes are invalid.")
+//            }
+//        } else {
+//            Log.d("Cursor Error", "Cursor is empty.")
+//        }
+//
+//        cursor.close()
+//        db.close()
+//        return disease
+//    }
+fun getDiseaseInformation(diseaseNames: List<String>): List<Disease> {
+    val db = readableDatabase
+    val diseaseList = mutableListOf<Disease>()
+
+    val selection = "$COLUMN_NAME IN (${diseaseNames.joinToString { "'" + it + "'" }})"
+    val cursor = db.query(
+        TABLE_DISEASES,
+        arrayOf(COLUMN_NAME, COLUMN_SPECIES, COLUMN_SYMPTOMS, COLUMN_CAUSES, COLUMN_TREATMENTS),
+        selection,
+        null,
+        null,
+        null,
+        null
+    )
+
+    while (cursor.moveToNext()) {
+        val nameIndex = cursor.getColumnIndex(COLUMN_NAME)
+        val speciesIndex = cursor.getColumnIndex(COLUMN_SPECIES)
+        val symptomsIndex = cursor.getColumnIndex(COLUMN_SYMPTOMS)
+        val causesIndex = cursor.getColumnIndex(COLUMN_CAUSES)
+        val treatmentsIndex = cursor.getColumnIndex(COLUMN_TREATMENTS)
+
+        if (nameIndex >= 0 && symptomsIndex >= 0 && causesIndex >= 0 && treatmentsIndex >= 0) {
+            val name = cursor.getString(nameIndex)
+            val species = cursor.getString(speciesIndex)
+            val symptoms = cursor.getString(symptomsIndex)
+            val causes = cursor.getString(causesIndex)
+            val treatments = cursor.getString(treatmentsIndex)
+            val disease = Disease(name, species, symptoms, causes, treatments)
+            diseaseList.add(disease)
+        } else {
+            Log.d("Cursor Error", "One or more column indexes are invalid.")
+        }
+    }
+
+    cursor.close()
+    db.close()
+    return diseaseList
+}
+
+
+    fun getAllDiseases(): List<Disease> {
+        val diseaseList = mutableListOf<Disease>()
+        val db = readableDatabase
+        val cursor = db.query(TABLE_DISEASES, null, null, null, null, null, null)
+
+        val nameIndex = cursor.getColumnIndex(COLUMN_NAME)
+        val speciesIndex = cursor.getColumnIndex(COLUMN_SPECIES)
+        val symptomsIndex = cursor.getColumnIndex(COLUMN_SYMPTOMS)
+        val causesIndex = cursor.getColumnIndex(COLUMN_CAUSES)
+        val treatmentsIndex = cursor.getColumnIndex(COLUMN_TREATMENTS)
+
+        while (cursor.moveToNext()) {
+            val name = cursor.getString(nameIndex)
+            val species = cursor.getString(speciesIndex)
+            val symptoms = cursor.getString(symptomsIndex)
+            val causes = cursor.getString(causesIndex)
+            val treatments = cursor.getString(treatmentsIndex)
+            val disease = Disease(name, species, symptoms, causes, treatments)
+            diseaseList.add(disease)
+        }
+
+        cursor.close()
+        db.close()
+        return diseaseList
+    }
+
+    fun getSpeciesDisease(diseaseSpecies : String):Disease?{
         val db = readableDatabase
         val cursor = db.query(
             TABLE_DISEASES,
             arrayOf(COLUMN_NAME, COLUMN_SPECIES, COLUMN_SYMPTOMS, COLUMN_CAUSES, COLUMN_TREATMENTS),
-            "$COLUMN_NAME=?",
-            arrayOf(diseaseName),
+            "$COLUMN_SPECIES=?",
+            arrayOf(diseaseSpecies),
             null,
             null,
             null
@@ -202,71 +307,6 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         cursor.close()
         db.close()
         return disease
-    }
-
-    fun getAllDiseases(): List<Disease> {
-        val diseaseList = mutableListOf<Disease>()
-        val db = readableDatabase
-        val cursor = db.query(TABLE_DISEASES, null, null, null, null, null, null)
-
-        val nameIndex = cursor.getColumnIndex(COLUMN_NAME)
-        val speciesIndex = cursor.getColumnIndex(COLUMN_SPECIES)
-        val symptomsIndex = cursor.getColumnIndex(COLUMN_SYMPTOMS)
-        val causesIndex = cursor.getColumnIndex(COLUMN_CAUSES)
-        val treatmentsIndex = cursor.getColumnIndex(COLUMN_TREATMENTS)
-
-        while (cursor.moveToNext()) {
-            val name = cursor.getString(nameIndex)
-            val species = cursor.getString(speciesIndex)
-            val symptoms = cursor.getString(symptomsIndex)
-            val causes = cursor.getString(causesIndex)
-            val treatments = cursor.getString(treatmentsIndex)
-            val disease = Disease(name, species, symptoms, causes, treatments)
-            diseaseList.add(disease)
-        }
-
-        cursor.close()
-        db.close()
-        return diseaseList
-    }
-
-    fun getSpeciesDisease(diseaseSpecies : String):Disease?{
-            val db = readableDatabase
-            val cursor = db.query(
-                TABLE_DISEASES,
-                arrayOf(COLUMN_NAME, COLUMN_SPECIES, COLUMN_SYMPTOMS, COLUMN_CAUSES, COLUMN_TREATMENTS),
-                "$COLUMN_SPECIES=?",
-                arrayOf(diseaseSpecies),
-                null,
-                null,
-                null
-            )
-
-            var disease: Disease? = null
-            if (cursor.moveToFirst()) {
-                val nameIndex = cursor.getColumnIndex(COLUMN_NAME)
-                val speciesIndex = cursor.getColumnIndex(COLUMN_SPECIES)
-                val symptomsIndex = cursor.getColumnIndex(COLUMN_SYMPTOMS)
-                val causesIndex = cursor.getColumnIndex(COLUMN_CAUSES)
-                val treatmentsIndex = cursor.getColumnIndex(COLUMN_TREATMENTS)
-
-                if (nameIndex >= 0 && symptomsIndex >= 0 && causesIndex >= 0 && treatmentsIndex >= 0) {
-                    val name = cursor.getString(nameIndex)
-                    val species = cursor.getString(speciesIndex)
-                    val symptoms = cursor.getString(symptomsIndex)
-                    val causes = cursor.getString(causesIndex)
-                    val treatments = cursor.getString(treatmentsIndex)
-                    disease = Disease(name,species, symptoms, causes, treatments)
-                } else {
-                    Log.d("Cursor Error", "One or more column indexes are invalid.")
-                }
-            } else {
-                Log.d("Cursor Error", "Cursor is empty.")
-            }
-
-            cursor.close()
-            db.close()
-            return disease
     }
 
     data class Disease(val name : String, val species : String, val symptoms: String, val causes: String, val treatments: String)

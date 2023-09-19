@@ -23,7 +23,6 @@ import androidx.multidex.MultiDex
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.card.MaterialCardView
 import com.helpet.R
-import com.helpet.books.DBHelper
 import com.helpet.databinding.FragmentChoiceMyPetBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

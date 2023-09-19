@@ -3,8 +3,6 @@ package com.helpet.vector
 import android.app.Dialog
 import com.helpet.R
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -12,10 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import com.helpet.Hospital.HospitalActivity
-import com.helpet.books.VectList
+import com.helpet.view.Books.VectList
 import com.helpet.databinding.FragmentVectorMainBinding
 
 
